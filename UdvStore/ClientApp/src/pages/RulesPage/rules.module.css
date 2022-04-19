@@ -1,0 +1,64 @@
+.wrapper {
+}
+
+.greenText{
+    color: #00D29D;
+}
+
+.bgImage{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+}
+
+.content {
+    width: 900px;
+    padding: 50px;
+    margin: 50px auto;
+    box-shadow: 0px -10px 50px rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    background: rgba(30, 30, 30, 0.8);
+    
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.text{
+    flex: 1;
+}
+
+h1{
+    margin: 0;
+    margin-bottom: 36px;
+    text-align: center;
+    font-size: 40px;
+    color: #00D29D;
+}
+
+ul {
+    list-style-image: url(./list-prefix.svg);
+    margin: 0 30px;
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 23px;
+}
+
+p{
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.contacts{
+    width: 300px;
+    margin: 0 auto;
+}
+
+.subText{
+    color: #00D29D;
+    margin-top: 200px;
+}
