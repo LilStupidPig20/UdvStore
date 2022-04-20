@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthContext } from "./context/AuthContext";
 
 export const App = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const routes = useRoutes(isAuthenticated);
   
   return (
