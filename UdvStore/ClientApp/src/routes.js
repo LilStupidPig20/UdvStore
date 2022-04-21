@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import NonAuthLayout from './components/layouts/NonAuthLayout';
 import { AuthPage } from './pages/AuthPage';
 
 
@@ -15,11 +16,14 @@ export const useRoutes = (isAuthenticated) => {
         );
     }
     return (
-        <Switch>
-            <Route path="/" exact>
-                <AuthPage />
-            </Route>
-            <Redirect to="/" />
-        </Switch>
+        <NonAuthLayout>
+            <Switch>
+                <Route path="/" exact>
+                    <AuthPage />
+                </Route>
+                <Redirect to="/" />
+            </Switch>
+        </NonAuthLayout>
+        
     )
 }

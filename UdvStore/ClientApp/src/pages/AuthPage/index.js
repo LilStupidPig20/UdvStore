@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { Navbar } from '../../components/Navbar';
+import React, { useContext, useState } from 'react';
 import { useHttp } from '../../hooks/http.hook';
 import styles from './auth.module.css';
 import octopus from './octopus.png';
-import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext';
 
 
 export const AuthPage = () => {
@@ -18,8 +17,8 @@ export const AuthPage = () => {
 
     const loginHandler = async () => {
         try {
-          //const data = await request("/api/Auth/Login", "POST", { ...form });
-          //  auth.login(data.token, data.userId, data.fullName);
+          const data = await request("/api/Auth/Login", "POST", { ...form });
+            auth.login(data.token, data.userId, data.fullName);
         } catch (error) {
           setFail(true);
         }
@@ -31,7 +30,6 @@ export const AuthPage = () => {
 
     return (
         <div className={styles.mainBlock}>
-            <Navbar />
             <p className={styles.textBlock}>Добро пожаловать 
             в UDV-store!</p>
             <div className={styles.authBlock}>
