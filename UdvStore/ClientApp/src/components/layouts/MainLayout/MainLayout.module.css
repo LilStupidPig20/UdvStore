@@ -1,0 +1,98 @@
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    
+    font-family: 'Roboto Condensed';
+}
+
+.drawer {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 80px;
+    background-color: #302E2E;
+    color: #fff;
+
+    transform: translateX(-150%);
+    animation: ani  0.5s forwards;
+}
+
+@keyframes ani {
+  0% {transform: translateX(-150%);}
+  100% {transform: translateX(0);}
+  0% {transform: translateX(-150%);}
+}
+
+.userInfo {
+    margin-bottom: 45px;
+}
+
+.userImg {
+    width: 110px;
+    height: 110px;
+    border-radius: 110px;
+    margin-bottom: 30px;
+}
+
+.userNameP {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.wallet {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #413D3D;
+    width: 220px;
+    margin: auto;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 15px;
+}
+
+.moneyP {
+    color: #00D29D;
+}
+
+.navMenu {
+    list-style: none;
+    font-size: 28px;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.exitButton {
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.closeButton {
+    position: absolute;
+    top: 15px;
+    left: 350px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 100px 0;
+}

@@ -6,9 +6,9 @@ export default function RulesPage() {
         <div className={styles.wrapper} >
             <img src="./imgs/backgroundUdv.jpg" alt="" className={styles.bgImage} />
             <div className={styles.content}>
-                <h1>Правила получения UDV-coins</h1>
+                <h1 className={styles.title}>Правила получения UDV-coins</h1>
                 <div className={styles.text}>
-                    <ul>
+                    <ul className={styles.rules}>
                         <li>Участие в мероприятии от лица Компании считается в качестве докладчика, либо архитектора мероприятия. Участие в конференциях в качестве слушателя не считается внешней активностью.</li>
                         <li>Для начисления баллов необходимо написать об участии в активности сотрудник Х отдела маркетинга.</li>
                         <li>Участие сотрудника в спортивных и развлекательных мероприятиях (Спартакиада Айтишников, Ночной забег и т.д.), которые оплачиваются компанией, также не считаются внешней активностью.</li>
