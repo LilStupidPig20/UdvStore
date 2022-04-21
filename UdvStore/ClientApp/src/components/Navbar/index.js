@@ -17,7 +17,7 @@ export const Navbar = () => {
                 <div className={styles.bar3}></div>
             </div>
             <div className={styles.logo_container}>
-                <Logo/>
+                <Logo />
             </div>
         </div>
         

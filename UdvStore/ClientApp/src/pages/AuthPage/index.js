@@ -1,13 +1,33 @@
 import React, { useContext, useState } from 'react'
 import { Navbar } from '../../components/Navbar';
+import { useHttp } from '../../hooks/http.hook';
 import styles from './auth.module.css';
 import octopus from './octopus.png';
-//import { AuthContext } from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
 
 export const AuthPage = () => {
-    //const auth = useContext(AuthContext);
-    //const [fail, setFail] = useState(false);
+    const auth = useContext(AuthContext);
+    const [fail, setFail] = useState(false);
+    const { loading, request, error } = useHttp();
+    const [form, setForm] = useState({login: '', password: ''});
+
+    const changeHandler = (event) => {
+        setForm({ ...form, [event.target.name]: event.target.value });
+    };
+
+    const loginHandler = async () => {
+        try {
+          //const data = await request("/api/Auth/Login", "POST", { ...form });
+          //  auth.login(data.token, data.userId, data.fullName);
+        } catch (error) {
+          setFail(true);
+        }
+    };
+
+    let failText = fail ? styles.errorMsgShow : styles.errorMsgHide;
+    let failLogin = fail ? styles.loginInputFail : styles.loginInput;
+    let failPassword = fail ? styles.passInputFail : styles.passInput;
 
     return (
         <div className={styles.mainBlock}>
@@ -22,7 +42,9 @@ export const AuthPage = () => {
                         placeholder='Почта'
                         name='login'
                         type='email'
-                        autoComplete='off'
+                        autoComplete='on'
+                        autoFocus
+                        onChange={changeHandler}
                     />
                 </div>
                 <div className={styles.authBox}>
@@ -31,9 +53,10 @@ export const AuthPage = () => {
                         placeholder='Пароль'
                         name='password'
                         type='password'
+                        onChange={changeHandler}
                     />
                 </div>
-                <button className={styles.loginButton}>
+                <button className={styles.loginButton} onClick={loginHandler} disabled={loading}>
                     Войти
                 </button>
             </div>
