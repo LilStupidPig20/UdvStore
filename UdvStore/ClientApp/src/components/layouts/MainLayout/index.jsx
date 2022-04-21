@@ -4,14 +4,18 @@ import { Link } from "react-router-dom";
 
 export default function MainLayout({ children }) {
     const [isOpened, setIsOpened] = useState(false);
+    const [isActive, setActive] = useState(false);
     console.log(isOpened);
+    const toggleStates = () => {
+        setActive(!isActive);
+        setIsOpened(!isOpened);
+    }
 
     return (
         <div className={styles.layout}>
             {isOpened &&
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
-                        <button className={styles.closeButton} onClick={() => setIsOpened(false)}>Крестик</button>
                         <div className={styles.userInfo}>
                             <img src="/imgs/profileImg-example.jpg" alt="" className={styles.userImg} />
                             <h3 className={styles.userNameP}>Ольга Сергеевна Шульц</h3>
@@ -39,9 +43,11 @@ export default function MainLayout({ children }) {
                     </div>
                 </div>
             }
-            <div className={styles.header}>
-                <div>
-                    <img src="/imgs/burger.svg" alt="Burger" className={styles.burger} onClick={() => setIsOpened(true)} />
+            <div className={styles.navbar}>
+                <div className={isActive ? styles.change : styles.container} onClick={toggleStates}>
+                    <div className={styles.bar1}></div>
+                    <div className={styles.bar2}></div>
+                    <div className={styles.bar3}></div>
                 </div>
                 <div>
 

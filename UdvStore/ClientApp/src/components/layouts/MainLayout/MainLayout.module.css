@@ -6,7 +6,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
-    
+
     font-family: 'Roboto Condensed';
 }
 
@@ -23,13 +23,21 @@
     color: #fff;
 
     transform: translateX(-150%);
-    animation: ani  0.5s forwards;
+    animation: ani 0.5s forwards;
 }
 
 @keyframes ani {
-  0% {transform: translateX(-150%);}
-  100% {transform: translateX(0);}
-  0% {transform: translateX(-150%);}
+    0% {
+        transform: translateX(-150%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+    0% {
+        transform: translateX(-150%);
+    }
 }
 
 .userInfo {
@@ -91,8 +99,49 @@
     left: 350px;
 }
 
-.header {
+.navbar {
     display: flex;
+    background-color: transparent;
+    align-items: center;
+    height: 110px;
     justify-content: space-between;
-    padding: 25px 100px 0;
+}
+
+.container {
+    display: inline-block;
+    cursor: pointer;
+    transform: translateX(200px);
+    transition: 0.4s;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change {
+    transform: translateX(175px);
+    transition: 0.7s;
+    margin-left: 200px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {
+    opacity: 0;
+}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
 }
