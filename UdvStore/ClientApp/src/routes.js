@@ -3,6 +3,9 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import RulesPage from './pages/RulesPage';
 import ProfilePage from './pages/ProfilePage';
 import MainLayout from './components/layouts/MainLayout';
+import NonAuthLayout from './components/layouts/NonAuthLayout';
+import { AuthPage } from './pages/AuthPage';
+
 
 
 export const useRoutes = (isAuthenticated) => {
@@ -19,14 +22,18 @@ export const useRoutes = (isAuthenticated) => {
                     <Redirect to="/profile" />
                 </Switch>
             </MainLayout>
+
         );
     }
     return (
-        <Switch>
-            <Route path="/" exact>
-                <div>иди логинься</div>
-            </Route>
-            <Redirect to="/" />
-        </Switch>
+        <NonAuthLayout>
+            <Switch>
+                <Route path="/" exact>
+                    <AuthPage />
+                </Route>
+                <Redirect to="/" />
+            </Switch>
+        </NonAuthLayout>
+        
     )
 }
