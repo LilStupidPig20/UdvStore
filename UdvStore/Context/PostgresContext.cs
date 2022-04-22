@@ -20,7 +20,7 @@ namespace UdvStore.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=udvStoreDb;Username=postgres;Password=art123em");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=udvStoreDb;Username=postgres;Password=postgres");
             }
         }
 
