@@ -1,3 +1,5 @@
+using DataBaseStorage.Context;
+using DataBaseStorage.DbStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UdvStore.Context;
 
 namespace UdvStore
 {
@@ -23,8 +24,9 @@ namespace UdvStore
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
-            services.AddDbContext<PostgresContext>(options => options.UseNpgsql(connection));
-            
+            services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
+            services.AddScoped<EmployeeActions>();
+            services.AddScoped<EmployeeCoinsActions>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
