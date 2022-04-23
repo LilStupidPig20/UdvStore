@@ -1,0 +1,61 @@
+.wrapper{
+    font-family: 'Roboto Condensed';
+}
+
+.greenText{
+    color: #00D29D;
+}
+
+.bgImage{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    width: 900px;
+    padding: 50px;
+    margin: 15px auto;
+    box-shadow: 0px -10px 50px rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    background: rgba(30, 30, 30, 0.8);
+    
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.title{
+    margin: 0;
+    margin-bottom: 36px;
+    text-align: center;
+    font-size: 40px;
+    color: #00D29D;
+}
+
+.text{
+    flex: 1;
+}
+
+.rules {
+    list-style-image: url(/imgs/list-prefix.svg);
+    margin: 0 30px;
+    padding-left: 25px;
+}
+
+li {
+    margin-bottom: 23px;
+}
+
+.contacts{
+    width: 300px;
+    margin: 0 auto;
+}
+
+.subText{
+    color: #00D29D;
+    margin-top: 200px;
+}
