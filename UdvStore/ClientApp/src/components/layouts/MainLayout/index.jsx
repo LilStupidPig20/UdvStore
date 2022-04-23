@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./MainLayout.module.css"
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function MainLayout({ children }) {
     const [isOpened, setIsOpened] = useState(false);
     const [isActive, setActive] = useState(false);
+    const auth = useContext(AuthContext);
+
     console.log(isOpened);
     const toggleStates = () => {
         setActive(!isActive);
@@ -39,7 +42,7 @@ export default function MainLayout({ children }) {
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>
                             </li>
                         </ul>
-                        <div className={styles.exitButton}>Выйти</div>
+                        <div className={styles.exitButton} onClick={() => auth.logout()}>Выйти</div>
                     </div>
                 </div>
             }
