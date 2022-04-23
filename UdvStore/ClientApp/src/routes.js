@@ -9,7 +9,7 @@ import { AuthPage } from './pages/AuthPage';
 
 
 export const useRoutes = (isAuthenticated) => {
-    if (isAuthenticated) {
+    if (true) {
         return (
             <MainLayout>
                 <Switch>
@@ -31,9 +31,12 @@ export const useRoutes = (isAuthenticated) => {
                 <Route path="/" exact>
                     <AuthPage />
                 </Route>
+                <Route path="/rules" >
+                    <RulesPage />
+                </Route>
                 <Redirect to="/" />
             </Switch>
         </NonAuthLayout>
-        
+
     )
 }

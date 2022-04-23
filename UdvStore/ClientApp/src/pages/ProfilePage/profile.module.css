@@ -4,7 +4,6 @@
 
 .wrapper {
     background-size: cover;
-    height: 100vh;
     width: 900px;
     color: #fff;
     margin: auto;
@@ -61,6 +60,10 @@
     width: 270px;
     height: 270px;
     border-radius: 270px;
+}
+
+.userName {
+    font-size: 38px;
 }
 
 .buttons {
