@@ -17,7 +17,7 @@ export default function NonAuthLayout ({ children }) {
                                 <Link to="/" className={styles.link}>Главная</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>UDV-store</Link>
+                                <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

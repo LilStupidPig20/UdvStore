@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { ButtonStatesContext } from '../../context/ButtonStatesContext';
 import { Logo } from '../Logo';
 import styles from './navbar.module.css';
@@ -7,7 +7,7 @@ export const Navbar = () => {
     const context = useContext(ButtonStatesContext);
     const isActive = context.isActive;
     const toggle = context.toggleActive;
-    
+
     return (
         <div className={styles.navbar}>
             <div className={isActive ? styles.change : styles.container} onClick={toggle}>
@@ -16,7 +16,7 @@ export const Navbar = () => {
                 <div className={styles.bar3}></div>
             </div>
             <div className={styles.logo_container}>
-                <Logo/>
+                <Logo />
             </div>
         </div>
     )

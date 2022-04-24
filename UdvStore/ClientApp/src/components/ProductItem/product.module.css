@@ -1,0 +1,45 @@
+.product {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.2s ease-in-out;
+    padding: 10px;
+}
+
+.product:hover {
+    transform: translateY(-30px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.product:hover .addButton {
+    display: inline-block;
+}
+
+.productImg {
+    border-radius: 20px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.price {
+    align-self: flex-end;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.addButton {
+    display: none;
+    position: static;
+    background-color: #302E2E;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 14px;
+    align-self: flex-start;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+}
