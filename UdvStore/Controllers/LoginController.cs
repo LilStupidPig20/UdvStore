@@ -24,7 +24,7 @@ namespace UdvStore.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public object Authentication([FromBody] LoginRequest loginRequest)
+        public void Authentication([FromBody] LoginRequest loginRequest)
         {
             var login = loginRequest.Login;
             var password = loginRequest.Password;
@@ -50,8 +50,6 @@ namespace UdvStore.Controllers
                 Response.StatusCode = 500; 
                 Response.WriteAsync(e.Message);
             }
-
-            return null;
         }
 
         private string CreateJsonLoginResponse(LoginResponse response)
