@@ -18,7 +18,7 @@ export const AuthPage = () => {
 
     const loginHandler = async () => {
         try {
-          const data = await request("/Login/Authentication", "POST", { ...form });
+          const data = await request("/login/authenticate", "POST", { ...form });
             auth.login(data.token, data.userId, data.fio);
         } catch (error) {
           setFail(true);
@@ -38,7 +38,7 @@ export const AuthPage = () => {
                 <h2 className={styles.authTitle}>Вход</h2>
                 <div className={styles.authBox}>
                     <input
-                        className={styles.loginInput}
+                        className={failLogin}
                         placeholder='Почта'
                         name='login'
                         type='email'
@@ -49,13 +49,14 @@ export const AuthPage = () => {
                 </div>
                 <div className={styles.authBox}>
                     <input
-                        className={styles.passInput}
+                        className={failPassword}
                         placeholder='Пароль'
                         name='password'
                         type='password'
                         onChange={changeHandler}
                     />
                 </div>
+                <div className={failText}>Неверный логин или пароль. Повторите попытку</div>
                 <button className={styles.loginButton} onClick={loginHandler} disabled={loading}>
                     Войти
                 </button>

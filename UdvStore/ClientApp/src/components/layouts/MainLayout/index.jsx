@@ -36,7 +36,7 @@ export default function MainLayout({ children }) {
                                 <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>Заявки</Link>
+                                <Link to="/profile" className={styles.link}>История моей активности</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

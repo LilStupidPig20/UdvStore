@@ -8,7 +8,7 @@
     color: #fff;
     margin: auto;
     
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
 }
 
 .bgImage{
@@ -25,7 +25,7 @@
     margin-bottom: 35px;
 
     font-size: 42px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .container {
@@ -42,8 +42,8 @@
 }
 
 .balance {
-    padding: 50px;
-    width: 380px;
+    padding: 30px 50px;
+    width: 400px;
     border-radius: 15px;
     background-color: #1E1E1E;
 

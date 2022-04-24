@@ -5,7 +5,6 @@ import { CoinsContext } from "../../context/CoinsContext";
 import { Navbar } from "../../components/Navbar";
 
 export default function ProfilePage() {
-
     let fullName = useContext(AuthContext).fullName;
     let coinsAmount = useContext(CoinsContext).coinsAmount;
 
@@ -26,7 +25,7 @@ export default function ProfilePage() {
                 <h1 className={styles.userName}>{fullName}</h1>
                 {/* <h1 className={styles.userName}>{spltName[0]}<br />{spltName[1]}<br />{spltName[2]}</h1> */}
                 <div className={styles.buttons}>
-                    <button className={styles.button}>Заявка на зачисление UDV-coins </button>
+                    <button className={styles.button}>Получить UDV-coins </button>
                     <button className={styles.button}>История начисления UDV-coins</button>
                     <button className={styles.button}>Отправить UDV-coins сотруднику</button>
                 </div>
