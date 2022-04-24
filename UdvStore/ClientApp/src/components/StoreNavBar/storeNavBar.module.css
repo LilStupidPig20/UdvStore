@@ -3,6 +3,11 @@
     margin: auto;
     display: flex;
     background-color: transparent;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
     align-items: center;
     height: 110px;
     justify-content: space-between;

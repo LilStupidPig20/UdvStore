@@ -7,7 +7,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
 
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
 }
 
 .drawer {
@@ -42,6 +42,7 @@
 
 .userInfo {
     margin-bottom: 45px;
+    width: 295px;
 }
 
 .userImg {
@@ -63,8 +64,7 @@
     justify-content: space-evenly;
     align-items: center;
     background-color: #413D3D;
-    width: 220px;
-    margin: auto;
+    width: 244px;
     padding: 10px 20px;
     font-size: 18px;
     border-radius: 15px;
@@ -77,7 +77,7 @@
 .navMenu {
     list-style: none;
     font-size: 28px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 0;
     margin: 0;
     flex: 1;
@@ -90,7 +90,7 @@
 
 .exitButton {
     font-size: 28px;
-    font-weight: 300;
+    font-weight: 400;
     cursor: pointer;
 }
 

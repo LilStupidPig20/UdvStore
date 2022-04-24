@@ -6,6 +6,7 @@ import { AuthContext } from "./context/AuthContext";
 import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
 import { useStatus } from './hooks/status.hook';
+import './fonts/hero.css'
 
 export const App = () => {
   const { login, logout, token, userId, fullName } = useAuth();
