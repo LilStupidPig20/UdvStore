@@ -1,5 +1,11 @@
+using System.Text;
+using BusinessLayer.Services;
+using BusinessLayer.StorageActions;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
+using DataBaseStorage.StoragesInterfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using UdvStore.Services;
 
 namespace UdvStore
 {
@@ -25,8 +33,52 @@ namespace UdvStore
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
+            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //     .AddJwtBearer(options =>
+            //     {
+            //         options.RequireHttpsMetadata = false;
+            //         options.TokenValidationParameters = new TokenValidationParameters
+            //         {
+            //             ValidateIssuer = true,
+            //             ValidIssuer = AuthOptions.ISSUER,
+            //             ValidateAudience = true,
+            //             ValidAudience = AuthOptions.AUDIENCE,
+            //             ValidateLifetime = true,
+            //             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            //             ValidateIssuerSigningKey = true,
+            //         };
+            //     });
+            //
+            // services.AddAuthorization(auth =>
+            // {
+            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            //         .RequireAuthenticatedUser().Build());
+            // });
+            services.AddAuthentication(auth =>
+                {
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = AuthOptions.ISSUER,
+                        ValidateAudience = true,
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                    };
+                });
             services.AddScoped<EmployeeActions>();
             services.AddScoped<EmployeeCoinsActions>();
+            services.AddScoped<ProductsActions>();
+            services.AddScoped<AdminActions>();
+            services.AddScoped<IStorageActions, StorageActions>();
+            services.AddScoped<AuthService>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -52,7 +104,8 @@ namespace UdvStore
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

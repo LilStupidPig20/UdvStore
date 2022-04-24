@@ -14,9 +14,13 @@ export const App = () => {
   const routes = useRoutes(isAuthenticated);
   let { isActive, toggleActive } = useStatus();
   const [coinsAmount, setCoinsAmount] = useState();
-
+  
   useEffect(() => {
-      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`)
+      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`, 
+      {
+        headers: {
+        'Authorization': `Bearer ${token}`
+      }})
           .then(res => res.json())
           .then(money => {
               setCoinsAmount(money);
