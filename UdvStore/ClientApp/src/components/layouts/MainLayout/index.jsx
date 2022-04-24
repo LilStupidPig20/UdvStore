@@ -2,13 +2,17 @@ import React, { useContext, useState } from "react";
 import styles from "./MainLayout.module.css"
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
+import { CoinsContext } from "../../../context/CoinsContext";
 
 export default function MainLayout({ children }) {
     const [isOpened, setIsOpened] = useState(false);
     const [isActive, setActive] = useState(false);
     const auth = useContext(AuthContext);
 
-    console.log(isOpened);
+    
+    let fullName = useContext(AuthContext).fullName;
+    let coinsAmount = useContext(CoinsContext).coinsAmount;
+
     const toggleStates = () => {
         setActive(!isActive);
         setIsOpened(!isOpened);
@@ -21,11 +25,11 @@ export default function MainLayout({ children }) {
                     <div className={styles.drawer}>
                         <div className={styles.userInfo}>
                             <img src="/imgs/profileImg-example.jpg" alt="" className={styles.userImg} />
-                            <h3 className={styles.userNameP}>Ольга Сергеевна Шульц</h3>
+                            <h3 className={styles.userNameP}>{fullName}</h3>
                             <div className={styles.wallet}>
                                 <div>Баланс</div>
                                 <span>|</span>
-                                <div className={styles.moneyP}>70 UDV-coins</div>
+                                <div className={styles.moneyP}>{coinsAmount} UDV-coins</div>
                             </div>
                         </div>
                         <ul className={styles.navMenu}>

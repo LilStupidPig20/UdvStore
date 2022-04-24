@@ -1,22 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import styles from './profile.module.css'
 import { AuthContext } from "../../context/AuthContext";
+import { CoinsContext } from "../../context/CoinsContext";
 
-export default function ProfilePage({ fullName = "Ольга Сергеевна Шульц Папа" }) {
-    const spltName = fullName.split(' ');
-    
-    let [coinsAmount, setCoinsAmount] = useState();
+export default function ProfilePage() {
 
-    let context = useContext(AuthContext);
-    console.log(context)
-
-    useEffect(() => {
-        fetch(`https://localhost:5001/UserCoins/GetUserCoins?employeeId=${context.userId}`)
-            .then(res => res.json())
-            .then(money => {
-                setCoinsAmount(money);
-            });
-    })
+    let fullName = useContext(AuthContext).fullName;
+    let coinsAmount = useContext(CoinsContext).coinsAmount;
 
     return (
         <div className={styles.wrapper}>
@@ -30,7 +20,8 @@ export default function ProfilePage({ fullName = "Ольга Сергеевна 
                         <span className={styles.money}>{coinsAmount}</span> UDV-coins
                     </div>
                 </div>
-                <h1 className={styles.userName}>{spltName[0]}<br />{spltName[1]}<br />{spltName[2]}</h1>
+                <h1 className={styles.userName}>{fullName}</h1>
+                {/* <h1 className={styles.userName}>{spltName[0]}<br />{spltName[1]}<br />{spltName[2]}</h1> */}
                 <div className={styles.buttons}>
                     <button className={styles.button}>Заявка на зачисление UDV-coins </button>
                     <button className={styles.button}>История начисления UDV-coins</button>
