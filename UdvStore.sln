@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdvStore", "UdvStore\UdvSto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseStorage", "DataBaseStorage\DataBaseStorage.csproj", "{37586999-3E18-4020-A8F9-B31B52E0510A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{B1E4BB72-AD5A-4A89-AE16-BB4F1FA84F41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{37586999-3E18-4020-A8F9-B31B52E0510A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37586999-3E18-4020-A8F9-B31B52E0510A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37586999-3E18-4020-A8F9-B31B52E0510A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E4BB72-AD5A-4A89-AE16-BB4F1FA84F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E4BB72-AD5A-4A89-AE16-BB4F1FA84F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E4BB72-AD5A-4A89-AE16-BB4F1FA84F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E4BB72-AD5A-4A89-AE16-BB4F1FA84F41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

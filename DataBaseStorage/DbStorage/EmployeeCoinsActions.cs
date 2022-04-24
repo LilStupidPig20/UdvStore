@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
+using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class EmployeeCoinsActions : BaseActions<EmployeeCoins>
+    public class EmployeeCoinsActions : BaseActions<EmployeeCoins>, IEmployeeCoinsActions
     {
         public EmployeeCoinsActions(IDbContextFactory<PostgresContext> context) : base(context)
         {
@@ -20,6 +21,16 @@ namespace DataBaseStorage.DbStorage
                 .Where(x => x.EmployeeId.Equals(employeeId))
                 .Select(x => x.CurrentBalance)
                 .FirstOrDefault();
+        }
+
+        public void AddCoins()
+        {
+            //TODO
+        }
+
+        public void ReduceCoins()
+        {
+            //TODO
         }
     }
 }

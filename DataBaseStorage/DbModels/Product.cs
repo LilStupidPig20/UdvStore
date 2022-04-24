@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataBaseStorage.DbModels
 {
+    [Table("products")]
     public class Product : IDbModel
     {
         [Key]

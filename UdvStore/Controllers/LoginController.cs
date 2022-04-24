@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
+using BusinessLayer.Services;
 using DataBaseStorage.DbStorage;
+using DataBaseStorage.ResponseModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,43 +12,53 @@ using UdvStore.Services;
 
 namespace UdvStore.Controllers
 {
+    [ApiController]
+    [Route("login")]
     public class LoginController : Controller
     {
-        private readonly EmployeeActions context;
-        public LoginController(EmployeeActions context)
+        private readonly AuthService authService;
+        public LoginController(AuthService authService)
         {
-            this.context = context;
+            this.authService = authService;
         }
 
         [HttpPost]
-        public async void Authentication([FromBody] LoginRequest loginRequest)
+        [Route("authenticate")]
+        public object Authentication([FromBody] LoginRequest loginRequest)
         {
             var login = loginRequest.Login;
             var password = loginRequest.Password;
-            var response = context.FindUserByLoginRequest(login, password);
             try
             {
-                if (!context.IsUserWithEnteredDataExist(login, password))
+                var response = authService.CheckUserByLoginRequest(login, password);
+                if (response == null)
                 {
-                    Response.StatusCode = 400;
-                    await Response.WriteAsync("Неверный логин или пароль");
+                    Response.StatusCode = 400; 
+                    Response.WriteAsync("Неверный логин или пароль");
                 }
                 else
                 {
-                    var encodedJwt = TokenGenerator.Generate(login);
-                    var serializerSettings = new JsonSerializerSettings();
-                    response.Token = encodedJwt;
-                    serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    var jsonLoginResponse = JsonConvert.SerializeObject(response, serializerSettings);
+                    var token = TokenGenerator.Generate(response);
+                    response.Token = token;
+                    var jsonLoginResponse = CreateJsonLoginResponse(response);
                     Response.StatusCode = 200;
-                    await Response.Body.WriteAsync(Encoding.UTF8.GetBytes(jsonLoginResponse));
+                    Response.Body.WriteAsync(Encoding.UTF8.GetBytes(jsonLoginResponse));
                 }
             }
             catch (Exception e)
             {
-                Response.StatusCode = 500;
-                await Response.WriteAsync(e.Message);
+                Response.StatusCode = 500; 
+                Response.WriteAsync(e.Message);
             }
+
+            return null;
+        }
+
+        private string CreateJsonLoginResponse(LoginResponse response)
+        {
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            return JsonConvert.SerializeObject(response, serializerSettings);
         }
     }
 }

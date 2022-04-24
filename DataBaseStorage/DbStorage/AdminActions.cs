@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class EmployeeActions : BaseActions<Employee> , IEmployeeActions
+    public class AdminActions : BaseActions<Admin>, IAdminActions
     {
-        public EmployeeActions(IDbContextFactory<PostgresContext> context) : base(context)
+        public AdminActions(IDbContextFactory<PostgresContext> context) : base(context)
         {
         }
         
-        public bool IsUserWithEnteredDataExist(string login, string password)
+        public bool IsAdminWithEnteredDataExist(string login, string password)
         {
             using var context = DbContextFactory.CreateDbContext();
             try
             {
-                return context.Employees.Any(user => user.Login == login && user.Password == password);
+                return context.Admins.Any(admin => admin.Login == login && admin.Password == password);
             }
             catch (Exception e)
             {
@@ -28,20 +28,19 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public LoginResponse FindUserByLoginRequest(string login, string password)
+        public LoginResponse FindAdminByLoginRequest(string login, string password)
         {
             using var context = DbContextFactory.CreateDbContext();
             try
             {
-                var found = context.Employees
-                    .FirstOrDefault(user => user.Login == login && user.Password == password);
+                var found = context.Admins
+                    .FirstOrDefault(admin => admin.Login == login && admin.Password == password);
                 return new LoginResponse
                 {
                     UserId = found.Id,
                     Login = found.Login,
-                    Fio = found.Fio,
-                    Position = found.Position,
-                    Role = Roles.User
+                    Fio = found.Name,
+                    Role = Roles.Admin
                 };
             }
             catch (Exception e)
