@@ -6,7 +6,6 @@ export default function RulesPage() {
     return (
         <div className={styles.wrapper} >
             <Navbar />
-            <img src="./imgs/backgroundUdv.jpg" alt="" className={styles.bgImage} />
             <div className={styles.content}>
                 <h1 className={styles.title}>Правила получения UDV-coins</h1>
                 <div className={styles.text}>
