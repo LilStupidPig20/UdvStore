@@ -16,7 +16,7 @@ export const App = () => {
   const [coinsAmount, setCoinsAmount] = useState();
 
   useEffect(() => {
-      fetch(`https://localhost:5001/UserCoins/GetUserCoins?employeeId=${userId}`)
+      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`)
           .then(res => res.json())
           .then(money => {
               setCoinsAmount(money);
