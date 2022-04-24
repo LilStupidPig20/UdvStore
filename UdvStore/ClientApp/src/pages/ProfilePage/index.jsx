@@ -1,12 +1,22 @@
-import React, {useContext} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from './profile.module.css'
 import { AuthContext } from "../../context/AuthContext";
 
-export default function ProfilePage({fullName = "Ольга Сергеевна Шульц Папа", coinsAmount = 70}) {
+export default function ProfilePage({ fullName = "Ольга Сергеевна Шульц Папа" }) {
     const spltName = fullName.split(' ');
+    
+    let [coinsAmount, setCoinsAmount] = useState();
 
-    const context = useContext(AuthContext);
+    let context = useContext(AuthContext);
+    console.log(context)
 
+    useEffect(() => {
+        fetch(`https://localhost:5001/UserCoins/GetUserCoins?employeeId=${context.userId}`)
+            .then(res => res.json())
+            .then(money => {
+                setCoinsAmount(money);
+            });
+    })
 
     return (
         <div className={styles.wrapper}>

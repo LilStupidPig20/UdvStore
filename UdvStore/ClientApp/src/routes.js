@@ -9,7 +9,7 @@ import { AuthPage } from './pages/AuthPage';
 
 
 export const useRoutes = (isAuthenticated) => {
-    if (true) {
+    if (isAuthenticated) {
         return (
             <MainLayout>
                 <Switch>
