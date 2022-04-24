@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './rules.module.css'
+import { Navbar } from '../../components/Navbar';
 
 export default function RulesPage() {
     return (
         <div className={styles.wrapper} >
+            <Navbar />
             <img src="./imgs/backgroundUdv.jpg" alt="" className={styles.bgImage} />
             <div className={styles.content}>
                 <h1 className={styles.title}>Правила получения UDV-coins</h1>

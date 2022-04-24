@@ -1,0 +1,45 @@
+.navbar {
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+    height: 110px;
+    justify-content: space-between;
+}
+
+.container {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 200px;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change {
+    margin-left: 200px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.logo_container {
+    width: 143px;
+    height: 56px;
+    margin-right: 165px;
+}

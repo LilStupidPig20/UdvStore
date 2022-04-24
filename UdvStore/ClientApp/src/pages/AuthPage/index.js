@@ -3,6 +3,7 @@ import { useHttp } from '../../hooks/http.hook';
 import styles from './auth.module.css';
 import octopus from './octopus.png';
 import { AuthContext } from '../../context/AuthContext';
+import { Navbar } from '../../components/Navbar';
 
 
 export const AuthPage = () => {
@@ -18,7 +19,7 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         try {
           const data = await request("/Login/Authentication", "POST", { ...form });
-            auth.login(data.token, data.userId, data.fullName);
+            auth.login(data.token, data.userId, data.fio);
         } catch (error) {
           setFail(true);
         }
@@ -30,6 +31,7 @@ export const AuthPage = () => {
 
     return (
         <div className={styles.mainBlock}>
+            <Navbar />
             <p className={styles.textBlock}>Добро пожаловать 
             в UDV-store!</p>
             <div className={styles.authBlock}>

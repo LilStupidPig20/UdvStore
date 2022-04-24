@@ -91,6 +91,7 @@
 .exitButton {
     font-size: 28px;
     font-weight: 300;
+    cursor: pointer;
 }
 
 .closeButton {

@@ -1,33 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Logo } from "../../Logo";
+import { ButtonStatesContext } from "../../../context/ButtonStatesContext";
 import styles from './nonAuthLayout.module.css';
 
 export default function NonAuthLayout ({ children }) {
-    const [isOpened, setIsOpened] = useState(false);
-    const [isActive, setActive] = useState(false);
-
-    const toggleStates = () => {
-        setActive(!isActive);
-        setIsOpened(!isOpened);
-    }
+    let context = useContext(ButtonStatesContext);
+    const isActive = context.isActive;
     
     return (
         <div className={styles.layout}>
-            {isOpened &&
+                {isActive &&
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
-                        {/*<button className={isActive ? styles.change : styles.container} onClick={toggleStates}>
-                            <div className={styles.bar1}></div>
-                            <div className={styles.bar2}></div>
-                            <div className={styles.bar3}></div>
-                        </button>*/}
                         <ul className={styles.navMenu}>
                             <li>
                                 <Link to="/" className={styles.link}>Главная</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>UDV-store</Link>
+                                <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>
@@ -36,17 +26,6 @@ export default function NonAuthLayout ({ children }) {
                     </div>
                 </div>
             }
-            <div className={styles.navbar}>
-                <div className={isActive ? styles.change : styles.container} onClick={toggleStates}>
-                    <div className={styles.bar1}></div>
-                    <div className={styles.bar2}></div>
-                    <div className={styles.bar3}></div>
-                </div>
-                <div className={styles.logo_container}>
-                    <Logo />
-                </div>
-            </div>
-
             {children}
         </div>
     )
