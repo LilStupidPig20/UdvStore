@@ -1,5 +1,9 @@
+using System.Text;
+using BusinessLayer.Services;
+using BusinessLayer.StorageActions;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
+using DataBaseStorage.StoragesInterfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -29,33 +33,52 @@ namespace UdvStore
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //     .AddJwtBearer(options =>
+            //     {
+            //         options.RequireHttpsMetadata = false;
+            //         options.TokenValidationParameters = new TokenValidationParameters
+            //         {
+            //             ValidateIssuer = true,
+            //             ValidIssuer = AuthOptions.ISSUER,
+            //             ValidateAudience = true,
+            //             ValidAudience = AuthOptions.AUDIENCE,
+            //             ValidateLifetime = true,
+            //             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+            //             ValidateIssuerSigningKey = true,
+            //         };
+            //     });
+            //
+            // services.AddAuthorization(auth =>
+            // {
+            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+            //         .RequireAuthenticatedUser().Build());
+            // });
+            services.AddAuthentication(auth =>
+                {
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidIssuer = AuthOptions.ISSUER,
                         ValidateAudience = true,
                         ValidAudience = AuthOptions.AUDIENCE,
-                        ValidateLifetime = true,
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                         ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     };
                 });
-            
-            services.AddAuthorization(auth =>
-            {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
-            });
-            
             services.AddScoped<EmployeeActions>();
             services.AddScoped<EmployeeCoinsActions>();
             services.AddScoped<ProductsActions>();
             services.AddScoped<AdminActions>();
+            services.AddScoped<IStorageActions, StorageActions>();
+            services.AddScoped<AuthService>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

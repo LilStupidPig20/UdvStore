@@ -1,4 +1,5 @@
 ﻿using DataBaseStorage.Context;
+using DataBaseStorage.DbStorage;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,8 +7,9 @@ namespace BusinessLayer.StorageActions
 {
     public interface IStorageActions
     {
-        public IEmployeeActions CreateEmployeeStorage();
-        public IEmployeeCoinsActions CreateEmployeeCoinsStorage();
-        public IProductsActions CreateProductsStorage();
+        public EmployeeActions CreateEmployeeStorage();
+        public EmployeeCoinsActions CreateEmployeeCoinsStorage();
+        public ProductsActions CreateProductsStorage();
+        public AdminActions CreateAdminStorage();
     }
 }

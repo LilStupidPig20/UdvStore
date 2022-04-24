@@ -14,22 +14,24 @@ namespace BusinessLayer.StorageActions
             this.context = context;
         }
 
-        public IEmployeeActions CreateEmployeeStorage()
+        //TODO перенести на интерфейсы и в стартапе собрать зависимости с интерфейсом
+        //TODO в контроллеры пускать только сервисы, в которых уже определяются нужные storage
+        public EmployeeActions CreateEmployeeStorage()
         {
             return new EmployeeActions(context);
         }
 
-        public IEmployeeCoinsActions CreateEmployeeCoinsStorage()
+        public EmployeeCoinsActions CreateEmployeeCoinsStorage()
         {
             return new EmployeeCoinsActions(context);
         }
 
-        public IProductsActions CreateProductsStorage()
+        public ProductsActions CreateProductsStorage()
         {
             return new ProductsActions(context);
         }
 
-        public IAdminActions CreateAdminStorage()
+        public AdminActions CreateAdminStorage()
         {
             return new AdminActions(context);
         }

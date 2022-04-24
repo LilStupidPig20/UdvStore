@@ -2,6 +2,7 @@
 using System.Linq;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
+using DataBaseStorage.Enums;
 using DataBaseStorage.ResponseModels;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace DataBaseStorage.DbStorage
                     Login = found.Login,
                     Fio = found.Fio,
                     Position = found.Position,
-                    IsAdmin = false
+                    Role = Roles.User
                 };
             }
             catch (Exception e)

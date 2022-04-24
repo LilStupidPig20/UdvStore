@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 namespace UdvStore.Controllers
 {
     [ApiController]
-    [Route("Store")]
+    [Route("store")]
     public class ProductsController : Controller
     {
         private ProductsActions context;
@@ -16,7 +16,7 @@ namespace UdvStore.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("getAll")]
         public IActionResult GetAllProducts()
         {
             var products = context.GetProductsWithoutDescription();
