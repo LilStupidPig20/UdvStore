@@ -1,4 +1,6 @@
 .navbar {
+    width: 950px;
+    margin: auto;
     display: flex;
     background-color: transparent;
     align-items: center;
@@ -9,19 +11,17 @@
 .container {
     display: inline-block;
     cursor: pointer;
-    margin-left: 200px;
 }
 
 .bar1, .bar2, .bar3 {
     width: 35px;
     height: 5px;
-    background-color: #fff;
+    background-color: #524e4e;
     margin: 6px 0;
     transition: 0.4s;
 }
 
 .change {
-    margin-left: 200px;
     cursor: pointer;
     z-index: 10;
 }
@@ -38,8 +38,18 @@
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
-.logo_container {
-    width: 143px;
-    height: 56px;
-    margin-right: 165px;
+.navContainer {
+    display: flex;
+    align-items: center;
+}
+
+.navItem {
+    margin-right: 30px;
+    font-size: 30px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.navImg {
+    margin-right: 10px;
 }

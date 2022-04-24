@@ -3,24 +3,20 @@ import styles from "./MainLayout.module.css"
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { CoinsContext } from "../../../context/CoinsContext";
+import { ButtonStatesContext } from "../../../context/ButtonStatesContext";
 
 export default function MainLayout({ children }) {
-    const [isOpened, setIsOpened] = useState(false);
-    const [isActive, setActive] = useState(false);
     const auth = useContext(AuthContext);
+    let context = useContext(ButtonStatesContext);
+    const isActive = context.isActive;
 
     
     let fullName = useContext(AuthContext).fullName;
     let coinsAmount = useContext(CoinsContext).coinsAmount;
 
-    const toggleStates = () => {
-        setActive(!isActive);
-        setIsOpened(!isOpened);
-    }
-
     return (
         <div className={styles.layout}>
-            {isOpened &&
+            {isActive &&
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
                         <div className={styles.userInfo}>
@@ -37,7 +33,7 @@ export default function MainLayout({ children }) {
                                 <Link to="/profile" className={styles.link}>Мой профиль</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>UDV-store</Link>
+                                <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
                                 <Link to="/profile" className={styles.link}>Заявки</Link>
@@ -50,18 +46,6 @@ export default function MainLayout({ children }) {
                     </div>
                 </div>
             }
-            <div className={styles.navbar}>
-                <div className={isActive ? styles.change : styles.container} onClick={toggleStates}>
-                    <div className={styles.bar1}></div>
-                    <div className={styles.bar2}></div>
-                    <div className={styles.bar3}></div>
-                </div>
-                <div>
-
-                    <img src="/imgs/udvLogo.svg" alt="Logo" className={styles.logo} />
-                </div>
-
-            </div>
 
             {children}
         </div>
