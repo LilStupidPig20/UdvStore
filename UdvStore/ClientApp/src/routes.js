@@ -7,7 +7,6 @@ import NonAuthLayout from './components/layouts/NonAuthLayout';
 import { AuthPage } from './pages/AuthPage';
 
 
-
 export const useRoutes = (isAuthenticated) => {
     if (isAuthenticated) {
         return (
@@ -22,7 +21,6 @@ export const useRoutes = (isAuthenticated) => {
                     <Redirect to="/profile" />
                 </Switch>
             </MainLayout>
-
         );
     }
     return (

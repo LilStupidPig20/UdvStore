@@ -3,6 +3,7 @@ import { useHttp } from '../../hooks/http.hook';
 import styles from './auth.module.css';
 import octopus from './octopus.png';
 import { AuthContext } from '../../context/AuthContext';
+import { Navbar } from '../../components/Navbar';
 
 
 export const AuthPage = () => {
@@ -30,6 +31,7 @@ export const AuthPage = () => {
 
     return (
         <div className={styles.mainBlock}>
+            <Navbar />
             <p className={styles.textBlock}>Добро пожаловать 
             в UDV-store!</p>
             <div className={styles.authBlock}>
