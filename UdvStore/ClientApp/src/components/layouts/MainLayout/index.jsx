@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styles from "./MainLayout.module.css"
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
@@ -36,7 +36,7 @@ export default function MainLayout({ children }) {
                                 <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>Заявки</Link>
+                                <Link to="/profile" className={styles.link}>История моей активности</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

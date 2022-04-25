@@ -6,6 +6,7 @@ import StorePage from './pages/StorePage';
 import MainLayout from './components/layouts/MainLayout';
 import NonAuthLayout from './components/layouts/NonAuthLayout';
 import { AuthPage } from './pages/AuthPage';
+import { SendFormPage } from './pages/SendFormPage';
 
 
 export const useRoutes = (isAuthenticated) => {
@@ -21,6 +22,9 @@ export const useRoutes = (isAuthenticated) => {
                     </Route>
                     <Route path="/store" >
                         <StorePage />
+                    </Route>
+                    <Route path="/sendForm">
+                        <SendFormPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>

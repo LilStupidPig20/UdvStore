@@ -1,13 +1,17 @@
 .mainBlock {
-    
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover; 
+    height: 100vh; 
+    width: 100%;
 }
 
 .textBlock {
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 64px;
-    width: 521px;
+    line-height: 77px;
+    width: 628px;
     height: 150px;
     margin: 0 0 0 200px;
     color: #00D29D;
@@ -25,7 +29,7 @@
 }
 
 .authTitle {
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
     font-style: normal;
     font-weight: 400;
     font-size: 40px;
@@ -41,14 +45,69 @@
     border: 2px solid #A6A6A6;
     box-sizing: border-box;
     border-radius: 9px;
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
     font-style: normal;
     font-weight: 300;
     font-size: 18px;
     letter-spacing: 0.07em;
     color: #fff;
     padding-left: 16px;
+}
+
+.loginInputFail, 
+.passInputFail {
+    width: 373px;
+    height: 43px;
+    background: #000000;
+    border: 2px solid #FF2E2E;
+    box-sizing: border-box;
+    border-radius: 9px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 0.07em;
+    color: #fff;
+    padding-left: 16px;
+}
+
+.loginInput,
+.loginInputFail {
     margin-bottom: 41px;
+}
+
+.passInput,
+.passInputFail {
+    margin-bottom: 11px;
+}
+
+
+.errorMsgHide {
+    width: 381px;
+    height: 17px;
+    transform: scale(0);
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.07em;
+    color: #FF2E2E;
+    margin-bottom: 19px;
+}
+
+.errorMsgShow {
+    width: 381px;
+    height: 17px;
+    transform: scale(1);
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.07em;
+    color: #FF2E2E;
+    margin-bottom: 19px;
 }
 
 .loginInput::placeholder,
@@ -62,13 +121,23 @@
     background: #00D29D;
     border-radius: 9px;
     border: none;
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
     font-style: normal;
     font-weight: 400;
     font-size: 23px;
     color: #000000;
     padding: 8px 100px;
     cursor: pointer;
+}
+
+.loginButton:hover {
+    background: #00d29eee;
+}
+
+.loginButton:active {
+    background: #00d29ec3;
+    box-shadow: inset 0px 7px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 9px;
 }
 
 .octopusBlock {

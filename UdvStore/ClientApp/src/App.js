@@ -6,6 +6,7 @@ import { AuthContext } from "./context/AuthContext";
 import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
 import { useStatus } from './hooks/status.hook';
+import './fonts/hero.css'
 
 export const App = () => {
   const { login, logout, token, userId, fullName } = useAuth();
@@ -13,9 +14,13 @@ export const App = () => {
   const routes = useRoutes(isAuthenticated);
   let { isActive, toggleActive } = useStatus();
   const [coinsAmount, setCoinsAmount] = useState();
-
+  
   useEffect(() => {
-      fetch(`https://localhost:5001/UserCoins/GetUserCoins?employeeId=${userId}`)
+      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`, 
+      {
+        headers: {
+        'Authorization': `Bearer ${token}`
+      }})
           .then(res => res.json())
           .then(money => {
               setCoinsAmount(money);

@@ -9,7 +9,8 @@
 .container {
     display: inline-block;
     cursor: pointer;
-    margin-left: 200px;
+    transform: translateX(200px);
+    transition: 0.4s;
 }
 
 .bar1, .bar2, .bar3 {
@@ -21,6 +22,8 @@
 }
 
 .change {
+    transform: translateX(175px);
+    transition: 0.7s;
     margin-left: 200px;
     cursor: pointer;
     z-index: 10;

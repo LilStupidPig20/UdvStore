@@ -1,8 +1,5 @@
 .layout {
-    background: url('../../../imgs/background_udv.jpg');
-    background-size: cover; 
-    height: 100vh; 
-    width: 100%;
+    
 }
 
 .overlay {
@@ -13,7 +10,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
     
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
 }
 
 .drawer {
@@ -41,8 +38,8 @@
 .navMenu {
     list-style: none;
     font-size: 28px;
-    font-weight: 300;
-    padding: 150px 0 0 0;
+    font-weight: 400;
+    padding: 90px 0 0 0;
     margin: 0;
     flex: 1;
 }
@@ -50,52 +47,4 @@
 .link {
     text-decoration: none;
     color: #fff;
-}
-
-.navbar {
-    display: flex;
-    background-color: transparent;
-    align-items: center;
-    height: 110px;
-    justify-content: space-between;
-}
-
-.container {
-    display: inline-block;
-    cursor: pointer;
-    transform: translateX(200px);
-    transition: 0.4s;
-}
-
-.bar1, .bar2, .bar3 {
-    width: 35px;
-    height: 5px;
-    background-color: #fff;
-    margin: 6px 0;
-    transition: 0.4s;
-}
-
-.change {
-    transform: translateX(175px);
-    transition: 0.7s;
-    margin-left: 200px;
-    cursor: pointer;
-}
-
-.change .bar1 {
-    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.change .bar2 {opacity: 0;}
-
-.change .bar3 {
-    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-    transform: rotate(45deg) translate(-8px, -8px);
-}
-
-.logo_container {
-    width: 143px;
-    height: 56px;
-    margin-right: 165px;
 }

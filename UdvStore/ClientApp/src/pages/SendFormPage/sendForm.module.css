@@ -1,0 +1,7 @@
+.wrapper{
+    font-family: 'Hero';
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover; 
+    width: 100%;
+    height: 100vh;
+}
