@@ -1,4 +1,5 @@
 .product {
+    color: #302E2E;
     width: 250px;
     display: flex;
     flex-direction: column;
