@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseStorage.DbStorage
 {
-    public abstract class BaseActions<TEntity> where TEntity : IDbModel
+    public abstract class BaseActions<TEntity> where TEntity : class, IDbModel
     {
         protected IDbContextFactory<PostgresContext> DbContextFactory;
 
@@ -46,6 +46,13 @@ namespace DataBaseStorage.DbStorage
             if (!context.Set<TEntity>().Any())
                 throw new Exception($"Таблица{typeof(TEntity)} пуста, или не существует");
             return context.Set<TEntity>().Select(x => x).ToList();
+        }
+
+        public virtual long GetLastId(PostgresContext connection)
+        {
+            if (!connection.Set<TEntity>().Any())
+                return 0;
+            return connection.Set<TEntity>().OrderBy(x => x.Id).Last().Id;
         }
     }
 }
