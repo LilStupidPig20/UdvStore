@@ -1,6 +1,6 @@
 ﻿namespace DataBaseStorage.DbModels
 {
-    public class IDbModel
+    public interface IDbModel
     {
         public long Id { get; set; }
     }

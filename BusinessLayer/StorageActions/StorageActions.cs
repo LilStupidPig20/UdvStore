@@ -35,5 +35,10 @@ namespace BusinessLayer.StorageActions
         {
             return new AdminActions(context);
         }
+
+        public EmployeeRequestActions CreateEmployeeRequestStorage()
+        {
+            return new EmployeeRequestActions(context);
+        }
     }
 }

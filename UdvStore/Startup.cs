@@ -33,28 +33,6 @@ namespace UdvStore
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
-            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //     .AddJwtBearer(options =>
-            //     {
-            //         options.RequireHttpsMetadata = false;
-            //         options.TokenValidationParameters = new TokenValidationParameters
-            //         {
-            //             ValidateIssuer = true,
-            //             ValidIssuer = AuthOptions.ISSUER,
-            //             ValidateAudience = true,
-            //             ValidAudience = AuthOptions.AUDIENCE,
-            //             ValidateLifetime = true,
-            //             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            //             ValidateIssuerSigningKey = true,
-            //         };
-            //     });
-            //
-            // services.AddAuthorization(auth =>
-            // {
-            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            //         .RequireAuthenticatedUser().Build());
-            // });
             services.AddAuthentication(auth =>
                 {
                     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,6 +48,7 @@ namespace UdvStore
                         ValidateAudience = true,
                         ValidAudience = AuthOptions.AUDIENCE,
                         ValidateIssuerSigningKey = true,
+                        RequireExpirationTime = true,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     };
                 });
@@ -77,8 +56,10 @@ namespace UdvStore
             services.AddScoped<EmployeeCoinsActions>();
             services.AddScoped<ProductsActions>();
             services.AddScoped<AdminActions>();
+            services.AddScoped<EmployeeRequestActions>();
             services.AddScoped<IStorageActions, StorageActions>();
             services.AddScoped<AuthService>();
+            services.AddScoped<CoinRequestService>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory

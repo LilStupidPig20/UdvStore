@@ -11,5 +11,6 @@ namespace BusinessLayer.StorageActions
         public EmployeeCoinsActions CreateEmployeeCoinsStorage();
         public ProductsActions CreateProductsStorage();
         public AdminActions CreateAdminStorage();
+        public EmployeeRequestActions CreateEmployeeRequestStorage();
     }
 }
