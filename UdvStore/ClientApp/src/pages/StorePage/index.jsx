@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./store.module.css"
 import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function StorePage() {
+    console.log(useContext(AuthContext).role);
+
     return (
         <div>
             <StoreNavBar />

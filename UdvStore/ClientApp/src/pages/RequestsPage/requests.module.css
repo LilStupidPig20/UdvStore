@@ -1,0 +1,20 @@
+.wrapper{
+    font-family: 'Hero';
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover; 
+    height: 100vh; 
+    width: 100%;
+}
+
+.align {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.requestsWindow {
+    width: 1100px;
+    height: 580px;
+    background: #C4C4C4;
+    border-radius: 36px;
+}
