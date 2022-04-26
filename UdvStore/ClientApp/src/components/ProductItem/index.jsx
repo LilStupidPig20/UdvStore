@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./product.module.css"
 
 export default function ProductItem({
-    imgSrc = "/imgs/products/1.jpg",
+    imgSrc = "/imgs/ProductImages/Кружка.JPG",
     title = "Кружка UDV с надписью “Удиви мир”",
     price = 15
 }) {
+
     return (
         <div className={styles.product}>
             <img src={imgSrc} alt="" className={styles.productImg} />

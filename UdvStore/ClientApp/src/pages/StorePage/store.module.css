@@ -1,7 +1,7 @@
 .wrapper {
     padding: 20px;
     font-family: 'Hero';
-    width: 900px;
+    width: 1080px;
     margin: auto;
     box-sizing: border-box;
     text-align: center;
@@ -17,8 +17,8 @@
 
 .products {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 450px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 475px;
     gap: 20px;
     justify-items: center;
 }
