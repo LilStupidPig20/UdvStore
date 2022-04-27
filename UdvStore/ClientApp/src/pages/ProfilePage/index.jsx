@@ -25,7 +25,7 @@ export default function ProfilePage() {
                 <h1 className={styles.userName}>{fullName}</h1>
                 {/* <h1 className={styles.userName}>{spltName[0]}<br />{spltName[1]}<br />{spltName[2]}</h1> */}
                 <div className={styles.buttons}>
-                    <button className={styles.button}><Link to="/sendForm" className={styles.link}>Получить UDV-coins</Link></button>
+                    <Link to="/sendForm" className={styles.link}><button className={styles.button}>Получить UDV-coins</button></Link>
                     <button className={styles.button}>История начисления UDV-coins</button>
                     <button className={styles.button}>Отправить UDV-coins сотруднику</button>
                 </div>

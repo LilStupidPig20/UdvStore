@@ -8,3 +8,12 @@ export const useStatus = () => {
     
     return {isActive, toggleActive};
 }
+
+export const useClicked = () => {
+    const [isClicked, setClicked] = useState(false);
+    const toggleClicked = () => {
+        setClicked(!isClicked);
+    }
+    
+    return {isClicked, toggleClicked};
+}

@@ -1,0 +1,46 @@
+.requestCont {
+    width: 830px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 29px;
+    color: #302E2E;
+    margin-left: 85px;
+    margin-right: 85px;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.inputScore {
+    width: 100px;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    }
+.buttons {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+
+    color: #000000;
+}
+
+.buttonAccept {
+    width: 180px;
+    background: #00D29D;
+    cursor: pointer;
+}
+
+.buttonDeny {
+    width: 180px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    cursor: pointer;
+}

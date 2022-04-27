@@ -5,7 +5,6 @@ import { SendFormChecker } from '../../context/SendFormChecker';
 import styles from './ResultSendForm.module.css'
 
 export const ResultSendFormPage = () => {
-    console.log(useContext(SendFormChecker).isSent)
     const result = useContext(SendFormChecker).isSent;
     
     return ( 

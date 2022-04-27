@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./store.module.css"
 import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
-import { AuthContext } from "../../context/AuthContext";
 
 export default function StorePage() {
     const [products, setProducts] = useState([]);
