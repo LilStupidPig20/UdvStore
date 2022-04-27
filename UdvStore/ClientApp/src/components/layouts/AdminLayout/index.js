@@ -22,7 +22,10 @@ export default function AdminLayout ({ children }) {
                                 <Link to="/orders" className={styles.link}>Заказы сотрудников</Link>
                             </li>
                             <li>
-                                <Link to="/charge" className={styles.link}>Начисление баллов</Link>
+                                <Link to="/charge" className={styles.link}>Создать заявку</Link>
+                            </li>
+                            <li>
+                                <Link to="/rules" className={styles.link}>Правила получения баллов</Link>
                             </li>
                         </ul>
                         <div className={styles.exitButton} onClick={() => auth.logout()}>Выйти</div>

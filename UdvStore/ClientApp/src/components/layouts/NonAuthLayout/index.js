@@ -10,22 +10,22 @@ export default function NonAuthLayout ({ children }) {
     return (
         <div className={styles.layout}>
                 {isActive &&
-                <div className={styles.overlay}>
-                    <div className={styles.drawer}>
-                        <ul className={styles.navMenu}>
-                            <li>
-                                <Link to="/" className={styles.link}>Главная</Link>
-                            </li>
-                            <li>
-                                <Link to="/store" className={styles.link}>UDV-store</Link>
-                            </li>
-                            <li>
-                                <Link to="/rules" className={styles.link}>Правила получения баллов</Link>
-                            </li>
-                        </ul>
+                    <div className={styles.overlay}>
+                        <div className={styles.drawer}>
+                            <ul className={styles.navMenu}>
+                                <li>
+                                    <Link to="/" className={styles.link}>Главная</Link>
+                                </li>
+                                <li>
+                                    <Link to="/store" className={styles.link}>UDV-store</Link>
+                                </li>
+                                <li>
+                                    <Link to="/rules" className={styles.link}>Правила получения баллов</Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            }
+                }
             {children}
         </div>
     )
