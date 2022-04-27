@@ -46,7 +46,7 @@ namespace UdvStore.Controllers
             return Json(res);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("rejectRequest")]
         [Authorize(Roles = "Admin")]
         public IActionResult RejectRequest(long idRequest)
