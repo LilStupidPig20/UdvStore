@@ -15,20 +15,23 @@ export const App = () => {
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated, role);
   let { isActive, toggleActive } = useStatus();
-  const [coinsAmount, setCoinsAmount] = useState();
+  const [coinsAmount, setCoinsAmount] = useState('-1');
   let { isSent, toggleSent } = useForm();
-  
+ 
   useEffect(() => {
-      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`, 
-      {
-        headers: {
-        'Authorization': `Bearer ${token}`
-      }})
-          .then(res => res.json())
-          .then(money => {
-              setCoinsAmount(money);
-          });
-  })
+    if (isAuthenticated) {
+      fetch(`https://localhost:5001/coins/get?employeeId=${userId}`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        .then(res => res.json())
+        .then(money => {
+          setCoinsAmount(String(money));
+        });
+    }
+  }, [isAuthenticated, token, userId])
 
   return (
     <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated }}>
