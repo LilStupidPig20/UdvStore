@@ -39,7 +39,8 @@ namespace BusinessLayer.Services
 
         public void RejectRequest(long id)
         {
-            //TODO
+            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
+            var request = employeeRequestStorage.CloseRequest(id);
         }
     }
 }
