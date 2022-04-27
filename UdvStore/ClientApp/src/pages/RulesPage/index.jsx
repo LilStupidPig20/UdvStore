@@ -6,7 +6,6 @@ export default function RulesPage() {
     return (
         <div className={styles.wrapper} >
             <Navbar />
-            <img src="./imgs/backgroundUdv.jpg" alt="" className={styles.bgImage} />
             <div className={styles.content}>
                 <h1 className={styles.title}>Правила получения UDV-coins</h1>
                 <div className={styles.text}>
@@ -18,9 +17,9 @@ export default function RulesPage() {
                         <li>Для начисления юкоинов в соцсетях в любом посте/сториз должен быть <span className={styles.greenText} >хэштег #usscltd + название компании или ссылка на наш аккаунт</span>:</li>
                     </ul>
                     <div className={styles.contacts}>
-                        <p>VK - <span className={styles.greenText} >vk.com/ussc_group</span></p>
-                        <p>Instagram - <span className={styles.greenText} >@usscltd</span></p>
-                        <p>Facebook - <span className={styles.greenText} >facebook.com/USSCru/</span></p>
+                        <p>VK - <a href='https://vk.com/ussc_group' className={styles.greenText} >vk.com/ussc_group</a></p>
+                        <p>Instagram - <a href='https://www.instagram.com/usscltd/' className={styles.greenText} >@usscltd</a></p>
+                        <p>Facebook - <a href='https://www.facebook.com/USSCru/' className={styles.greenText} >facebook.com/USSCru/</a></p>
                     </div>
 
                 </div>

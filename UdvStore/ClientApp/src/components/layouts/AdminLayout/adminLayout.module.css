@@ -48,3 +48,9 @@
     text-decoration: none;
     color: #fff;
 }
+
+.exitButton {
+    font-size: 28px;
+    font-weight: 400;
+    cursor: pointer;
+}

@@ -3,21 +3,22 @@
 }
 
 .wrapper {
-    background-size: cover;
     width: 900px;
     color: #fff;
     margin: auto;
-    
     font-family: 'Hero';
 }
 
-.bgImage{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+.bg {
+    background: url('../../imgs/background_udv.jpg');
+    height: 100vh; 
     width: 100%;
-    height: 100%;
+    background-size: cover;
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
 }
 
 .title {
@@ -31,14 +32,14 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 1fr 1.5fr;
+    grid-template-rows: 1fr 0.9fr;
     gap: 20px;
 }
 
 .subTitle {
     font-size: 34px;
     font-weight: 700;
-    margin: 38px 0 16px;
+    margin: 0 0 16px;
 }
 
 .balance {
@@ -67,7 +68,7 @@
 }
 
 .buttons {
-    margin-top: auto;
+    height: 100%
 }
 
 .button {

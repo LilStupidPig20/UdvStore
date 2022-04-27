@@ -1,9 +1,14 @@
 .wrapper{
     font-family: 'Hero';
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover; 
+    height: 1150px; 
+    width: 100%;
 }
 
 .greenText{
     color: #00D29D;
+    text-decoration: none;
 }
 
 .bgImage{
@@ -18,7 +23,7 @@
 .content {
     width: 900px;
     padding: 50px;
-    margin: 15px auto;
+    margin: 45px auto;
     box-shadow: 0px -10px 50px rgba(255, 255, 255, 0.4);
     border-radius: 40px;
     background: rgba(30, 30, 30, 0.8);
@@ -51,7 +56,7 @@ li {
 }
 
 .contacts{
-    width: 300px;
+    width: 310px;
     margin: 0 auto;
 }
 
