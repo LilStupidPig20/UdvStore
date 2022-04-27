@@ -49,5 +49,18 @@ namespace DataBaseStorage.DbStorage
                 throw new Exception("Введеные данные не верны");
             }
         }
+
+        public string GetFioById(long id)
+        {
+            using var context = DbContextFactory.CreateDbContext();
+            try
+            {
+                return context.Employees.FirstOrDefault(x => x.Id.Equals(id))?.Fio;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Не удалось найти пользователя по идентификатору {e}");
+            }
+        }
     }
 }

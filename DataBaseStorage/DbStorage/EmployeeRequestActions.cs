@@ -47,6 +47,8 @@ namespace DataBaseStorage.DbStorage
         public EmployeeRequest CloseRequest(long idRequest)
         {
             var request = SearchById(idRequest);
+            if (request.IsOpen == false)
+                throw new Exception("Заявка уже закрыта");
             request.IsOpen = false;
             using var connection = DbContextFactory.CreateDbContext();
             connection.EmployeeRequests.Update(request);
