@@ -19,7 +19,7 @@ export const AuthPage = () => {
     const loginHandler = async () => {
         try {
             const data = await request("/login/authenticate", "POST", { ...form });
-            auth.login(data.token, data.userId, data.fio);
+            auth.login(data.token, data.userId, data.fio, data.role);
         } catch (error) {
             setFail(true);
         }

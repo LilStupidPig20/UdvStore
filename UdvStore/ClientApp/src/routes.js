@@ -7,10 +7,33 @@ import MainLayout from './components/layouts/MainLayout';
 import NonAuthLayout from './components/layouts/NonAuthLayout';
 import { AuthPage } from './pages/AuthPage';
 import { SendFormPage } from './pages/SendFormPage';
+import { ResultSendFormPage } from './pages/ResultSendFormPage';
+import AdminLayout from './components/layouts/AdminLayout';
+import { RequestsPage } from './pages/RequestsPage';
+import { OrdersPage } from './pages/OrdersPage';
+import { ChargePage } from './pages/ChargePage';
 
 
-export const useRoutes = (isAuthenticated) => {
+export const useRoutes = (isAuthenticated, role) => {
     if (isAuthenticated) {
+        if (role === 0) {
+            return (
+                <AdminLayout>
+                    <Switch>
+                        <Route path="/requests">
+                            <RequestsPage />
+                        </Route>
+                        <Route path="/orders">
+                            <OrdersPage />
+                        </Route>
+                        <Route path="/charge">
+                            <ChargePage />
+                        </Route>
+                        <Redirect to="/requests" />
+                    </Switch>
+                </AdminLayout>
+            )
+        }
         return (
             <MainLayout>
                 <Switch>
@@ -25,6 +48,9 @@ export const useRoutes = (isAuthenticated) => {
                     </Route>
                     <Route path="/sendForm">
                         <SendFormPage />
+                    </Route>
+                    <Route path='/result'>
+                        <ResultSendFormPage />    
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>

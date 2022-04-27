@@ -9,7 +9,6 @@ export default function StoreNavBar() {
     const isActive = context.isActive;
     const toggle = context.toggleActive;
 
-
     return (
         <div className={styles.navbar}>
             <div className={isActive ? styles.change : styles.container} onClick={toggle}>

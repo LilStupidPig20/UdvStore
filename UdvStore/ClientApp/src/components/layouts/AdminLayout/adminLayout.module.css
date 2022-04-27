@@ -1,0 +1,56 @@
+.layout {
+    
+}
+
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    
+    font-family: 'Hero';
+}
+
+.drawer {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 80px;
+    background-color: #302E2E;
+    color: #fff;
+
+    transform: translateX(-150%);
+    animation: ani  0.5s forwards;
+}
+
+@keyframes ani {
+  0% {transform: translateX(-150%);}
+  100% {transform: translateX(0);}
+  0% {transform: translateX(-150%);}
+}
+
+.navMenu {
+    list-style: none;
+    font-size: 28px;
+    font-weight: 400;
+    padding: 90px 0 0 0;
+    margin: 0;
+    flex: 1;
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
+}
+
+.exitButton {
+    font-size: 28px;
+    font-weight: 400;
+    cursor: pointer;
+}

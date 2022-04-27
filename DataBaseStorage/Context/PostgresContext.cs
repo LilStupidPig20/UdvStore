@@ -11,6 +11,7 @@ namespace DataBaseStorage.Context
         public virtual DbSet<EmployeeCoins> EmployeeCoins { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<EmployeeRequest> EmployeeRequests { get; set; }
 
         static PostgresContext()
             => NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>();
