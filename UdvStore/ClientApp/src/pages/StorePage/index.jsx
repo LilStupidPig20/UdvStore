@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./store.module.css"
 import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
 
-export default function StorePage() {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        fetch('https://localhost:5001/store/getAll')
-            .then(res => res.json())
-            .then(items => setProducts(items))
-    }, []);
+export default function StorePage({products=[]}) {
 
     return (
         <div>
@@ -21,9 +14,10 @@ export default function StorePage() {
                     {products.map((product) => {
                         return <ProductItem
                             key={product.id}
-                            title={product.description}
+                            title={product.name}
                             price={product.price}
-                            imgSrc={product.image} />
+                            imgSrc={product.image}
+                            id={product.id} />
                     })}
                     {/* <ProductItem />
                     <ProductItem />
@@ -32,7 +26,6 @@ export default function StorePage() {
                     <ProductItem /> */}
                 </div>
             </div>
-
         </div>
     );
 }
