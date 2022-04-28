@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.StoragesInterfaces;
@@ -23,12 +24,23 @@ namespace DataBaseStorage.DbStorage
                 .FirstOrDefault();
         }
 
-        public void AddCoins()
+        public void AddCoins(long id, decimal coinsNumber)
         {
-            //TODO
+            try
+            {
+                var employeeCoinsEntity = SearchById(id);
+                using var connection = DbContextFactory.CreateDbContext();
+                employeeCoinsEntity.CurrentBalance += coinsNumber;
+                connection.EmployeeCoins.Update(employeeCoinsEntity);
+                connection.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Не получилось добавить коины {e}");
+            }
         }
 
-        public void ReduceCoins()
+        public void ReduceCoins(long id, decimal coinsNumber)
         {
             //TODO
         }

@@ -7,14 +7,17 @@ import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
 import { useStatus } from './hooks/status.hook';
 import './fonts/hero.css'
+import { SendFormChecker } from './context/SendFormChecker';
+import { useForm } from './hooks/form.hook';
 
 export const App = () => {
-  const { login, logout, token, userId, fullName } = useAuth();
+  const { login, logout, token, userId, fullName, role } = useAuth();
   const isAuthenticated = !!token;
-  const routes = useRoutes(isAuthenticated);
+  const routes = useRoutes(isAuthenticated, role);
   let { isActive, toggleActive } = useStatus();
   const [coinsAmount, setCoinsAmount] = useState('-1');
-
+  let { isSent, toggleSent } = useForm();
+ 
   useEffect(() => {
     if (isAuthenticated) {
       fetch(`https://localhost:5001/coins/get?employeeId=${userId}`,
@@ -32,12 +35,14 @@ export const App = () => {
   }, [isAuthenticated, token, userId])
 
   return (
-    <AuthContext.Provider value={{ login, logout, token, userId, fullName, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated }}>
       <ButtonStatesContext.Provider value={{ isActive, toggleActive }}>
         <CoinsContext.Provider value={{ coinsAmount }}>
-          <BrowserRouter>
-            {routes}
-          </BrowserRouter>
+          <SendFormChecker.Provider value={{ isSent, toggleSent }}>
+            <BrowserRouter>
+              { routes }
+            </BrowserRouter>
+          </SendFormChecker.Provider>
         </CoinsContext.Provider>
       </ButtonStatesContext.Provider>
     </AuthContext.Provider>
