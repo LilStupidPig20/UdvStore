@@ -32,6 +32,9 @@ export const useRoutes = (isAuthenticated) => {
                     <Route path="/store" >
                         <StorePage products={products} />
                     </Route>
+                    {/* <Route path="/product/:productId" >
+                        <ProductPage/>
+                    </Route> */}
                     {
                         products.map(product => {
                             return <Route path={`/product/${product.id}`} >

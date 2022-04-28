@@ -3,7 +3,6 @@ import styles from "./product.module.css";
 import { Link } from "react-router-dom";
 
 export default function ProductItem({
-    url,
     imgSrc = "/imgs/ProductImages/Кружка.JPG",
     title = "Кружка UDV с надписью “Удиви мир”",
     price = 15,
