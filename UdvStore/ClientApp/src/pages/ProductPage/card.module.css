@@ -1,0 +1,94 @@
+.wrapper {
+    font-family: 'Hero';
+    box-sizing: border-box;
+    margin-top: 30px;
+    width: 900px;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    column-gap: 40px;
+}
+
+.imgs {
+    display: flex;
+    flex-direction: column;
+}
+
+.miniImg {
+    margin-bottom: 25px;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainBlock{
+    border: .5px solid #000000;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+}
+
+.price {
+    align-self: flex-end;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.addButton {
+    align-self: center;
+    position: static;
+    background-color: #302E2E;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 75px;
+    align-self: flex-start;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+} 
+
+.arrow {
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    left: 240px;
+    width: 40px;
+    height: 25px;
+    margin: 18px 20px 20px;
+}
+.arrow div {
+    position: relative;
+    top: 20px;
+    width: 25px;
+    height: 5px;
+    background-color: #524e4e;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    left: 0;
+    display: block;
+}
+.arrow div::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 5px;
+    top: -6px;
+    right: 10px;
+    background-color: #524e4e;
+    transform: rotate(-45deg);
+}
+.arrow div::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 5px;
+    top: 6px;
+    right: 10px;
+    background-color: #524e4e;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
+    transform: rotate(45deg);
+}

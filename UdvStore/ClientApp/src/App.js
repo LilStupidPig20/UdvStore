@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
 import { BrowserRouter } from 'react-router-dom';
@@ -32,7 +32,8 @@ export const App = () => {
         .then(res => res.json())
         .then(money => {
           setCoinsAmount(String(money));
-        });
+        })
+        .catch((e) => logout());
     }
   }, [isAuthenticated, role, token, userId])
 
