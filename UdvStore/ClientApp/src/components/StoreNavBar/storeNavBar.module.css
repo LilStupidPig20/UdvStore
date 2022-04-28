@@ -1,6 +1,4 @@
 .navbar {
-    width: 950px;
-    margin: auto;
     display: flex;
     background-color: transparent;
     font-family: 'Hero';
@@ -16,6 +14,8 @@
 .container {
     display: inline-block;
     cursor: pointer;
+    transform: translateX(200px);
+    transition: 0.4s;
 }
 
 .bar1, .bar2, .bar3 {
@@ -27,6 +27,9 @@
 }
 
 .change {
+    transform: translateX(175px);
+    transition: 0.7s;
+    margin-left: 200px;
     cursor: pointer;
     z-index: 10;
 }
@@ -46,6 +49,7 @@
 .navContainer {
     display: flex;
     align-items: center;
+    margin-right: 215px;
 }
 
 .navItem {
