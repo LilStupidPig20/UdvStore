@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BusinessLayer.StorageActions;
 using DataBaseStorage.DbModels;
+using DataBaseStorage.ResponseModels;
 
 namespace BusinessLayer.Services
 {
@@ -31,15 +32,29 @@ namespace BusinessLayer.Services
             employeeCoinsStorage.AddCoins(request.EmployeeId, coins);
         }
 
-        public List<EmployeeRequest> GetAllRequests()
+        public List<GetAllRequestsCoinsResponse> GetAllRequests()
         {
             var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
-            return employeeRequestStorage.GetAll();
+            var allRequests =  employeeRequestStorage.GetAll();
+
+            var employeeStorage = storage.CreateEmployeeStorage();
+            var result = new List<GetAllRequestsCoinsResponse>();
+            foreach (var employeeRequest in allRequests)
+            {
+                result.Add(new GetAllRequestsCoinsResponse
+                {
+                    EmployeeRequest = employeeRequest,
+                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId)
+                });
+            }
+
+            return result;
         }
 
         public void RejectRequest(long id)
         {
-            //TODO
+            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
+            var request = employeeRequestStorage.CloseRequest(id);
         }
     }
 }

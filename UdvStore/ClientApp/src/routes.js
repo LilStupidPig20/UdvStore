@@ -38,6 +38,9 @@ export const useRoutes = (isAuthenticated, role) => {
                         <Route path="/charge">
                             <ChargePage />
                         </Route>
+                        <Route path="/rules">
+                            <RulesPage />
+                        </Route>
                         <Redirect to="/requests" />
                     </Switch>
                 </AdminLayout>

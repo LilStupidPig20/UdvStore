@@ -45,5 +45,14 @@ namespace UdvStore.Controllers
             var res = coinRequestService.GetAllRequests();
             return Json(res);
         }
+
+        [HttpPost]
+        [Route("rejectRequest")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult RejectRequest(long idRequest)
+        {
+            coinRequestService.RejectRequest(idRequest);
+            return new OkResult();
+        }
     }
 }

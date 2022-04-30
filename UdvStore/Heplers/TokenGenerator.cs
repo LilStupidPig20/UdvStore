@@ -23,7 +23,7 @@ namespace UdvStore.Services
                 response.Login,
                 AuthOptions.ISSUER,
                 AuthOptions.AUDIENCE,
-                TimeSpan.FromSeconds(AuthOptions.LIFETIME),
+                AuthOptions.LIFETIME,
                 claims.ToArray());
             //var claims = new List<Claim> { new (ClaimsIdentity.DefaultNameClaimType, str)};
             // var now = DateTime.UtcNow;
@@ -50,7 +50,7 @@ namespace UdvStore.Services
             string username,
             string issuer,
             string audience,
-            TimeSpan expiration,
+            int expiration,
             Claim[] additionalClaims = null)
         {
             var claims = new[]
@@ -73,7 +73,7 @@ namespace UdvStore.Services
             return new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
-                expires: DateTime.UtcNow.Add(expiration),
+                expires: DateTime.UtcNow.AddMinutes(expiration),
                 claims: claims,
                 signingCredentials: creds
             );

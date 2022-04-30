@@ -9,7 +9,7 @@ namespace UdvStore.Services
         public const string AUDIENCE = "DarthVader"; // потребитель токена
         const string KEY = "there_is_the_way";   // ключ для шифрации
         //public const int LIFETIME = 1 * 60 * 24 * 14;  время жизни токена - 1 минута
-        public const int LIFETIME = 1 * 60;
+        public const int LIFETIME = 1 * 60 * 10;
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
