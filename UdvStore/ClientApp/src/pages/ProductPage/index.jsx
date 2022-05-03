@@ -1,9 +1,12 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './card.module.css';
 import StoreNavBar from "../../components/StoreNavBar";
 
-export default function ProductPage({ product }) {
+export default function ProductPage({ products }) {
+    const { productId } = useParams();
+    const product = products.find(prod => prod.id === Number(productId));
+
     return (
         <div>
             <StoreNavBar />

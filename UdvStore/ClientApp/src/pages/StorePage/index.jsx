@@ -3,7 +3,7 @@ import styles from "./store.module.css"
 import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
 
-export default function StorePage({products=[]}) {
+export default function StorePage({ products = [] }) {
 
     return (
         <div>

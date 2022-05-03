@@ -10,7 +10,7 @@ export default function ProductItem({
 }) {
 
     return (
-        <Link to={`/product/${id}`} style={{ textDecoration: 'none' }}>
+        <Link to={`/store/${id}`} style={{ textDecoration: 'none' }}>
             <div className={styles.product}>
                 <img src={imgSrc} alt="" className={styles.productImg} />
                 <div className={styles.title}>{title}</div>

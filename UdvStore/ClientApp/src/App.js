@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
 import { BrowserRouter } from 'react-router-dom';
@@ -35,7 +35,7 @@ export const App = () => {
         })
         .catch((e) => logout());
     }
-  }, [isAuthenticated, role, token, userId])
+  }, [isAuthenticated, role, token, userId, logout])
 
   return (
     <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated }}>

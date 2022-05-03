@@ -23,7 +23,7 @@ export const useRoutes = (isAuthenticated, role) => {
             .then(res => res.json())
             .then(items => setProducts(items))
     }, []);
-    
+
     if (isAuthenticated) {
         if (role === 0) {
             return (
@@ -52,27 +52,20 @@ export const useRoutes = (isAuthenticated, role) => {
                     <Route path="/profile" exact>
                         <ProfilePage />
                     </Route>
-                    <Route path="/rules" >
+                    <Route path="/rules" exact>
                         <RulesPage />
                     </Route>
-                    <Route path="/store" >
+                    <Route path="/store" exact>
                         <StorePage products={products} />
                     </Route>
-                    {/* <Route path="/product/:productId" >
-                        <ProductPage/>
-                    </Route> */}
-                    {
-                        products.map(product => {
-                            return <Route path={`/product/${product.id}`} >
-                                <ProductPage product={product}/>
-                            </Route>
-                        })
-                    }
+                    <Route path="/store/:productId" >
+                        <ProductPage products={products} />
+                    </Route>
                     <Route path="/sendForm">
                         <SendFormPage />
                     </Route>
                     <Route path='/result'>
-                        <ResultSendFormPage />    
+                        <ResultSendFormPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>
@@ -89,7 +82,7 @@ export const useRoutes = (isAuthenticated, role) => {
                     <RulesPage />
                 </Route>
                 <Route path="/store" >
-                    <StorePage  products={products} />
+                    <StorePage products={products} />
                 </Route>
                 <Redirect to="/" />
             </Switch>
