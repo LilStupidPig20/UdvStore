@@ -1,7 +1,239 @@
-.wrapper{
+.wrapper {
     font-family: 'Hero';
     background: url('../../imgs/background_udv.jpg');
     background-size: cover; 
-    height: 100vh; 
     width: 100%;
+    height: 100vh;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    width: 700px;
+    padding: 50px;
+    margin: 15px auto;
+    border-radius: 60px;
+}
+
+.align {
+    display: flex;
+    height: calc(90vh - 110px);
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 50px;
+
+    color: #6B6868;
+    margin-top: 0;
+    margin-bottom: 11px; 
+}
+
+.subTitle {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 34px;
+    color: #00D29D;
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.eventCont {
+    width: 565px;
+    margin-bottom: 24px;
+}
+
+.eventTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    color: #302E2E;
+}
+
+.eventInput {
+    border: 2px solid #A6A6A6;
+    box-sizing: border-box;
+    margin-top: 8px;
+    border-radius: 9px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    width: 562px;
+    letter-spacing: 0.07em;
+    color: #1E1E1E;
+}
+
+.areaCont {
+    width: 565px;
+}
+
+.areaTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    color: #302E2E;
+}
+
+.infoArea {
+    border: 2px solid #A6A6A6;
+    box-sizing: border-box;
+    border-radius: 9px;
+    width: 562px;
+    height: 118px;
+    resize: none;
+    margin-top: 8px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.07em;
+
+    color: #1E1E1E;
+}
+
+.dateCont {
+    margin: 0 auto 20px 20px;
+}
+
+.inputDateTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    color: #302E2E;
+    margin-right: 8px;
+}
+
+input[type=date]:required:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+input[type=date]:focus::-webkit-datetime-edit,
+input[type=date]:in-range::-webkit-datetime-edit,
+input[type="date"]::-webkit-datetime-edit-day-field {
+    color: black !important;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(50%);
+}
+
+.inputDate {
+    width: 130px;
+    background: #f4f4f4;
+    box-sizing: border-box;
+    border: 2px solid #A6A6A6;
+    border-radius: 9px;
+    margin-top: 8px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: 0.07em;
+    color: #1E1E1E;
+}
+
+.fioCont {
+    width: 565px;
+    margin: 0 auto 20px 0;
+}
+
+.plusButton {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    border: none;
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    color: #000000;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    bottom: -62px;
+    left: -40px;
+    cursor: pointer;
+}
+
+.plusButton:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.plusButton:active {
+    background-color: rgb(207, 207, 207);
+}
+
+.inputTextTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+
+    color: #302E2E;
+}
+
+.inputText {
+    width: 562px;
+    border: 2px solid #A6A6A6;
+    box-sizing: border-box;
+    border-radius: 9px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.07em;
+    color: #1E1E1E;
+    margin-top: 8px;
+
+}
+
+.sendButton {
+    width: 236px;
+    height: 43px;
+    background: #00D29D;
+    border-radius: 9px;font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    border: none;
+    cursor: pointer;
+}
+
+.sendButton:hover {
+    background: #00d29eee;
+}
+
+.sendButton:active {
+    background: #00d29ec3;
+    box-shadow: inset 0px 7px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 9px;
 }

@@ -10,13 +10,16 @@ import { AuthPage } from './pages/AuthPage';
 import { SendFormPage } from './pages/SendFormPage';
 import { ResultSendFormPage } from './pages/ResultSendFormPage';
 import AdminLayout from './components/layouts/AdminLayout';
-import { RequestsPage } from './pages/RequestsPage';
+import RequestsPage from './pages/RequestsPage';
 import { OrdersPage } from './pages/OrdersPage';
 import { ChargePage } from './pages/ChargePage';
+import { HistoryPage } from './pages/HistoryPage';
+import FullRequestPage from './pages/FullRequestPage';
 
 
-export const useRoutes = (isAuthenticated, role) => {
+export const useRoutes = (isAuthenticated, role, token) => {
     const [products, setProducts] = useState([]);
+    const [oldReqs, setOldReqs] = useState([]);
 
     useEffect(() => {
         fetch('https://localhost:5001/store/getAll')
@@ -24,21 +27,38 @@ export const useRoutes = (isAuthenticated, role) => {
             .then(items => setProducts(items))
     }, []);
     
+    useEffect(() => {
+        if(role === 0) {
+            fetch('https://localhost:5001/coinRequest/getAll', 
+            {
+                headers: { 'Authorization': `Bearer ${token}`}
+            })
+                .then(res => res.json())
+                .then(items => setOldReqs(items)) 
+        }
+    }, [role, token]);
+    
     if (isAuthenticated) {
         if (role === 0) {
             return (
                 <AdminLayout>
                     <Switch>
-                        <Route path="/requests">
+                        <Route path="/requests" exact>
                             <RequestsPage />
                         </Route>
-                        <Route path="/orders">
+                        <Route path="/history" exact>
+                            <HistoryPage requests={oldReqs} />
+                        </Route>
+                        <Route path="/history/:requestId" >
+                            <FullRequestPage requests = {oldReqs}/>
+                        </Route>
+                        <Route path="/orders" exact>
                             <OrdersPage />
                         </Route>
-                        <Route path="/charge">
+                        <Route path="/charge" exact>
                             <ChargePage />
                         </Route>
-                        <Route path="/rules">
+                        <Route path="/rules" exact>
                             <RulesPage />
                         </Route>
                         <Redirect to="/requests" />

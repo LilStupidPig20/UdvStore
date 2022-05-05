@@ -5,7 +5,7 @@ import { Request } from '../../components/Request';
 import { AuthContext } from '../../context/AuthContext';
 import styles from './requests.module.css';
 
-export const RequestsPage = () => {
+export default function RequestsPage () {
     const [requests, setRequests] = useState([]);
     const auth = useContext(AuthContext);
 
@@ -16,7 +16,7 @@ export const RequestsPage = () => {
         })
             .then(res => res.json())
             .then(items => setRequests(items))
-    }, []);
+    }, [auth.token]);
 
     return (
         <div className={styles.wrapper}>
@@ -45,6 +45,7 @@ export const RequestsPage = () => {
                                         />
                                 </RequestLayout>
                             }
+                            return '';
                         })}
                     </div>
                 </div>
