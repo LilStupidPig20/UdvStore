@@ -36,9 +36,14 @@ namespace BusinessLayer.StorageActions
             return new AdminActions(context);
         }
 
-        public EmployeeRequestActions CreateEmployeeRequestStorage()
+        public AllRequestActions CreateAllRequestStorage()
         {
-            return new EmployeeRequestActions(context);
+            return new AllRequestActions(context);
+        }
+
+        public EmployeeRequestsActions CreateEmployeeRequestsStorage()
+        {
+            return new EmployeeRequestsActions(context);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace UdvStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            PostgresContext.RegisterTypes();
             var connection = Configuration.GetConnectionString("PostgresConnection");
             services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
             services.AddAuthentication(auth =>
@@ -56,7 +57,7 @@ namespace UdvStore
             services.AddScoped<EmployeeCoinsActions>();
             services.AddScoped<ProductsActions>();
             services.AddScoped<AdminActions>();
-            services.AddScoped<EmployeeRequestActions>();
+            services.AddScoped<AllRequestActions>();
             services.AddScoped<IStorageActions, StorageActions>();
             services.AddScoped<AuthService>();
             services.AddScoped<CoinRequestService>();

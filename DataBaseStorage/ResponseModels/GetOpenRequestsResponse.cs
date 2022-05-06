@@ -2,9 +2,9 @@
 
 namespace DataBaseStorage.ResponseModels
 {
-    public class GetAllRequestsCoinsResponse
+    public class GetOpenRequestsResponse
     {
-        public EmployeeRequest EmployeeRequest { get; set; } 
+        public Request Request { get; set; } 
         public string Fio { get; set; }
     }
 }

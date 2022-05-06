@@ -2,7 +2,6 @@
 using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UdvStore.RequestModels;
 
 namespace UdvStore.Controllers
 {
@@ -38,20 +37,29 @@ namespace UdvStore.Controllers
         }
 
         [HttpGet]
-        [Route("getAll")]
+        [Route("getOpenRequests")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetAll()
+        public IActionResult GetOpenRequests()
         {
-            var res = coinRequestService.GetAllRequests();
+            var res = coinRequestService.GetOpenRequests();
             return Json(res);
+        }
+        
+        [HttpGet]
+        [Route("getClosedRequests")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetClosedRequests()
+        {
+            //TODO
+            throw new Exception();
         }
 
         [HttpPost]
         [Route("rejectRequest")]
         [Authorize(Roles = "Admin")]
-        public IActionResult RejectRequest(long idRequest)
+        public IActionResult RejectRequest(long idRequest, string comment)
         {
-            coinRequestService.RejectRequest(idRequest);
+            coinRequestService.RejectRequest(idRequest, comment);
             return new OkResult();
         }
     }

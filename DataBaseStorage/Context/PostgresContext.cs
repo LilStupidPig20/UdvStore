@@ -11,14 +11,22 @@ namespace DataBaseStorage.Context
         public virtual DbSet<EmployeeCoins> EmployeeCoins { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Request> AllRequests { get; set; }
         public virtual DbSet<EmployeeRequest> EmployeeRequests { get; set; }
 
-        static PostgresContext()
-            => NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>();
-        
+        // static PostgresContext()
+        //     => NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>();
+        // static PostgresContext()
+        //     => NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>();
+
         public PostgresContext(DbContextOptions<PostgresContext> options)
             : base(options)
         {
+        }
+
+        public static void RegisterTypes()
+        {
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,6 +40,7 @@ namespace DataBaseStorage.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             OnModelCreatingPartial(modelBuilder);
+            modelBuilder.HasPostgresEnum<RequestStatus>();
         }
  
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

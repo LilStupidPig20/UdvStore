@@ -9,7 +9,6 @@ namespace BusinessLayer.Services
     public class CoinRequestService
     {
         private readonly IStorageActions storage;
-        //TODO заменить в табличке isClosed на enum из Accepted, rejected, open
         public CoinRequestService(IStorageActions storage)
         {
             this.storage = storage;
@@ -18,43 +17,59 @@ namespace BusinessLayer.Services
         public void CreateRequest(string eventEntered, string description,
             long employeeId, DateTime time)
         {
-            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
-            employeeRequestStorage.Add(eventEntered, description,
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var request = allRequestsStorage.Add(eventEntered, description,
                 employeeId, time);
+
+            var employeeRequestsStorage = storage.CreateEmployeeRequestsStorage();
+            employeeRequestsStorage.Add(employeeId, request.Id);
         }
 
         public void AcceptRequest(long id, decimal coins)
         {
-            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
-            var request = employeeRequestStorage.CloseRequest(id);
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var request = allRequestsStorage.AcceptRequest(id);
             
             var employeeCoinsStorage = storage.CreateEmployeeCoinsStorage();
             employeeCoinsStorage.AddCoins(request.EmployeeId, coins);
         }
 
-        public List<GetAllRequestsCoinsResponse> GetAllRequests()
+        public List<GetOpenRequestsResponse> GetOpenRequests()
         {
-            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
-            var allRequests =  employeeRequestStorage.GetAll();
-
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var allRequests =  allRequestsStorage.GetOpen();
+            //TODO fix naming in DB, remove timeZone from DB
             var employeeStorage = storage.CreateEmployeeStorage();
-            var result = new List<GetAllRequestsCoinsResponse>();
+            var result = new List<GetOpenRequestsResponse>();
             foreach (var employeeRequest in allRequests)
             {
-                result.Add(new GetAllRequestsCoinsResponse
+                result.Add(new GetOpenRequestsResponse
                 {
-                    EmployeeRequest = employeeRequest,
-                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId)
+                    Request = employeeRequest,
+                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId),
                 });
             }
 
             return result;
         }
 
-        public void RejectRequest(long id)
+        public void GetClosedRequests()
         {
-            var employeeRequestStorage = storage.CreateEmployeeRequestStorage();
-            var request = employeeRequestStorage.CloseRequest(id);
+            //TODO
+        }
+
+        public void GetRequest()
+        {
+            //TODO, but maybe use method from Base?
+        }
+
+        public void RejectRequest(long id, string comment)
+        {
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var request = allRequestsStorage.RejectRequest(id);
+            
+            var employeeRequestsStorage = storage.CreateEmployeeRequestsStorage();
+            employeeRequestsStorage.AddCommentToRecord(request.Id, comment);
         }
     }
 }
