@@ -20,31 +20,35 @@ import FullRequestPage from './pages/FullRequestPage';
 export const useRoutes = (isAuthenticated, role, token) => {
     const [products, setProducts] = useState([]);
     const [oldReqs, setOldReqs] = useState([]);
-
+    const data = JSON.parse(localStorage.getItem('userData'));
+    
     useEffect(() => {
         fetch('https://localhost:5001/store/getAll')
             .then(res => res.json())
             .then(items => setProducts(items))
     }, []);
     
-    useEffect(() => {
-        if(role === 0) {
+    useEffect(() => { setTimeout(()=> {
+        if((data === null ? role : data.role) === 0) {
             fetch('https://localhost:5001/coinRequest/getAll', 
             {
-                headers: { 'Authorization': `Bearer ${token}`}
+                headers: { 'Authorization': `Bearer ${data === null ? token : data.token}`}
             })
                 .then(res => res.json())
                 .then(items => setOldReqs(items)) 
-        }
-    }, [role, token]);
+            }
+        }, 1000)
+        
+    }, [data, role, token]);
     
-    if (isAuthenticated) {
-        if (role === 0) {
+    console.log(window.location.pathname);
+    if (data === null ? isAuthenticated : !!data.token) {
+        if ((data === null ? role : data.role) === 0) {
             return (
                 <AdminLayout>
                     <Switch>
                         <Route path="/requests" exact>
-                            <RequestsPage />
+                            <RequestsPage requests={oldReqs} />
                         </Route>
                         <Route path="/history" exact>
                             <HistoryPage requests={oldReqs} />
@@ -102,7 +106,7 @@ export const useRoutes = (isAuthenticated, role, token) => {
     return (
         <NonAuthLayout>
             <Switch>
-                <Route path="/" exact>
+                <Route path="/login" exact>
                     <AuthPage />
                 </Route>
                 <Route path="/rules" >
@@ -111,7 +115,7 @@ export const useRoutes = (isAuthenticated, role, token) => {
                 <Route path="/store" >
                     <StorePage  products={products} />
                 </Route>
-                <Redirect to="/" />
+                <Redirect to="/login" />
             </Switch>
         </NonAuthLayout>
 

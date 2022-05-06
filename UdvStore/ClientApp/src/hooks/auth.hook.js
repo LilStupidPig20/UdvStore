@@ -37,12 +37,3 @@ export const useAuth = () => {
 
     return { login, logout, token, userId, fullName, role };
 }
-
-/*export const useRole = () => {
-    const [role, setRole] = useState(null);
-    const toggleRole = (num) => {
-        setRole(num);
-    };
-
-    return {role, toggleRole};
-}*/
