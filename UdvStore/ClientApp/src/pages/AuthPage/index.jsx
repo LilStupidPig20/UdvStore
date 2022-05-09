@@ -9,8 +9,12 @@ import { Navbar } from '../../components/Navbar';
 export const AuthPage = () => {
     const auth = useContext(AuthContext);
     const [fail, setFail] = useState(false);
-    const { loading, request, error } = useHttp();
+    const { loading, request } = useHttp();
     const [form, setForm] = useState({login: '', password: ''});
+
+    const pressEnter = (event) => {
+        if(event.keyCode === 13) document.getElementById('auth').click()
+    }
 
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
@@ -45,6 +49,7 @@ export const AuthPage = () => {
                         autoComplete='on'
                         autoFocus
                         onChange={changeHandler}
+                        onKeyUp={pressEnter}
                     />
                 </div>
                 <div className={styles.authBox}>
@@ -54,10 +59,16 @@ export const AuthPage = () => {
                         name='password'
                         type='password'
                         onChange={changeHandler}
+                        onKeyUp={pressEnter}
                     />
                 </div>
                 <div className={failText}>Неверный логин или пароль. Повторите попытку</div>
-                <button className={styles.loginButton} onClick={loginHandler} disabled={loading}>
+                <button 
+                    id='auth'
+                    className={styles.loginButton} 
+                    onClick={loginHandler} 
+                    disabled={loading}
+                >
                     Войти
                 </button>
             </div>

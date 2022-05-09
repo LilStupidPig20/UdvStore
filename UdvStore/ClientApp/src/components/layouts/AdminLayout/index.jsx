@@ -19,6 +19,9 @@ export default function AdminLayout ({ children }) {
                                 <Link to="/requests" className={styles.link}>Заявки</Link>
                             </li>
                             <li>
+                                <Link to="/history" className={styles.link}>История заявок</Link>
+                            </li>
+                            <li>
                                 <Link to="/orders" className={styles.link}>Заказы сотрудников</Link>
                             </li>
                             <li>
