@@ -50,8 +50,8 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult GetClosedRequests()
         {
-            //TODO
-            throw new Exception();
+            var res = coinRequestService.GetClosedRequests();
+            return Json(res);
         }
 
         [HttpPost]
@@ -61,6 +61,15 @@ namespace UdvStore.Controllers
         {
             coinRequestService.RejectRequest(idRequest, comment);
             return new OkResult();
+        }
+
+        [HttpGet]
+        [Route("getFullRequest")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetRequest(long idRequest)
+        {
+            var res = coinRequestService.GetRequest(idRequest);
+            return Json(res);
         }
     }
 }

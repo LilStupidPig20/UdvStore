@@ -14,11 +14,6 @@ namespace DataBaseStorage.Context
         public virtual DbSet<Request> AllRequests { get; set; }
         public virtual DbSet<EmployeeRequest> EmployeeRequests { get; set; }
 
-        // static PostgresContext()
-        //     => NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>();
-        // static PostgresContext()
-        //     => NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>();
-
         public PostgresContext(DbContextOptions<PostgresContext> options)
             : base(options)
         {

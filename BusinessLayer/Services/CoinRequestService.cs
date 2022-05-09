@@ -53,14 +53,30 @@ namespace BusinessLayer.Services
             return result;
         }
 
-        public void GetClosedRequests()
+        public List<GetClosedRequestsResponse> GetClosedRequests()
         {
-            //TODO
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var allRequests =  allRequestsStorage.GetClosed();
+            var employeeStorage = storage.CreateEmployeeStorage();
+            var result = new List<GetClosedRequestsResponse>();
+            foreach (var employeeRequest in allRequests)
+            {
+                result.Add(new GetClosedRequestsResponse
+                {
+                    Id = employeeRequest.Id, 
+                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId),
+                    TimeSend = employeeRequest.TimeSend
+                });
+            }
+
+            return result;
         }
 
-        public void GetRequest()
+        public Request GetRequest(long id)
         {
-            //TODO, but maybe use method from Base?
+            var allRequestsStorage = storage.CreateAllRequestStorage();
+            var request = allRequestsStorage.SearchById(id);
+            return request;
         }
 
         public void RejectRequest(long id, string comment)
