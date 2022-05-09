@@ -15,7 +15,7 @@ import { RequestStateContext } from './context/RequestStateContext';
 export const App = () => {
   const { login, logout, token, userId, fullName, role } = useAuth();
   const isAuthenticated = !!token;
-  const routes = useRoutes(isAuthenticated, role);
+  const routes = useRoutes(isAuthenticated, role, token);
   let { isActive, toggleActive } = useStatus();
   let { isClicked, toggleClicked } = useClicked();
   const [coinsAmount, setCoinsAmount] = useState('-1');

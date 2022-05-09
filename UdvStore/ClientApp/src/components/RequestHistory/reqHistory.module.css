@@ -1,0 +1,16 @@
+.request {
+    width: 830px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #302E2E;
+    margin-left: 85px;
+    margin-right: 85px;
+    padding: 16px 5px;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+}

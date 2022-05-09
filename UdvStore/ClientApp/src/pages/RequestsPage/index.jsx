@@ -1,22 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import RequestLayout from '../../components/layouts/RequestLayout';
 import { Navbar } from '../../components/Navbar';
 import { Request } from '../../components/Request';
-import { AuthContext } from '../../context/AuthContext';
 import styles from './requests.module.css';
 
-export const RequestsPage = () => {
-    const [requests, setRequests] = useState([]);
-    const auth = useContext(AuthContext);
-
-    useEffect(() => {
-        fetch('https://localhost:5001/coinRequest/getAll', 
-        {
-            headers: { 'Authorization': `Bearer ${auth.token}`}
-        })
-            .then(res => res.json())
-            .then(items => setRequests(items))
-    }, []);
+export default function RequestsPage ({requests=[]}) {
 
     return (
         <div className={styles.wrapper}>
@@ -45,6 +33,7 @@ export const RequestsPage = () => {
                                         />
                                 </RequestLayout>
                             }
+                            return '';
                         })}
                     </div>
                 </div>
