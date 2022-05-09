@@ -1,4 +1,5 @@
-﻿using DataBaseStorage.DbStorage;
+﻿using System.Threading.Tasks;
+using DataBaseStorage.DbStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace UdvStore.Controllers
     [Route("coins")]
     public class UserCoinsController : Controller
     {
-        private readonly EmployeeCoinsActions context;
+        private readonly EmployeeCoinsStorage context;
 
-        public UserCoinsController(EmployeeCoinsActions context)
+        public UserCoinsController(EmployeeCoinsStorage context)
         {
             this.context = context;
         }
@@ -18,9 +19,9 @@ namespace UdvStore.Controllers
         [HttpGet]
         [Route("get")]
         [Authorize(Roles = "User")]
-        public IActionResult GetUserCoins(long employeeId)
+        public async Task<IActionResult> GetUserCoins(long employeeId)
         {
-            var quantity = context.GetCurrentCoinsOfUser(employeeId);
+            var quantity = await context.GetCurrentCoinsOfUser(employeeId);
             return Json(quantity);
         }
     }

@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.Enums;
 using DataBaseStorage.ResponseModels;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class AdminActions : BaseActions<Admin>, IAdminActions
+    public class AdminStorage : BaseStorage<Admin>, IAdminActions
     {
-        public AdminActions(IDbContextFactory<PostgresContext> context) : base(context)
+        public AdminStorage(DBConfig dbConfig) : base(dbConfig)
         {
         }
         
-        public bool IsAdminWithEnteredDataExist(string login, string password)
+        public async Task<bool> IsAdminWithEnteredDataExist(string login, string password)
         {
-            using var context = DbContextFactory.CreateDbContext();
             try
             {
-                return context.Admins.Any(admin => admin.Login == login && admin.Password == password);
+                return await DbTable.AnyAsync(admin => admin.Login == login && admin.Password == password);
             }
             catch (Exception e)
             {
@@ -28,13 +30,12 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public LoginResponse FindAdminByLoginRequest(string login, string password)
+        public async Task<LoginResponse> FindAdminByLoginRequest(string login, string password)
         {
-            using var context = DbContextFactory.CreateDbContext();
             try
             {
-                var found = context.Admins
-                    .FirstOrDefault(admin => admin.Login == login && admin.Password == password);
+                var found = await DbTable
+                    .FirstOrDefaultAsync(admin => admin.Login == login && admin.Password == password);
                 return new LoginResponse
                 {
                     UserId = found.Id,
