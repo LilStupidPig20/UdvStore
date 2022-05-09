@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.StorageActions;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.ResponseModels;
@@ -14,78 +15,84 @@ namespace BusinessLayer.Services
             this.storage = storage;
         }
 
-        public void CreateRequest(string eventEntered, string description,
+        public async Task<bool> CreateRequest(string eventEntered, string description,
             long employeeId, DateTime time)
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var request = allRequestsStorage.Add(eventEntered, description,
+            var openRequestsStorage = storage.CreateOpenEmployeesRequestsStorage();
+            var request = await openRequestsStorage.Add(eventEntered, description,
                 employeeId, time);
-
-            var employeeRequestsStorage = storage.CreateEmployeeRequestsStorage();
-            employeeRequestsStorage.Add(employeeId, request.Id);
+            return true;
         }
 
-        public void AcceptRequest(long id, decimal coins)
+        public async Task<bool> AcceptRequest(long id, decimal coins)
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var request = allRequestsStorage.AcceptRequest(id);
+            var openRequestsStorage = storage.CreateOpenEmployeesRequestsStorage();
+            var openRequest = await openRequestsStorage.SearchByIdAsync(id);
+            await openRequestsStorage.DeleteAsync(id);
+            
+            var closedRequestsStorage = storage.CreateClosedEmployeesRequestsStorage();
+            var request = await closedRequestsStorage.AddAccepted(openRequest, coins);
             
             var employeeCoinsStorage = storage.CreateEmployeeCoinsStorage();
-            employeeCoinsStorage.AddCoins(request.EmployeeId, coins);
+            return await employeeCoinsStorage.AddCoins(request.EmployeeId, coins);
         }
 
-        public List<GetOpenRequestsResponse> GetOpenRequests()
+        public async Task<List<GetOpenRequestsResponse>> GetOpenRequests()
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var allRequests =  allRequestsStorage.GetOpen();
-            //TODO fix naming in DB, remove timeZone from DB
+            var openRequestsStorage = storage.CreateOpenEmployeesRequestsStorage();
+            var allRequests =  await openRequestsStorage.GetAll();
+
             var employeeStorage = storage.CreateEmployeeStorage();
+            
             var result = new List<GetOpenRequestsResponse>();
             foreach (var employeeRequest in allRequests)
             {
                 result.Add(new GetOpenRequestsResponse
                 {
                     Request = employeeRequest,
-                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId),
+                    Fio = await employeeStorage.GetFioById(employeeRequest.EmployeeId),
                 });
             }
 
             return result;
         }
 
-        public List<GetClosedRequestsResponse> GetClosedRequests()
+        public async Task<List<GetClosedRequestsResponse>> GetClosedRequests()
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var allRequests =  allRequestsStorage.GetClosed();
+            var closedRequestsStorage = storage.CreateClosedEmployeesRequestsStorage();
+            var allRequests = await closedRequestsStorage.GetAll();
+            
             var employeeStorage = storage.CreateEmployeeStorage();
+            
             var result = new List<GetClosedRequestsResponse>();
             foreach (var employeeRequest in allRequests)
             {
                 result.Add(new GetClosedRequestsResponse
                 {
                     Id = employeeRequest.Id, 
-                    Fio = employeeStorage.GetFioById(employeeRequest.EmployeeId),
-                    TimeSend = employeeRequest.TimeSend
+                    Fio = await employeeStorage.GetFioById(employeeRequest.EmployeeId),
+                    TimeSend = employeeRequest.TimeSent
                 });
             }
 
             return result;
         }
 
-        public Request GetRequest(long id)
+        public async Task<ClosedEmployeesRequest> GetClosedRequestInfo(long id)
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var request = allRequestsStorage.SearchById(id);
+            var closedRequestsStorage = storage.CreateClosedEmployeesRequestsStorage();
+            var request = await closedRequestsStorage.SearchByIdAsync(id);
             return request;
         }
 
-        public void RejectRequest(long id, string comment)
+        public async Task<bool> RejectRequest(long id, string comment)
         {
-            var allRequestsStorage = storage.CreateAllRequestStorage();
-            var request = allRequestsStorage.RejectRequest(id);
+            var openRequestsStorage = storage.CreateOpenEmployeesRequestsStorage();
+            var openRequest = await openRequestsStorage.SearchByIdAsync(id);
+            await openRequestsStorage.DeleteAsync(id);
             
-            var employeeRequestsStorage = storage.CreateEmployeeRequestsStorage();
-            employeeRequestsStorage.AddCommentToRecord(request.Id, comment);
+            var closedRequestsStorage = storage.CreateClosedEmployeesRequestsStorage();
+            return await closedRequestsStorage.AddRejected(openRequest, comment);
         }
     }
 }

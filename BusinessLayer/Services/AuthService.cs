@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using BusinessLayer.StorageActions;
 using DataBaseStorage.ResponseModels;
 
@@ -13,17 +14,17 @@ namespace BusinessLayer.Services
             this.storage = storage;
         }
 
-        public LoginResponse CheckUserByLoginRequest(string login, string password)
+        public async Task<LoginResponse> CheckUserByLoginRequest(string login, string password)
         {
             var employeeStorage = storage.CreateEmployeeStorage();
-            if (employeeStorage.IsUserWithEnteredDataExist(login, password))
+            if (await employeeStorage.IsUserWithEnteredDataExist(login, password))
             {
-                return employeeStorage.FindUserByLoginRequest(login, password);
+                return await employeeStorage.FindUserByLoginRequest(login, password);
             }
 
             var adminStorage = storage.CreateAdminStorage();
-            if (adminStorage.IsAdminWithEnteredDataExist(login, password))
-                return adminStorage.FindAdminByLoginRequest(login, password);
+            if (await adminStorage.IsAdminWithEnteredDataExist(login, password))
+                return await adminStorage.FindAdminByLoginRequest(login, password);
             return null;
         }
     }

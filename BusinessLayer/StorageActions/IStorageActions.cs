@@ -8,11 +8,13 @@ namespace BusinessLayer.StorageActions
 {
     public interface IStorageActions
     {
-        public EmployeeActions CreateEmployeeStorage();
-        public EmployeeCoinsActions CreateEmployeeCoinsStorage();
-        public ProductsActions CreateProductsStorage();
-        public AdminActions CreateAdminStorage();
-        public AllRequestActions CreateAllRequestStorage();
-        public EmployeeRequestsActions CreateEmployeeRequestsStorage();
+        public EmployeesStorage CreateEmployeeStorage();
+        public EmployeeCoinsStorage CreateEmployeeCoinsStorage();
+        public ProductsStorage CreateProductsStorage();
+        public AdminStorage CreateAdminStorage();
+        public OpenEmployeesRequestsStorage CreateOpenEmployeesRequestsStorage();
+        public ClosedEmployeesRequestsStorage CreateClosedEmployeesRequestsStorage();
+        public AdminAccrualStorage CreateAdminAccrualStorage();
+        public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage();
     }
 }
