@@ -1,4 +1,5 @@
-﻿using DataBaseStorage.Context;
+﻿using DataBaseStorage.ConfigurationDb;
+using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
@@ -7,38 +8,53 @@ namespace BusinessLayer.StorageActions
 {
     public class StorageActions : IStorageActions
     {
-        private readonly IDbContextFactory<PostgresContext> context;
+        private readonly DBConfig dbConfig;
 
-        public StorageActions(IDbContextFactory<PostgresContext> context)
+        public StorageActions(DBConfig dbConfig)
         {
-            this.context = context;
+            this.dbConfig = dbConfig;
         }
 
         //TODO перенести на интерфейсы и в стартапе собрать зависимости с интерфейсом
         //TODO в контроллеры пускать только сервисы, в которых уже определяются нужные storage
-        public EmployeeActions CreateEmployeeStorage()
+        public EmployeesStorage CreateEmployeeStorage()
         {
-            return new EmployeeActions(context);
+            return new EmployeesStorage(dbConfig);
         }
 
-        public EmployeeCoinsActions CreateEmployeeCoinsStorage()
+        public EmployeeCoinsStorage CreateEmployeeCoinsStorage()
         {
-            return new EmployeeCoinsActions(context);
+            return new EmployeeCoinsStorage(dbConfig);
         }
 
-        public ProductsActions CreateProductsStorage()
+        public ProductsStorage CreateProductsStorage()
         {
-            return new ProductsActions(context);
+            return new ProductsStorage(dbConfig);
         }
 
-        public AdminActions CreateAdminStorage()
+        public AdminStorage CreateAdminStorage()
         {
-            return new AdminActions(context);
+            return new AdminStorage(dbConfig);
         }
 
-        public EmployeeRequestActions CreateEmployeeRequestStorage()
+        public OpenEmployeesRequestsStorage CreateOpenEmployeesRequestsStorage()
         {
-            return new EmployeeRequestActions(context);
+            return new OpenEmployeesRequestsStorage(dbConfig);
+        }
+        
+        public ClosedEmployeesRequestsStorage CreateClosedEmployeesRequestsStorage()
+        {
+            return new ClosedEmployeesRequestsStorage(dbConfig);
+        }
+
+        public AdminAccrualStorage CreateAdminAccrualStorage()
+        {
+            return new AdminAccrualStorage(dbConfig);
+        }
+
+        public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage()
+        {
+            return new AdminAccrualEmployeeStorage(dbConfig);
         }
     }
 }

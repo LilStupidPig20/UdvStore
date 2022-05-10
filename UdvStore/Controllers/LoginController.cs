@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using BusinessLayer.Services;
 using DataBaseStorage.DbStorage;
 using DataBaseStorage.ResponseModels;
@@ -24,17 +25,17 @@ namespace UdvStore.Controllers
 
         [HttpPost]
         [Route("authenticate")]
-        public void Authentication([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Authentication([FromBody] LoginRequest loginRequest)
         {
             var login = loginRequest.Login;
             var password = loginRequest.Password;
             try
             {
-                var response = authService.CheckUserByLoginRequest(login, password);
+                var response = await authService.CheckUserByLoginRequest(login, password);
                 if (response == null)
                 {
                     Response.StatusCode = 400; 
-                    Response.WriteAsync("Неверный логин или пароль");
+                    await Response.WriteAsync("Неверный логин или пароль");
                 }
                 else
                 {
@@ -42,14 +43,16 @@ namespace UdvStore.Controllers
                     response.Token = token;
                     var jsonLoginResponse = CreateJsonLoginResponse(response);
                     Response.StatusCode = 200;
-                    Response.Body.WriteAsync(Encoding.UTF8.GetBytes(jsonLoginResponse));
+                    await Response.Body.WriteAsync(Encoding.UTF8.GetBytes(jsonLoginResponse));
                 }
             }
             catch (Exception e)
             {
                 Response.StatusCode = 500; 
-                Response.WriteAsync(e.Message);
+                await Response.WriteAsync(e.Message);
             }
+
+            return new OkResult();
         }
 
         private string CreateJsonLoginResponse(LoginResponse response)

@@ -1,8 +1,11 @@
 using System.Text;
 using BusinessLayer.Services;
 using BusinessLayer.StorageActions;
+using DataBaseStorage;
+using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
+using DataBaseStorage.Enums;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using UdvStore.Services;
 
 namespace UdvStore
@@ -32,7 +36,10 @@ namespace UdvStore
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
-            services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
+            RegisterTypes();
+            services.AddScoped<DBConfig>();
+            services.AddTransient(typeof(IBaseStorage<>), typeof(BaseStorage<>));
+            //services.AddDbContextFactory<BaseStorage<>>(options => options.UseNpgsql(connection));
             services.AddAuthentication(auth =>
                 {
                     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -52,14 +59,18 @@ namespace UdvStore
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     };
                 });
-            services.AddScoped<EmployeeActions>();
-            services.AddScoped<EmployeeCoinsActions>();
-            services.AddScoped<ProductsActions>();
-            services.AddScoped<AdminActions>();
-            services.AddScoped<EmployeeRequestActions>();
+            services.AddScoped<EmployeesStorage>();
+            services.AddScoped<EmployeeCoinsStorage>();
+            services.AddScoped<ProductsStorage>();
+            services.AddScoped<AdminStorage>();
+            services.AddScoped<OpenEmployeesRequestsStorage>();
+            services.AddScoped<ClosedEmployeesRequestsStorage>();
+            services.AddScoped<AdminAccrualStorage>();
+            services.AddScoped<AdminAccrualEmployeeStorage>();
             services.AddScoped<IStorageActions, StorageActions>();
             services.AddScoped<AuthService>();
             services.AddScoped<CoinRequestService>();
+            services.AddScoped<AdminAccrualService>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -103,6 +114,11 @@ namespace UdvStore
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+        }
+        
+        public static void RegisterTypes()
+        {
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
         }
     }
 }
