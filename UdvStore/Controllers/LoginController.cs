@@ -42,7 +42,7 @@ namespace UdvStore.Controllers
                     var token = TokenGenerator.Generate(response);
                     response.Token = token;
                     var jsonLoginResponse = CreateJsonLoginResponse(response);
-                    Response.StatusCode = 200;
+                    //Response.StatusCode = 200;
                     await Response.Body.WriteAsync(Encoding.UTF8.GetBytes(jsonLoginResponse));
                 }
             }
@@ -52,7 +52,7 @@ namespace UdvStore.Controllers
                 await Response.WriteAsync(e.Message);
             }
 
-            return new OkResult();
+            return new EmptyResult();
         }
 
         private string CreateJsonLoginResponse(LoginResponse response)
