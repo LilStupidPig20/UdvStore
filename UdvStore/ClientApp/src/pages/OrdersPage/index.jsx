@@ -6,7 +6,6 @@ export const OrdersPage = () => {
     return(
         <div className={styles.wrapper}>
             <Navbar />
-            
         </div>
     )
 }

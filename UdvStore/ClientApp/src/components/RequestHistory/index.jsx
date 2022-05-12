@@ -8,7 +8,7 @@ export default function RequestHistory({ fullName, requestId, event, description
         <Link to={`/history/${requestId}`} style={{ textDecoration: 'none' }}>
             <div className={styles.request}>
                 <div>{fullName}</div>
-                <div>{time.slice(0,-9)}</div>
+                <div>{String(time).slice(0,10)}</div>
             </div>
         </Link>
     )
