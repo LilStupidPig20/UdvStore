@@ -50,6 +50,7 @@ export const SendFormPage = () => {
                             required
                             autoFocus
                             autoComplete='off'
+                            placeholder='Текст...'
                             onChange={changeHandler}
                         />
                     </div>
@@ -61,6 +62,7 @@ export const SendFormPage = () => {
                             name='description'
                             autoComplete='off'
                             required
+                            placeholder='Текст...'
                             onChange={changeHandler}
                         />
                     </div>
@@ -76,6 +78,8 @@ export const SendFormPage = () => {
                             onChange={changeHandler}
                         />
                     </div>
+                    
+
                     <Link to="/result" className={styles.link}><button 
                         className={styles.sendButton}
                         type='submit'

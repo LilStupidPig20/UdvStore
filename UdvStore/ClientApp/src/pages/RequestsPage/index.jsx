@@ -10,17 +10,17 @@ export default function RequestsPage () {
     const auth = useContext(AuthContext);
     const data = JSON.parse(localStorage.getItem('userData'));
     useEffect(() => { 
-        if(data.role === 0) {
+        if(data === null ? (auth.role === 0) : (data.role === 0)) {
             fetch('https://localhost:5001/coinRequest/getOpenRequests', 
             {
                 headers: { 
-                    'Authorization': `Bearer ${data === null ? auth.token :data.token}`
+                    'Authorization': `Bearer ${data === null ? auth.token : data.token}`
                 }
             })
                 .then(res => res.json())
-                .then(items => setNewReqs(items)) 
+                .then(items => setNewReqs(items))
+                .catch(error => console.log(error)) 
         }
-        
     }, []);
 
     return (
@@ -35,18 +35,27 @@ export default function RequestsPage () {
                     </div>
                     <div className={styles.requests}>
                         {newReqs.map((req) => {
+                            let yyyy = req.request.timeSent.slice(0,4);
+                            let mm = req.request.timeSent.slice(5,7);
+                            let dd = req.request.timeSent.slice(8,10);
+
+                            let yyyyEvent = req.request.eventDate.slice(0,4);
+                            let mmEvent = req.request.eventDate.slice(5,7);
+                            let ddEvent = req.request.eventDate.slice(8,10);
+
+
                             return <RequestLayout
                                     event={req.request.event}
                                     requestId={req.request.id}
                                     description={req.request.description}
                                     employeeId={req.request.employeeId}
-                                    time={req.request.eventDate}
+                                    time={`${ddEvent}.${mmEvent}.${yyyyEvent}`}
                                     key={req.request.id}
                                 >
                                     <Request
                                         
                                         fullName={req.fio}
-                                        time={(req.request.timeSent).slice(0,-16)}
+                                        time={`${dd}.${mm}.${yyyy}`}
                                     />
                             </RequestLayout>
                         })}

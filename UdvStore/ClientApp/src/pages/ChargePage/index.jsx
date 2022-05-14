@@ -72,7 +72,7 @@ export const ChargePage = () => {
             <div className={styles.align}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>Форма</h1>
-                    <h2 className={styles.subTitle}>для зачисления UDV-coins сотрудников </h2>
+                    <h2 className={styles.subTitle}>для зачисления UDV-coins сотрудникам </h2>
                     <div className={styles.scroll}>
                         <div className={styles.eventCont}>
                             <label htmlFor='eventEntered' className={styles.eventTitle}>Мероприятие:</label>
@@ -83,6 +83,7 @@ export const ChargePage = () => {
                                 required
                                 autoFocus
                                 autoComplete='off'
+                                placeholder='Текст...'
                                 onChange={changeHandler}
                             />
                         </div>
@@ -106,6 +107,7 @@ export const ChargePage = () => {
                                 name='description'
                                 autoComplete='off'
                                 required
+                                maxLength='100'
                                 placeholder='Текст...'
                                 onChange={changeHandler}
                             />
@@ -126,17 +128,25 @@ export const ChargePage = () => {
                                     required
                                     list='users'
                                 />
-                                <datalist id='users'>
-
-                                </datalist>
-                            </div> 
+                                <datalist id='users' />
+                            </div>
                         </div>
-                        
+                        <div className={styles.scoreCont}>
+                            <label htmlFor='score' className={styles.scoreTitle}>Баллы: </label>
+                            <input 
+                                type='number' 
+                                id='score' 
+                                required
+                                onChange={changeHandler}
+                                className={styles.inputScore}
+                            />
+                            <div className={styles.score}>UC</div>
+                        </div>
                         <Link to="/result" className={styles.link}><button 
                             className={styles.sendButton}
                             type='submit'
                             //onClick={()=>{ sendRequest() }}
-                        >Отправить</button></Link>
+                        >Начислить</button></Link>
                     </div>
                 </div>
             </div>

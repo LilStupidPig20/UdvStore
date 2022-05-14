@@ -6,7 +6,6 @@ import { AuthContext } from "./context/AuthContext";
 import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
 import { useClicked, useStatus } from './hooks/status.hook';
-import './fonts/hero.css';
 import './custom.css';
 import { SendFormChecker } from './context/SendFormChecker';
 import { useForm } from './hooks/form.hook';
