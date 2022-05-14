@@ -7,9 +7,11 @@ export default function RequestLayout ({ children, requestId, event, description
     const auth = useContext(AuthContext);
     const isClicked = useContext(RequestStateContext).isClicked;
     const [num, setNum] = useState(0);
+    const [comment, setComment] = useState('');
     const [isModal, setModal] = useState(false);
     const [result, setResult] = useState(false);
     const [isError, setError] = useState(false);
+    const [isDeny, setDeny] = useState(false);
 
     const changeHandler = (event) => {
         setNum(event.target.value);
@@ -23,14 +25,17 @@ export default function RequestLayout ({ children, requestId, event, description
                     "Authorization": `Bearer ${auth.token}`
                 },
             };
-            fetch(`https://localhost:5001/coinRequest/rejectRequest?idRequest=${requestId}`, options)
-            .then(response => {
-                //if(response.ok) toggleSent(true);
-            })
-            .catch(error => {
-                console.log(error);
-                //toggleSent(false);
-            })
+            if(comment !== '') {
+                fetch(`https://localhost:5001/coinRequest/rejectRequest?idRequest=${requestId}&comment=${comment}`, options)
+                    .then(response => {
+                        if(response.ok) setError(false);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setError(true);
+                    })
+            }
+            setError(true);   
         }
     }
 
@@ -45,13 +50,13 @@ export default function RequestLayout ({ children, requestId, event, description
             };
             if (num !== 0) {
                 fetch(`https://localhost:5001/coinRequest/acceptRequest?idRequest=${requestId}&coinsNumber=${num}`, options)
-                .then(response => {
-                    if(response.ok) setError(false);
-                })
-                .catch(error => {
-                    console.log(error);
-                    setError(true);
-                })
+                    .then(response => {
+                        if(response.ok) setError(false);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        setError(true);
+                    })
             }
             setError(true);
         }
@@ -73,20 +78,20 @@ export default function RequestLayout ({ children, requestId, event, description
                     </div>
                 }
 
-                {isModal && result === true && isError === true &&
+                {isModal && isError === true &&
                     <div className={styles.modalLayout} onClick={()=>setModal(false)}>
                         <div className={styles.modalActive}>
                             <h1 className={styles.modalTitle}>Возникла ошибка!</h1>
                             <button 
                                 type='button'
-                                onClick={()=>{setModal(false); window.location.reload()}}
+                                onClick={()=>{setModal(false); setError(false);}}
                                 className={styles.modalButton}
                             >Повторить</button>
                         </div>
                     </div>
                 }
 
-                {isModal && result === false &&
+                {isModal && result === false && isError === false && isDeny === true &&
                     <div className={styles.modalLayout} onClick={()=>setModal(false)}>
                         <div className={styles.modalActive}>
                             <h1 className={styles.modalTitle}>Заявка отклонена!</h1>
@@ -98,11 +103,32 @@ export default function RequestLayout ({ children, requestId, event, description
                         </div>
                     </div>
                 }
+
+                {isModal && result === false && isError === false && isDeny === false &&
+                    <div className={styles.modalLayout}>
+                        <div className={styles.denyActive}>
+                            <h1 className={styles.denyTitle}>Причина отказа:</h1>
+                            <textarea 
+                                placeholder='Текст...' 
+                                className={styles.infoArea}
+                                onChange={(event) => setComment(event.target.value)}/>
+                            <button 
+                                type='button'
+                                onClick={()=>{
+                                    denyRequest();
+                                    setDeny(true);
+                                   }}
+                                className={styles.modalButton}
+                            >Отправить</button>
+                        </div>
+                    </div>
+                }
+
                 {isClicked && 
                     <div className={styles.requestCont}>
                         <div>Мероприятие: {event}</div>
                         <div>Описание активности: {description}</div>
-                        <div>Дата проведения мероприятия: {time.slice(0,-9)}</div>
+                        <div>Дата проведения мероприятия: {(time).slice(0,10)}</div>
                         <div className={styles.scoreCont}>
                             <label htmlFor='score'>Баллы: </label>
                             <input 
@@ -126,10 +152,10 @@ export default function RequestLayout ({ children, requestId, event, description
                             <button 
                                 type='submit' 
                                 className={styles.buttonDeny} 
-                                onClick={()=>{
-                                    denyRequest(); 
+                                onClick={()=>{ 
                                     setModal(true);
-                                    setResult(false)}}
+                                    setResult(false);
+                                    setDeny(false)}}
                             >Отклонить</button>
                         </div>
                     </div>

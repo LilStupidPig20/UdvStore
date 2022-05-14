@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar'
 import { ButtonStatesContext } from '../../context/ButtonStatesContext';
@@ -7,9 +7,9 @@ import styles from './charge.module.css'
 
 export const ChargePage = () => {
     const [form, setForm] = useState({eventEntered: '', description: '', time: '', employeeId: ''});
-    //const [isSent, toggleSent] = useState(false);
+    const [fios, setFios] = useState([]);
     let isActive = useContext(ButtonStatesContext).isActive;
-
+    const data = JSON.parse(localStorage.getItem('userData'));
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     };
@@ -21,10 +21,30 @@ export const ChargePage = () => {
         inp.className = styles.inputText;
         inp.id = 'fio';
         inp.placeholder = 'Текст...';
+        inp.setAttribute('list', 'users');
         cont.appendChild(inp);
     }
-        
-
+    
+    useEffect(() => {
+        if(data.role === 0) {
+            fetch('https://localhost:5001/adminAccrual/getAllEmployees', {
+                headers: { 
+                    'Authorization': `Bearer ${data.token}`
+                }
+            })
+            .then(res => res.json())
+            .then(items => setFios(items))
+        }
+    }, []);
+    let list = document.getElementById('users');
+    if(fios.length !== 0 && list.childElementCount === 0) {
+        for(let elem of fios) {
+            let opt = document.createElement('option')
+            opt.value = elem.fio;
+            opt.id = elem.id;
+            list.append(opt);
+        }
+    }
 
     /*const sendRequest = async () => {
         if(auth.role === 1) {
@@ -104,7 +124,11 @@ export const ChargePage = () => {
                                     placeholder='Текст...'
                                     className={styles.inputText}
                                     required
+                                    list='users'
                                 />
+                                <datalist id='users'>
+
+                                </datalist>
                             </div> 
                         </div>
                         

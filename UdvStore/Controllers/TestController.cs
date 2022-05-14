@@ -12,8 +12,8 @@ namespace UdvStore.Controllers
     [Route("test")]
     public class TestController : Controller
     {
-        private EmployeeActions repository;
-        public TestController(EmployeeActions repository)
+        private EmployeesStorage repository;
+        public TestController(EmployeesStorage repository)
         {
             this.repository = repository;
         }
@@ -21,9 +21,9 @@ namespace UdvStore.Controllers
         [HttpGet]
         [Route("getAllEmployees")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees()
         {
-            var list = repository.GetAll();
+            var list = await repository.GetAllAsync();
             return Json(list);
         }
     }

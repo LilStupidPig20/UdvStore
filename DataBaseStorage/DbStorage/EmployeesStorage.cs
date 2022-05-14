@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.Enums;
 using DataBaseStorage.ResponseModels;
 using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class EmployeeActions : BaseActions<Employee> , IEmployeeActions
+    public class EmployeesStorage : BaseStorage<Employee> , IEmployeeActions
     {
-        public EmployeeActions(IDbContextFactory<PostgresContext> context) : base(context)
+        public EmployeesStorage(DBConfig dbConfig) : base(dbConfig)
         {
         }
         
-        public bool IsUserWithEnteredDataExist(string login, string password)
+        public async Task<bool> IsUserWithEnteredDataExist(string login, string password)
         {
-            using var context = DbContextFactory.CreateDbContext();
             try
             {
-                return context.Employees.Any(user => user.Login == login && user.Password == password);
+                return await DbTable.AnyAsync(user => user.Login == login && user.Password == password);
             }
             catch (Exception e)
             {
@@ -28,13 +30,12 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public LoginResponse FindUserByLoginRequest(string login, string password)
+        public async Task<LoginResponse> FindUserByLoginRequest(string login, string password)
         {
-            using var context = DbContextFactory.CreateDbContext();
             try
             {
-                var found = context.Employees
-                    .FirstOrDefault(user => user.Login == login && user.Password == password);
+                var found = await DbTable
+                    .FirstOrDefaultAsync(user => user.Login == login && user.Password == password);
                 return new LoginResponse
                 {
                     UserId = found.Id,
@@ -50,12 +51,12 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public string GetFioById(long id)
+        public async Task<string> GetFioById(long id)
         {
-            using var context = DbContextFactory.CreateDbContext();
             try
             {
-                return context.Employees.FirstOrDefault(x => x.Id.Equals(id))?.Fio;
+                var user = await DbTable.FirstOrDefaultAsync(x => x.Id.Equals(id));
+                return user.Fio;
             }
             catch (Exception e)
             {

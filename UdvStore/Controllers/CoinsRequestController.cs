@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UdvStore.RequestModels;
 
 namespace UdvStore.Controllers
 {
@@ -20,10 +20,10 @@ namespace UdvStore.Controllers
         [HttpPost]
         [Route("sendToAdmin")]
         [Authorize(Roles = "User")]
-        public IActionResult SendRequestToAdmin(string eventEntered, string description,
+        public async Task<IActionResult> SendRequestToAdmin(string eventEntered, string description,
             long employeeId, DateTime time)
         {
-            coinRequestService.CreateRequest(eventEntered, description,
+            await coinRequestService.CreateRequest(eventEntered, description,
                 employeeId, time);
             return new OkResult();
         }
@@ -31,28 +31,46 @@ namespace UdvStore.Controllers
         [HttpPost]
         [Route("acceptRequest")]
         [Authorize(Roles = "Admin")]
-        public IActionResult AcceptRequest(long idRequest, decimal coinsNumber)
+        public async Task<IActionResult> AcceptRequest(long idRequest, decimal coinsNumber)
         {
-            coinRequestService.AcceptRequest(idRequest, coinsNumber);
+            await coinRequestService.AcceptRequest(idRequest, coinsNumber);
             return new OkResult();
         }
 
         [HttpGet]
-        [Route("getAll")]
+        [Route("getOpenRequests")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetOpenRequests()
         {
-            var res = coinRequestService.GetAllRequests();
+            var res = await coinRequestService.GetOpenRequests();
+            return Json(res);
+        }
+        
+        [HttpGet]
+        [Route("getClosedRequests")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetClosedRequests()
+        {
+            var res = await coinRequestService.GetClosedRequests();
             return Json(res);
         }
 
         [HttpPost]
         [Route("rejectRequest")]
         [Authorize(Roles = "Admin")]
-        public IActionResult RejectRequest(long idRequest)
+        public async Task<IActionResult> RejectRequest(long idRequest, string comment)
         {
-            coinRequestService.RejectRequest(idRequest);
+            await coinRequestService.RejectRequest(idRequest, comment);
             return new OkResult();
+        }
+
+        [HttpGet]
+        [Route("getFullRequest")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetRequest(long idRequest)
+        {
+            var res = await coinRequestService.GetClosedRequestInfo(idRequest);
+            return Json(res);
         }
     }
 }
