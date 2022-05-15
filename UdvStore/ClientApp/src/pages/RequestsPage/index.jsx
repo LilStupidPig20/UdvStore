@@ -19,7 +19,7 @@ export default function RequestsPage () {
             })
                 .then(res => res.json())
                 .then(items => setNewReqs(items))
-                .catch(error => console.log(error)) 
+                .catch(error => auth.logout())
         }
     }, []);
 

@@ -24,6 +24,7 @@
     width: 900px;
     padding: 50px;
     margin: 45px auto;
+    margin-top: -40px;
     box-shadow: 0px -10px 50px rgba(255, 255, 255, 0.4);
     border-radius: 40px;
     background: rgba(30, 30, 30, 0.8);

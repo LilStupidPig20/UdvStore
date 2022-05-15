@@ -17,7 +17,7 @@ import { HistoryPage } from './pages/HistoryPage';
 import FullRequestPage from './pages/FullRequestPage';
 
 
-export const useRoutes = (isAuthenticated, role, token) => {
+export const useRoutes = (isAuthenticated, role) => {
     const [products, setProducts] = useState([]);
     
     const data = JSON.parse(localStorage.getItem('userData'));

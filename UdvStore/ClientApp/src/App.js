@@ -12,9 +12,9 @@ import { useForm } from './hooks/form.hook';
 import { RequestStateContext } from './context/RequestStateContext';
 
 export const App = () => {
-  const { login, logout, token, userId, fullName, role } = useAuth();
+  const { login, logout, token, userId, fullName, role, position } = useAuth();
   const isAuthenticated = !!token;
-  const routes = useRoutes(isAuthenticated, role, token);
+  const routes = useRoutes(isAuthenticated, role);
   let { isActive, toggleActive } = useStatus();
   let { isClicked, toggleClicked } = useClicked();
   const [coinsAmount, setCoinsAmount] = useState('-1');
@@ -32,12 +32,12 @@ export const App = () => {
         .then(money => {
           setCoinsAmount(String(money));
         })
-        .catch((e) => logout());
+        .catch(error => logout())
     }
   }, [isAuthenticated, role, token, userId, logout])
 
   return (
-    <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated, position }}>
       <ButtonStatesContext.Provider value={{ isActive, toggleActive }}>
         <RequestStateContext.Provider value={{ isClicked, toggleClicked}}>
           <CoinsContext.Provider value={{ coinsAmount }}>

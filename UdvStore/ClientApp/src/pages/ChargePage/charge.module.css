@@ -173,7 +173,6 @@ input[type="date"]::-webkit-datetime-edit-day-field {
     letter-spacing: 0.07em;
     color: #1E1E1E;
     padding-left: 16px;
-    padding-right: 8px;
 }
 
 .fioCont {

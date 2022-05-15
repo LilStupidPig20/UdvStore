@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
+import { AuthContext } from '../../context/AuthContext';
 import styles from './fullRequest.module.css'
 
 export default function FullRequestPage() {
     const { requestId } = useParams(); 
     const [request, setRequest] = useState({});
+    const auth = useContext(AuthContext);
     const data = JSON.parse(localStorage.getItem('userData'));
     useEffect(() => { 
         if(data.role === 0) {
@@ -17,6 +19,7 @@ export default function FullRequestPage() {
             })
                 .then(res => res.json())
                 .then(item => setRequest(item))
+                .catch(error => auth.logout())
         }
     }, [])
 

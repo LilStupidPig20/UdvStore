@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar'
+import { AuthContext } from '../../context/AuthContext';
 import { ButtonStatesContext } from '../../context/ButtonStatesContext';
 import styles from './charge.module.css'
 
@@ -8,6 +9,7 @@ import styles from './charge.module.css'
 export const ChargePage = () => {
     const [form, setForm] = useState({eventEntered: '', description: '', time: '', employeeId: ''});
     const [fios, setFios] = useState([]);
+    const auth = useContext(AuthContext);
     let isActive = useContext(ButtonStatesContext).isActive;
     const data = JSON.parse(localStorage.getItem('userData'));
     const changeHandler = (event) => {
@@ -34,6 +36,7 @@ export const ChargePage = () => {
             })
             .then(res => res.json())
             .then(items => setFios(items))
+            .catch(error => auth.logout())
         }
     }, []);
     let list = document.getElementById('users');
