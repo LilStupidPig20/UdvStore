@@ -15,6 +15,7 @@ import { OrdersPage } from './pages/OrdersPage';
 import { ChargePage } from './pages/ChargePage';
 import { HistoryPage } from './pages/HistoryPage';
 import FullRequestPage from './pages/FullRequestPage';
+import CartPage from './pages/CartPage/index';
 
 
 export const useRoutes = (isAuthenticated, role, token) => {
@@ -73,6 +74,9 @@ export const useRoutes = (isAuthenticated, role, token) => {
                     </Route>
                     <Route path="/store/:productId" >
                         <ProductPage products={products} />
+                    </Route>
+                    <Route path="/cart" exact>
+                        <CartPage/>
                     </Route>
                     <Route path="/sendForm">
                         <SendFormPage />
