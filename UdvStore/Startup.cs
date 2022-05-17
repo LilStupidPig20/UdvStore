@@ -6,14 +6,10 @@ using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
 using DataBaseStorage.Enums;
-using DataBaseStorage.StoragesInterfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -67,11 +63,16 @@ namespace UdvStore
             services.AddScoped<ClosedEmployeesRequestsStorage>();
             services.AddScoped<AdminAccrualStorage>();
             services.AddScoped<AdminAccrualEmployeeStorage>();
+            services.AddScoped<ClosedOrdersStorage>();
+            services.AddScoped<ClothesProductStorage>();
+            services.AddScoped<OrdersInWorkStorage>();
+            
             services.AddScoped<IStorageActions, StorageActions>();
             services.AddScoped<AuthService>();
             services.AddScoped<CoinRequestService>();
             services.AddScoped<AdminAccrualService>();
-            services.AddControllersWithViews();
+            
+            services.AddControllers();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -119,6 +120,8 @@ namespace UdvStore
         public static void RegisterTypes()
         {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<ClosedOrderStatus>("ClosedOrderStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<InWorkOrderStatus>("InWorkOrderStatus");
         }
     }
 }

@@ -24,5 +24,8 @@ namespace DataBaseStorage.DbModels
         
         [Column("image")]
         public string Image { get; set; }
+        
+        [Column("isClothes")]
+        public bool IsClothes { get; set; }
     }
 }
