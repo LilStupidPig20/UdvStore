@@ -14,9 +14,7 @@ namespace BusinessLayer.StorageActions
         {
             this.dbConfig = dbConfig;
         }
-
-        //TODO перенести на интерфейсы и в стартапе собрать зависимости с интерфейсом
-        //TODO в контроллеры пускать только сервисы, в которых уже определяются нужные storage
+        
         public EmployeesStorage CreateEmployeeStorage()
         {
             return new EmployeesStorage(dbConfig);
@@ -55,6 +53,21 @@ namespace BusinessLayer.StorageActions
         public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage()
         {
             return new AdminAccrualEmployeeStorage(dbConfig);
+        }
+
+        public ClosedOrdersStorage CreateClosedOrdersStorage()
+        {
+            return new ClosedOrdersStorage(dbConfig);
+        }
+
+        public ClothesProductStorage CreateClothesProductStorage()
+        {
+            return new ClothesProductStorage(dbConfig);
+        }
+
+        public OrdersInWorkStorage CreateOrdersInWorkStorage()
+        {
+            return new OrdersInWorkStorage(dbConfig);
         }
     }
 }

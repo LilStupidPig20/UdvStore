@@ -16,5 +16,8 @@ namespace BusinessLayer.StorageActions
         public ClosedEmployeesRequestsStorage CreateClosedEmployeesRequestsStorage();
         public AdminAccrualStorage CreateAdminAccrualStorage();
         public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage();
+        public ClosedOrdersStorage CreateClosedOrdersStorage();
+        public ClothesProductStorage CreateClothesProductStorage();
+        public OrdersInWorkStorage CreateOrdersInWorkStorage();
     }
 }

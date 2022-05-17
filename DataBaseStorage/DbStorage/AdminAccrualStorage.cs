@@ -16,7 +16,7 @@ namespace DataBaseStorage.DbStorage
         {
             var accrual = new AdminAccrual
             {
-                Id = await GetLastIdAsync(),
+                Id = await GetLastIdAsync() + 1,
                 Description = description,
                 DateOfEvent = dateOfEvent,
                 Coins = coinsNumber,

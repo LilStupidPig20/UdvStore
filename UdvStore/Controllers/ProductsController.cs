@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DataBaseStorage.DbStorage;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -22,6 +23,13 @@ namespace UdvStore.Controllers
         {
             var products = await context.GetProductsWithoutDescription();
             return Json(products);
+        }
+        
+        [HttpGet]
+        [Route("getFullInfo")]
+        public async Task<IActionResult> GetFullInfo()
+        {
+            throw new NotImplementedException();
         }
     }
 }
