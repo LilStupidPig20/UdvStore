@@ -23,11 +23,11 @@ namespace BusinessLayer.Services
             return await employeesStorage.GetAllAsync();
         }
         
-        public async Task<bool> AccrualCoinsToEmployees(string description, decimal coins,
+        public async Task<bool> AccrualCoinsToEmployees(string nameOfEvent, string description, decimal coins,
             DateTime dateOfEvent, List<long> employeesIds)
         {
             var adminAccrualStorage = storage.CreateAdminAccrualStorage();
-            var accrualId = await adminAccrualStorage.AddNewAccrual(description, coins, dateOfEvent);
+            var accrualId = await adminAccrualStorage.AddNewAccrual(nameOfEvent, description, coins, dateOfEvent);
 
             var adminAccrualEmployeeStorage = storage.CreateAdminAccrualEmployeeStorage();
             await adminAccrualEmployeeStorage.AddWithSeveralEmployees(accrualId, employeesIds);
