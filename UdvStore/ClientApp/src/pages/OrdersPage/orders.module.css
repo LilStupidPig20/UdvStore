@@ -5,3 +5,44 @@
     height: 100vh; 
     width: 100%;
 }
+
+.align {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.requestsWindow {
+    width: 1000px;
+    height: 600px;
+    background: #ffffff;
+    border-radius: 36px;
+}
+
+.title {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    color: #302E2E;
+}
+
+.requestsTitle {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 90px;
+    padding-right: 90px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #302E2E;
+}
+
+.orders {
+    overflow: auto;
+    height: 450px;
+}

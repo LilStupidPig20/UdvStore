@@ -54,3 +54,9 @@
     font-weight: 400;
     cursor: pointer;
 }
+
+.logo_container {
+    width: 143px;
+    height: 56px;
+    margin-left: -50px;
+}

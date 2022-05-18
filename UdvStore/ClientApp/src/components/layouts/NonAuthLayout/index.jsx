@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ButtonStatesContext } from "../../../context/ButtonStatesContext";
 import styles from './nonAuthLayout.module.css';
+import { Logo } from '../../Logo';
 
 export default function NonAuthLayout ({ children }) {
     let context = useContext(ButtonStatesContext);
@@ -12,6 +13,9 @@ export default function NonAuthLayout ({ children }) {
                 {isActive &&
                     <div className={styles.overlay}>
                         <div className={styles.drawer}>
+                            <div className={styles.logo_container}>
+                                <Logo />
+                            </div>
                             <ul className={styles.navMenu}>
                                 <li>
                                     <Link to="/" className={styles.link}>Главная</Link>

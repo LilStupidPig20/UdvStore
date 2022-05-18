@@ -20,6 +20,9 @@
     text-decoration: none;
     color: #fff;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
@@ -33,29 +36,7 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    grid-template-rows: 1fr 0.9fr;
-    gap: 20px;
-}
-
-.subTitle {
-    font-size: 34px;
-    font-weight: 700;
-    margin: 0 0 16px;
-}
-
-.balance {
-    padding: 30px 50px;
-    width: 430px;
-    border-radius: 15px;
-    background-color: #1E1E1E;
-
-    font-size: 40px;
-    font-weight: 700;
-    color: #00D29D;
-}
-
-.money {
-    font-size: 80px;
+    margin-left: 20px;
 }
 
 .profileImg {
@@ -64,23 +45,84 @@
     border-radius: 270px;
 }
 
-.userName {
-    font-size: 38px;
-}
-
-.buttons {
-    height: 100%
-}
-
-.button {
-    width: 470px;
-    border: #00D29D solid 2px;
+.userInfo {
+    background: #000000;
+    box-shadow: 0px 0px 25px rgba(0, 210, 157, 0.7);
     border-radius: 15px;
-    padding: 10px;
-    margin-bottom: 25px;
-    background-color: #1E1E1E;
-    font-size: 28px;
-    color: #fff;
+    width: 430px;
+    padding: 18px;
+}
+
+.fullName {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    color: #FFFFFF;
+    margin-bottom: 5px;
+}
+
+.position {
+    font-family: 'Hero';
+    font-style: normal;
     font-weight: 400;
-    cursor: pointer;
+    font-size: 30px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+
+.balance {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+
+.coins {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #00D29D;
+}
+
+.greenBack {
+    width: 150px;
+    height: 150px;
+    background-color: #00D29D;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.imageText {
+    width: 140px;
+    text-align: center;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.buttonsCont {
+    width: 830px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 5%;
+}
+
+.image {
+    width: 75px;
+    height: 75px;
 }

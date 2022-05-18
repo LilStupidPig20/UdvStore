@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RequestLayout from '../../components/layouts/RequestLayout';
 import { Navbar } from '../../components/Navbar';
 import { Request } from '../../components/Request';
+import { AuthContext } from '../../context/AuthContext';
 import styles from './requests.module.css';
 
-export default function RequestsPage ({requests=[]}) {
+export default function RequestsPage () {
+    const [newReqs, setNewReqs] = useState([]); 
+    const auth = useContext(AuthContext);
+    const data = JSON.parse(localStorage.getItem('userData'));
+    useEffect(() => { 
+        if(data === null ? (auth.role === 0) : (data.role === 0)) {
+            fetch('https://localhost:5001/coinRequest/getOpenRequests', 
+            {
+                headers: { 
+                    'Authorization': `Bearer ${data === null ? auth.token : data.token}`
+                }
+            })
+                .then(res => res.json())
+                .then(items => setNewReqs(items))
+                .catch(error => auth.logout())
+        }
+    }, []);
 
     return (
         <div className={styles.wrapper}>
@@ -17,23 +34,30 @@ export default function RequestsPage ({requests=[]}) {
                         <div>Дата заявки</div>
                     </div>
                     <div className={styles.requests}>
-                        {requests.map((request) => {
-                            if(request.employeeRequest.isOpen) {
-                                return <RequestLayout
-                                        event={request.employeeRequest.event}
-                                        requestId={request.employeeRequest.id}
-                                        description={request.employeeRequest.description}
-                                        employeeId={request.employeeRequest.employeeId}
-                                        isOpen={request.employeeRequest.isOpen}
-                                        time={request.employeeRequest.time}
-                                    >
-                                        <Request
-                                            fullName={request.fio}
-                                            time={request.employeeRequest.time}
-                                        />
-                                </RequestLayout>
-                            }
-                            return '';
+                        {newReqs.map((req) => {
+                            let yyyy = req.request.timeSent.slice(0,4);
+                            let mm = req.request.timeSent.slice(5,7);
+                            let dd = req.request.timeSent.slice(8,10);
+
+                            let yyyyEvent = req.request.eventDate.slice(0,4);
+                            let mmEvent = req.request.eventDate.slice(5,7);
+                            let ddEvent = req.request.eventDate.slice(8,10);
+
+
+                            return <RequestLayout
+                                    event={req.request.event}
+                                    requestId={req.request.id}
+                                    description={req.request.description}
+                                    employeeId={req.request.employeeId}
+                                    time={`${ddEvent}.${mmEvent}.${yyyyEvent}`}
+                                    key={req.request.id}
+                                >
+                                    <Request
+                                        
+                                        fullName={req.fio}
+                                        time={`${dd}.${mm}.${yyyy}`}
+                                    />
+                            </RequestLayout>
                         })}
                     </div>
                 </div>

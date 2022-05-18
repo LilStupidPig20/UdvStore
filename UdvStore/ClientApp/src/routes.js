@@ -17,9 +17,9 @@ import { HistoryPage } from './pages/HistoryPage';
 import FullRequestPage from './pages/FullRequestPage';
 
 
-export const useRoutes = (isAuthenticated, role, token) => {
+export const useRoutes = (isAuthenticated, role) => {
     const [products, setProducts] = useState([]);
-    const [oldReqs, setOldReqs] = useState([]);
+    
     const data = JSON.parse(localStorage.getItem('userData'));
     
     useEffect(() => {
@@ -28,18 +28,7 @@ export const useRoutes = (isAuthenticated, role, token) => {
             .then(items => setProducts(items))
     }, []);
 
-    useEffect(() => { setTimeout(()=> {
-        if((data === null ? role : data.role) === 0) {
-            fetch('https://localhost:5001/coinRequest/getAll', 
-            {
-                headers: { 'Authorization': `Bearer ${data === null ? token : data.token}`}
-            })
-                .then(res => res.json())
-                .then(items => setOldReqs(items)) 
-            }
-        }, 1000)
-        
-    }, [data, role, token]);
+    
     
     console.log(window.location.pathname);
     if (data === null ? isAuthenticated : !!data.token) {
@@ -48,13 +37,13 @@ export const useRoutes = (isAuthenticated, role, token) => {
                 <AdminLayout>
                     <Switch>
                         <Route path="/requests" exact>
-                            <RequestsPage requests={oldReqs} />
+                            <RequestsPage />
                         </Route>
                         <Route path="/history" exact>
-                            <HistoryPage requests={oldReqs} />
+                            <HistoryPage />
                         </Route>
                         <Route path="/history/:requestId" >
-                            <FullRequestPage requests = {oldReqs}/>
+                            <FullRequestPage />
                         </Route>
                         <Route path="/orders" exact>
                             <OrdersPage />

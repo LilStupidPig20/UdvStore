@@ -23,7 +23,7 @@ export const SendFormPage = () => {
                 },
                 body: JSON.stringify(form)
             };
-            fetch(`/coinRequest/sendToAdmin?eventEntered=${form.eventEntered}&description=${form.description}&employeeId=${form.employeeId}&time=${form.time}T12:00:00`, options)
+            fetch(`/coinRequest/sendToAdmin?eventEntered=${form.eventEntered}&description=${form.description}&employeeId=${auth.userId}&time=${form.time}`, options)
             .then(response => {
                 if(response.ok) toggleSent(true);
             })
@@ -50,6 +50,7 @@ export const SendFormPage = () => {
                             required
                             autoFocus
                             autoComplete='off'
+                            placeholder='Текст...'
                             onChange={changeHandler}
                         />
                     </div>
@@ -61,6 +62,7 @@ export const SendFormPage = () => {
                             name='description'
                             autoComplete='off'
                             required
+                            placeholder='Текст...'
                             onChange={changeHandler}
                         />
                     </div>
@@ -76,30 +78,8 @@ export const SendFormPage = () => {
                             onChange={changeHandler}
                         />
                     </div>
-                    {/* <div className={styles.fioCont}>
-                        <label htmlFor='lastName' className={styles.inputTextTitle}>Фамилия:</label>
-                        <input 
-                            type='text' 
-                            id='lastName' 
-                            className={styles.inputText}
-                        />
-                    </div>
-                    <div className={styles.fioCont}>
-                        <label htmlFor='firstName' className={styles.inputTextTitle}>Имя:</label>
-                        <input 
-                            type='text' 
-                            id='firstName' 
-                            className={styles.inputText}
-                        />
-                    </div>
-                    <div className={styles.fioCont}>
-                        <label htmlFor='midName' className={styles.inputTextTitle}>Отчество:</label>
-                        <input 
-                            type='text' 
-                            id='midName' 
-                            className={styles.inputText}
-                        />
-                    </div> */}
+                    
+
                     <Link to="/result" className={styles.link}><button 
                         className={styles.sendButton}
                         type='submit'
