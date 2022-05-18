@@ -7,26 +7,57 @@ import styles from './charge.module.css'
 
 
 export const ChargePage = () => {
-    const [form, setForm] = useState({eventEntered: '', description: '', time: '', employeeId: ''});
+    const [ids, setIds] = useState([]);
+    const [form, setForm] = useState({nameOfEvent: '', description: '', coins: '', dateOfEvent: '', employeesIds: []});
     const [fios, setFios] = useState([]);
+    let count = 1;
+
     const auth = useContext(AuthContext);
     let isActive = useContext(ButtonStatesContext).isActive;
     const data = JSON.parse(localStorage.getItem('userData'));
+
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     };
 
+    console.log(form);
     const addFioInput = () => {
         let cont = document.getElementById('fioCont');
         let inp = document.createElement('input');
+        count += 1;
+        inp.id = `input${count}`;
         inp.type = 'text';
+        inp.name = 'employeesIds'
         inp.className = styles.inputText;
-        inp.id = 'fio';
         inp.placeholder = 'Текст...';
+        inp.addEventListener('input', addToArray);
         inp.setAttribute('list', 'users');
         cont.appendChild(inp);
     }
     
+    const addToArray = (event) => {
+        let inp = document.getElementById(event.target.id);
+        let opts = document.getElementById('users').childNodes;
+        console.log(inp)
+        console.log(opts);
+        console.log(event.target);
+        for (var i = 0; i < opts.length; i++) {
+            if (opts[i].value === inp.value) {
+              alert(opts[i].value);
+              setIds(prev => ([...prev, opts[i].id]));
+              console.log(ids);
+              
+              ;
+              break;
+            }
+        }
+        
+    }
+
+    useEffect(()=> {
+        form.employeesIds = ids
+    }, [ids])
+
     useEffect(() => {
         if(data.role === 0) {
             fetch('https://localhost:5001/adminAccrual/getAllEmployees', {
@@ -40,34 +71,34 @@ export const ChargePage = () => {
         }
     }, []);
     let list = document.getElementById('users');
+    
     if(fios.length !== 0 && list.childElementCount === 0) {
         for(let elem of fios) {
             let opt = document.createElement('option')
             opt.value = elem.fio;
             opt.id = elem.id;
+            opt.addEventListener('click', addToArray)
             list.append(opt);
         }
     }
-
-    /*const sendRequest = async () => {
-        if(auth.role === 1) {
+    
+    const sendRequest = async () => {
+        if(auth.role === 0) {
             const options = {
                 method: 'POST',
                 headers: {
+                    "Content-Type": 'application/json',
                     "Authorization": `Bearer ${auth.token}`
                 },
                 body: JSON.stringify(form)
             };
-            fetch(`/coinRequest/sendToAdmin?eventEntered=${form.eventEntered}&description=${form.description}&employeeId=${form.employeeId}&time=${form.time}T12:00:00`, options)
+            fetch('https://localhost:5001/adminAccrual/accrualCoinsToUsers', options)
             .then(response => {
-                if(response.ok) toggleSent(true);
+                if(response.ok) ;
             })
-            .catch(error => {
-                console.log(error);
-                toggleSent(false);
-            })
+            .catch(error => auth.logout())
         }
-    }*/
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -81,8 +112,8 @@ export const ChargePage = () => {
                             <label htmlFor='eventEntered' className={styles.eventTitle}>Мероприятие:</label>
                             <input 
                                 className={styles.eventInput} 
-                                id="eventEntered" 
-                                name='eventEntered'
+                                id="nameOfEvent" 
+                                name='nameOfEvent'
                                 required
                                 autoFocus
                                 autoComplete='off'
@@ -95,8 +126,8 @@ export const ChargePage = () => {
                             <input 
                                 className={styles.inputDate}
                                 type='date' 
-                                id='time' 
-                                name='time'
+                                id='dateOfEvent' 
+                                name='dateOfEvent'
                                 max={new Date().toISOString().substring(0, 10)}
                                 required
                                 onChange={changeHandler}
@@ -125,11 +156,13 @@ export const ChargePage = () => {
                                 <label htmlFor='fio' className={styles.inputTextTitle}>ФИО сотрудника:</label>
                                 <input 
                                     type='text' 
-                                    id='fio' 
+                                    id='input1'
+                                    name='employeesIds'
                                     placeholder='Текст...'
                                     className={styles.inputText}
                                     required
                                     list='users'
+                                    onInput={addToArray}
                                 />
                                 <datalist id='users' />
                             </div>
@@ -138,7 +171,8 @@ export const ChargePage = () => {
                             <label htmlFor='score' className={styles.scoreTitle}>Баллы: </label>
                             <input 
                                 type='number' 
-                                id='score' 
+                                id='coins' 
+                                name='coins'
                                 required
                                 onChange={changeHandler}
                                 className={styles.inputScore}
@@ -148,7 +182,7 @@ export const ChargePage = () => {
                         <Link to="/result" className={styles.link}><button 
                             className={styles.sendButton}
                             type='submit'
-                            //onClick={()=>{ sendRequest() }}
+                            onClick={()=>{ sendRequest() }}
                         >Начислить</button></Link>
                     </div>
                 </div>
