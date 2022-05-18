@@ -12,7 +12,7 @@ namespace DataBaseStorage.DbStorage
         {
         }
 
-        public async Task<long> AddNewAccrual(string description, decimal coinsNumber, DateTime dateOfEvent)
+        public async Task<long> AddNewAccrual(string nameOfEvent, string description, decimal coinsNumber, DateTime dateOfEvent)
         {
             var accrual = new AdminAccrual
             {
@@ -20,7 +20,8 @@ namespace DataBaseStorage.DbStorage
                 Description = description,
                 DateOfEvent = dateOfEvent,
                 Coins = coinsNumber,
-                TimeSent = DateTime.Now
+                TimeSent = DateTime.Now,
+                NameOfEvent = nameOfEvent
             };
             await AddAsync(accrual);
             return accrual.Id;

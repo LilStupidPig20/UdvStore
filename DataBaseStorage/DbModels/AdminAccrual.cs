@@ -22,5 +22,8 @@ namespace DataBaseStorage.DbModels
         
         [Column("timeSent")]
         public DateTime TimeSent { get; set; }
+        
+        [Column("nameOfEvent")]
+        public string NameOfEvent { get; set; }
     }
 }

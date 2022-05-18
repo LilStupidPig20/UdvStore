@@ -33,7 +33,7 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AccrualCoinsToUser(AccrualToUsersModel accrualRequest)
         {
-            await accrualService.AccrualCoinsToEmployees(accrualRequest.Description, accrualRequest.Coins,
+            await accrualService.AccrualCoinsToEmployees(accrualRequest.NameOfEvent, accrualRequest.Description, accrualRequest.Coins,
                 accrualRequest.DateOfEvent, accrualRequest.EmployeesIds);
             return new OkResult();
         }
