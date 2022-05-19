@@ -148,6 +148,30 @@ input[type=number]::-webkit-inner-spin-button {
     margin-bottom: 43px;
 }
 
+.errorModalTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #302E2E;
+    margin-top: 55px;
+    margin-bottom: 0;
+    margin-left: 100px;
+}
+
+.errorModalSubTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 0;
+    margin-left: 100px;
+    margin-bottom: 30px;
+}
+
 .modalButton {
     width: 180px;
     height: 43px;
@@ -190,7 +214,6 @@ input[type=number]::-webkit-inner-spin-button {
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.07em;
-
     color: #1E1E1E;
     margin-left: 50px;
     margin-bottom: 16px;

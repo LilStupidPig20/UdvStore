@@ -18,7 +18,7 @@ import FullRequestPage from './pages/FullRequestPage';
 import CartPage from './pages/CartPage/index';
 
 
-export const useRoutes = (isAuthenticated, role, token) => {
+export const useRoutes = (isAuthenticated, role) => {
     const [products, setProducts] = useState([]);
     
     const data = JSON.parse(localStorage.getItem('userData'));

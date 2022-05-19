@@ -1,5 +1,5 @@
 import React from 'react'
-import pic from './udv_logo.png'
+import pic from './udvLogo.svg'
 
 export const Logo = () =>{
     return (

@@ -3,6 +3,7 @@ import styles from './adminLayout.module.css';
 import { Link } from "react-router-dom";
 import { ButtonStatesContext } from "../../../context/ButtonStatesContext";
 import { AuthContext } from '../../../context/AuthContext';
+import { Logo } from '../../Logo'
 
 export default function AdminLayout ({ children }) {
     const auth = useContext(AuthContext);
@@ -14,6 +15,9 @@ export default function AdminLayout ({ children }) {
                 {isActive &&
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
+                        <div className={styles.logo_container}>
+                            <Logo />
+                        </div>
                         <ul className={styles.navMenu}>
                             <li>
                                 <Link to="/requests" className={styles.link}>Заявки</Link>
@@ -25,7 +29,7 @@ export default function AdminLayout ({ children }) {
                                 <Link to="/orders" className={styles.link}>Заказы сотрудников</Link>
                             </li>
                             <li>
-                                <Link to="/charge" className={styles.link}>Создать заявку</Link>
+                                <Link to="/charge" className={styles.link}>Начислить баллы</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

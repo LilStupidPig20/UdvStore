@@ -48,3 +48,9 @@
     text-decoration: none;
     color: #fff;
 }
+
+.logo_container {
+    width: 143px;
+    height: 56px;
+    margin-left: -50px;
+}

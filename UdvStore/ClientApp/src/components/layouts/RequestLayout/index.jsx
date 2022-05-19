@@ -81,7 +81,8 @@ export default function RequestLayout ({ children, requestId, event, description
                 {isModal && isError === true &&
                     <div className={styles.modalLayout} onClick={()=>setModal(false)}>
                         <div className={styles.modalActive}>
-                            <h1 className={styles.modalTitle}>Возникла ошибка!</h1>
+                            <h1 className={styles.errorModalTitle}>Ошибка заполнения!</h1>
+                            <h2 className={styles.errorModalSubTitle}>Попробуйте заполнить анкету снова.</h2>
                             <button 
                                 type='button'
                                 onClick={()=>{setModal(false); setError(false);}}

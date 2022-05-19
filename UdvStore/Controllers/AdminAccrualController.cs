@@ -5,6 +5,7 @@ using BusinessLayer.Services;
 using DataBaseStorage.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UdvStore.RequestModels;
 
 namespace UdvStore.Controllers
 {
@@ -28,13 +29,12 @@ namespace UdvStore.Controllers
         }
         
         [HttpPost]
-        [Route("accrualCoinsToUser")]
+        [Route("accrualCoinsToUsers")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AccrualCoinsToUser(List<long> employeesIds, string description,
-            decimal coins, DateTime dateOfEvent)
+        public async Task<IActionResult> AccrualCoinsToUser(AccrualToUsersModel accrualRequest)
         {
-            await accrualService.AccrualCoinsToEmployees(description, coins,
-                dateOfEvent, employeesIds);
+            await accrualService.AccrualCoinsToEmployees(accrualRequest.NameOfEvent, accrualRequest.Description, accrualRequest.Coins,
+                accrualRequest.DateOfEvent, accrualRequest.EmployeesIds);
             return new OkResult();
         }
         
