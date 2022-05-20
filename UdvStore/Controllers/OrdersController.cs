@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UdvStore.RequestModels;
 
 namespace UdvStore.Controllers
 {
@@ -20,7 +22,7 @@ namespace UdvStore.Controllers
         [HttpPost]
         [Route("createNewOrder")]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> CreateNewOrder()
+        public async Task<IActionResult> CreateNewOrder(long employeeId, List<CreateOrderRequest> order)
         {
             throw new NotImplementedException();
         }

@@ -26,5 +26,8 @@ namespace DataBaseStorage.DbModels
         
         [Column("status")]
         public InWorkOrderStatus Status { get; set; }
+        
+        [Column("size")]
+        public Sizes? Size { get; set; }
     }
 }

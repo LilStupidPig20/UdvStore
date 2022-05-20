@@ -39,9 +39,25 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public void ReduceCoins(long id, decimal coinsNumber)
+        public async Task<bool> ReduceCoins(long id, decimal coinsNumber)
         {
-            //TODO
+            try
+            {
+                var employeeCoinsEntity = await DbTable.FirstOrDefaultAsync(x => x.EmployeeId.Equals(id));
+                employeeCoinsEntity.CurrentBalance -= coinsNumber;
+                if (employeeCoinsEntity.CurrentBalance < 0)
+                    throw new ArgumentException("Недостаточно коинов на счету");
+                await UpdateAsync(employeeCoinsEntity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Не получилось снять коины {e}");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using BusinessLayer.Services;
 using BusinessLayer.StorageActions;
 using DataBaseStorage;
@@ -71,8 +72,12 @@ namespace UdvStore
             services.AddScoped<AuthService>();
             services.AddScoped<CoinRequestService>();
             services.AddScoped<AdminAccrualService>();
+            services.AddScoped<ProductService>();
             
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -122,6 +127,7 @@ namespace UdvStore
             NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
             NpgsqlConnection.GlobalTypeMapper.MapEnum<ClosedOrderStatus>("ClosedOrderStatus");
             NpgsqlConnection.GlobalTypeMapper.MapEnum<InWorkOrderStatus>("InWorkOrderStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<Sizes>("Sizes");
         }
     }
 }

@@ -6,6 +6,6 @@ namespace DataBaseStorage.StoragesInterfaces
     {
         public Task<decimal> GetCurrentCoinsOfUser(long employeeId);
         public Task<bool> AddCoins(long id, decimal coinsNumber);
-        public void ReduceCoins(long id, decimal coinsNumber);
+        public Task<bool> ReduceCoins(long id, decimal coinsNumber);
     }
 }
