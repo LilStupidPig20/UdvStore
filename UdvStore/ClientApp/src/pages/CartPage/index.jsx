@@ -1,17 +1,20 @@
-import React from 'react';
-import StoreNavBar from '../../components/StoreNavBar';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './cart.module.css'
-import CartItem from '../../components/CartItem';
-import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { CoinsContext } from './../../context/CoinsContext';
+import { AuthContext } from '../../context/AuthContext';
+import StoreNavBar from '../../components/StoreNavBar';
+import CartItem from '../../components/CartItem';
+import OrderAnswer from '../../components/OrderAnswer';
 
 export default function CartPage() {
     let userCoins = useContext(CoinsContext).coinsAmount;
+    const auth = useContext(AuthContext);
 
     let [prodCount, setProdCount] = useState(0);
     let [cart, setCart] = useState([]);
     let [sumPrice, setSumPrice] = useState(0);
+    let [ordered, SetOrdered] = useState(false);
 
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
@@ -38,12 +41,43 @@ export default function CartPage() {
         products.delete(String(id));
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(products)));
 
-        let product = cart.find(e => e.id === id);
-        let newCart = cart.filter(e => e.id !== id);
+        let product = cart.find(product => product.id === id);
+        let newCart = cart.filter(product => product.id !== id);
+        console.log(newCart);
         setCart(newCart);
         setProdCount(prev => prev - product.count);
         setSumPrice(prev => prev - product.price * product.count);
-    }
+    };
+
+    const createOrder = () => {
+        if (userCoins >= sumPrice) {
+            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+            let cart = new Map();
+            products.forEach((product => {
+                cart.set(product.id, product.count)
+            }))
+
+            console.log("aboba")
+            const options = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json',
+                    "Authorization": `Bearer ${auth.token}`
+                },
+                body: JSON.stringify(Object.fromEntries(cart))
+            };
+            fetch(`https://localhost:5001/order/createNewOrder`, options)
+                .then(response => {
+                    if (response.ok) {
+                        SetOrdered(true);
+                        localStorage.clear();
+                    } else {
+                        console.log(response.status)
+                    }
+                })
+                .catch(e => console.log(e))
+        }
+    };
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
@@ -110,10 +144,17 @@ export default function CartPage() {
 
                             <div className={styles.bottomBlock}>
                                 <div className={styles.balance}>Ваш баланс: {userCoins} UC</div>
-                                <button className={styles.addButton}>Оплатить</button>
+                                <button className={styles.addButton} onClick={createOrder}>Оплатить</button>
                             </div>
                         </div>
                     </div>
+            }
+            {
+                ordered
+                    ?
+                    <OrderAnswer active={ordered} setActive={SetOrdered} />
+                    :
+                    null
             }
         </div>
     );

@@ -1,0 +1,44 @@
+.popup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 36px;
+
+    font-family: 'Hero';
+}
+
+.title{
+    font-size: 48px;
+}
+
+.subTitle{
+    font-size: 22px;
+}
+
+.link{
+    color: #00D29D;
+}
+
+.Button {
+    position: static;
+    background-color: #00D29D;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 75px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+} 

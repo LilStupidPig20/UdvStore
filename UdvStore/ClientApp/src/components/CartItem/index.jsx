@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './cartItem.module.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CartItem({
     img,
@@ -10,9 +10,11 @@ export default function CartItem({
     id,
     onMinus, onPlus, onGarbage
 }) {
-    let [countIn, setCountIn] = useState(count);
-    let [isDeleted, setIsDeleted] = useState(false);
+    let [countIn, setCountIn] = useState(0);
 
+    useEffect(() => {
+        setCountIn(count);
+    })
 
     return (
         <div className={styles.wrapper}>
@@ -42,8 +44,7 @@ export default function CartItem({
                 </div>
             </div>
             <div className={styles.garbage} onClick={() => {
-                onGarbage(id)
-                setIsDeleted(true)
+                onGarbage(id);
             }}>
                 <img src="/imgs/bin.svg" alt="Garbage" />
             </div>

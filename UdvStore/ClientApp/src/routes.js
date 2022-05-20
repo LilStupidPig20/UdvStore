@@ -16,6 +16,7 @@ import { ChargePage } from './pages/ChargePage';
 import { HistoryPage } from './pages/HistoryPage';
 import FullRequestPage from './pages/FullRequestPage';
 import CartPage from './pages/CartPage/index';
+import UserOrdersPage from './pages/UserOrdersPage/index';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -83,6 +84,9 @@ export const useRoutes = (isAuthenticated, role) => {
                     </Route>
                     <Route path='/result'>
                         <ResultSendFormPage />
+                    </Route>
+                    <Route path='/myOrders'>
+                        <UserOrdersPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>
