@@ -14,7 +14,7 @@ export default function CartItem({
 
     useEffect(() => {
         setCountIn(count);
-    })
+    }, [count])
 
     return (
         <div className={styles.wrapper}>
@@ -25,16 +25,16 @@ export default function CartItem({
                     <div className={styles.countBlock}>
                         <div className={styles.countButton} onClick={() => {
                             if (countIn > 1) {
-                                onMinus(id, price)
                                 setCountIn(countIn - 1)
+                                onMinus(id, price)
                             }
                         }}>
                             <img src="/imgs/minus-button.svg" alt="Minus" />
                         </div>
                         <p>{countIn}</p>
                         <div className={styles.countButton} onClick={() => {
-                            onPlus(id, price)
                             setCountIn(countIn + 1)
+                            onPlus(id, price)
                         }}>
                             <img src="/imgs/plus-button.svg" alt="Plus" />
                         </div>

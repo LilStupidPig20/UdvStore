@@ -14,7 +14,7 @@ export default function CartPage() {
     let [prodCount, setProdCount] = useState(0);
     let [cart, setCart] = useState([]);
     let [sumPrice, setSumPrice] = useState(0);
-    let [ordered, SetOrdered] = useState(false);
+    let [ordered, SetOrdered] = useState(true);
 
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
@@ -152,7 +152,7 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer active={ordered} setActive={SetOrdered} />
+                    <OrderAnswer active={ordered} setActive={SetOrdered} orderItem={cart}/>
                     :
                     null
             }

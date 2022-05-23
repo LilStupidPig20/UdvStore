@@ -32,6 +32,7 @@
 
 .Button {
     position: static;
+    margin-top: 20px;
     background-color: #00D29D;
     color: #000;
     cursor: pointer;
@@ -41,4 +42,19 @@
     font-family: inherit;
     font-size: 22px;
     font-weight: 400;
-} 
+}
+
+.productItem{
+    margin-right: 30px;
+}
+
+.prodTitle{
+    font-size: 20px;
+    margin: 0;
+}
+
+.price{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
