@@ -14,7 +14,7 @@ export default function CartPage() {
     let [prodCount, setProdCount] = useState(0);
     let [cart, setCart] = useState([]);
     let [sumPrice, setSumPrice] = useState(0);
-    let [ordered, SetOrdered] = useState(true);
+    let [ordered, SetOrdered] = useState(false);
 
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
@@ -42,9 +42,7 @@ export default function CartPage() {
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(products)));
 
         let product = cart.find(product => product.id === id);
-        let newCart = cart.filter(product => product.id !== id);
-        console.log(newCart);
-        setCart(newCart);
+        setCart(prev => prev.filter(product => product.id !== id));
         setProdCount(prev => prev - product.count);
         setSumPrice(prev => prev - product.price * product.count);
     };

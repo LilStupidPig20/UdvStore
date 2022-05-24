@@ -12,12 +12,14 @@ export default function UserOrdersPage() {
                 id: 1,
                 name: "Кружка",
                 price: 15,
+                count: 1,
                 img: "/imgs/ProductImages/Кружка.JPG"
             },
             {
                 id: 2,
                 name: "Шапка",
                 price: 18,
+                count: 4,
                 img: "/imgs/ProductImages/Шапка.JPG"
             }],
             status: 'В обработке'
@@ -28,17 +30,23 @@ export default function UserOrdersPage() {
                 id: 1,
                 name: "Кружка",
                 price: 15,
+                count: 2,
                 img: "/imgs/ProductImages/Кружка.JPG"
             },
             {
                 id: 2,
                 name: "Ежедневник",
                 price: 15,
+                count: 2,
                 img: "/imgs/ProductImages/Ежедневник.JPG"
             }],
             status: 'Готов к получению'
         }
     ]);
+
+    const cancelOrder = (id) => {
+        console.log(`Этот мудак хочет отменить заказ ${id}!!!`)
+    };
 
     return (
         <>
@@ -52,6 +60,7 @@ export default function UserOrdersPage() {
                                 id={order.id}
                                 products={order.products}
                                 status={order.status}
+                                CancelOrder={cancelOrder}
                             />
                         })
                     }
