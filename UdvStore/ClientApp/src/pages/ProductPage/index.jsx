@@ -4,9 +4,47 @@ import styles from './card.module.css';
 import StoreNavBar from "../../components/StoreNavBar";
 
 export default function ProductPage({ products }) {
-    console.log(products)
     const { productId } = useParams();
     const product = products.find(prod => prod.id === Number(productId));
+
+    const addToCart = () => {
+        if (localStorage.getItem('cart') === null) {
+            let cart = new Map();
+            cart.set(String(product.id), {
+                img: product.image,
+                title: product.name,
+                price: product.price,
+                id: product.id,
+                count: 1
+            })
+
+            localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)))
+        } else {
+            let cart = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+
+            if (cart.get(String(product.id)) === undefined) {
+                cart.set(String(product.id), {
+                    img: product.image,
+                    title: product.name,
+                    price: product.price,
+                    id: product.id,
+                    count: 1
+                })
+            } else {
+                let tmp = cart.get(String(product.id)).count;
+                cart.set(String(product.id), {
+                    img: product.image,
+                    title: product.name,
+                    price: product.price,
+                    id: product.id,
+                    count: tmp + 1
+                })
+            }
+
+            localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)))
+        }
+        // localStorage.clear();
+    }
 
     return (
         <div>
@@ -18,8 +56,8 @@ export default function ProductPage({ products }) {
             </Link>
 
             {products.length === 0 ?
-                <div  className={styles.loading}>
-                 Подождите загружаем товар ...
+                <div className={styles.loading}>
+                    Подождите загружаем товар ...
                 </div>
                 :
                 <div className={styles.wrapper}>
@@ -36,7 +74,7 @@ export default function ProductPage({ products }) {
                         <div className={styles.mainBlock}>
                             <h2>{product.name}</h2>
                             <p className={styles.price}>{product.price} UC</p>
-                            <button className={styles.addButton}>В коризну</button>
+                            <button className={styles.addButton} onClick={addToCart}>В корзину</button>
                         </div>
                     </div>
                 </div>}

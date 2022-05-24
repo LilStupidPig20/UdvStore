@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ButtonStatesContext } from '../../context/ButtonStatesContext';
 import { AuthContext } from '../../context/AuthContext'
 import styles from './storeNavBar.module.css';
+import { Link } from 'react-router-dom';
 
 export default function StoreNavBar() {
     const context = useContext(ButtonStatesContext);
@@ -17,16 +18,21 @@ export default function StoreNavBar() {
                 <div className={styles.bar3}></div>
             </div>
 
-            
+
             {isAuthenticated && <div className={styles.navContainer}>
-                <div className={styles.navItem}>
-                    <img src="/imgs/cart.svg" alt="" className={styles.navImg} />
-                    <span>Корзина</span>
-                </div>
-                <div className={styles.navItem}>
-                    <img src="/imgs/bag.svg" alt="" className={styles.navImg} />
-                    <span>Мои заказы</span>
-                </div>
+                <Link to="/cart" style={{ textDecoration: 'none' }}>
+                    <div className={styles.navItem}>
+                        <img src="/imgs/cart.svg" alt="" className={styles.navImg} />
+                        <span>Корзина</span>
+                    </div>
+                </Link>
+
+                <Link to="/myOrders" style={{ textDecoration: 'none' }}>
+                    <div className={styles.navItem}>
+                        <img src="/imgs/bag.svg" alt="" className={styles.navImg} />
+                        <span>Мои заказы</span>
+                    </div>
+                </Link>
             </div>}
         </div>
     );
