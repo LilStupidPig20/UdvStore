@@ -5,9 +5,9 @@ namespace DataBaseStorage.Context
 {
     public interface IBaseStorage<TEntity>
     {
-        public Task<bool> IsExist(long id);
-        public Task<TEntity> SearchById(long id);
-        public Task<List<TEntity>> GetAll();
-        public Task<long> GetLastId();
+        public Task<bool> IsExistAsync(long id);
+        public Task<TEntity> SearchByIdAsync(long id);
+        public Task<List<TEntity>> GetAllAsync();
+        public Task<long> GetLastIdAsync();
     }
 }

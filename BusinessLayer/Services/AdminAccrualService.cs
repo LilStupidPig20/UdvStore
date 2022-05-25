@@ -10,9 +10,9 @@ namespace BusinessLayer.Services
 {
     public class AdminAccrualService
     {
-        private readonly IStorageActions storage;
+        private readonly IStorageFactory storage;
         
-        public AdminAccrualService(IStorageActions storage)
+        public AdminAccrualService(IStorageFactory storage)
         {
             this.storage = storage;
         }

@@ -7,5 +7,6 @@
         public decimal Price { get; set; }
         public long CurrentQuantity { get; set; }
         public string Image { get; set; }
+        public bool IsClothes { get; set; }
     }
 }
