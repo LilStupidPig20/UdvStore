@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BusinessLayer.Services;
 using DataBaseStorage.DbStorage;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,25 +12,26 @@ namespace UdvStore.Controllers
     [Route("store")]
     public class ProductsController : Controller
     {
-        private ProductsStorage context;
-        public ProductsController(ProductsStorage context)
+        private readonly ProductService productService;
+        public ProductsController(ProductService productService)
         {
-            this.context = context;
+            this.productService = productService;
         }
 
         [HttpGet]
         [Route("getAll")]
         public async Task<IActionResult> GetAllProducts()
         {
-            var products = await context.GetProductsWithoutDescription();
+            var products = await productService.GetAllProducts();
             return Json(products);
         }
         
         [HttpGet]
         [Route("getFullInfo")]
-        public async Task<IActionResult> GetFullInfo()
+        public async Task<IActionResult> GetClothesFullInfo(long idProduct)
         {
-            throw new NotImplementedException();
+            var info = await productService.GetClothesItemInfo(idProduct);
+            return Json(info);
         }
     }
 }

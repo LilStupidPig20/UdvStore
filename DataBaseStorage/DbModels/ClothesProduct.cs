@@ -1,28 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataBaseStorage.Enums;
 
 namespace DataBaseStorage.DbModels
 {
-    [Table("productClothes")]
+    [Table("productsClothes")]
     public class ClothesProduct : IDbModel
     {
         [Key]
         [Column("id")]
         public long Id { get; set; }
         
-        [Column("xsQuantity")]
-        public long XsQuantity { get; set; }
+        [Column("product")]
+        public long Product { get; set; }
         
-        [Column("sQuantity")]
-        public long SQuantity { get; set; }
+        [Column("size")]
+        public Sizes Size { get; set; }
         
-        [Column("mQuantity")]
-        public long MQuantity { get; set; }
-        
-        [Column("lQuantity")]
-        public long LQuantity { get; set; }
-        
-        [Column("xlQuantity")]
-        public long XlQuantity { get; set; }
+        [Column("quantity")]
+        public long Quantity { get; set; }
     }
 }

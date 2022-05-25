@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.StorageActions
 {
-    public interface IStorageActions
+    public interface IStorageFactory
     {
         public EmployeesStorage CreateEmployeeStorage();
         public EmployeeCoinsStorage CreateEmployeeCoinsStorage();
@@ -16,8 +16,8 @@ namespace BusinessLayer.StorageActions
         public ClosedEmployeesRequestsStorage CreateClosedEmployeesRequestsStorage();
         public AdminAccrualStorage CreateAdminAccrualStorage();
         public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage();
-        public ClosedOrdersStorage CreateClosedOrdersStorage();
         public ClothesProductStorage CreateClothesProductStorage();
-        public OrdersInWorkStorage CreateOrdersInWorkStorage();
+        public OrdersStorage CreateOrdersStorage();
+        public ProductsOrdersStorage CreateProductsOrdersStorage();
     }
 }

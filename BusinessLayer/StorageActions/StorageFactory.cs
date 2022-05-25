@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.StorageActions
 {
-    public class StorageActions : IStorageActions
+    public class StorageFactory : IStorageFactory
     {
         private readonly DBConfig dbConfig;
 
-        public StorageActions(DBConfig dbConfig)
+        public StorageFactory(DBConfig dbConfig)
         {
             this.dbConfig = dbConfig;
         }
@@ -55,19 +55,19 @@ namespace BusinessLayer.StorageActions
             return new AdminAccrualEmployeeStorage(dbConfig);
         }
 
-        public ClosedOrdersStorage CreateClosedOrdersStorage()
-        {
-            return new ClosedOrdersStorage(dbConfig);
-        }
-
         public ClothesProductStorage CreateClothesProductStorage()
         {
             return new ClothesProductStorage(dbConfig);
         }
 
-        public OrdersInWorkStorage CreateOrdersInWorkStorage()
+        public OrdersStorage CreateOrdersStorage()
         {
-            return new OrdersInWorkStorage(dbConfig);
+            return new OrdersStorage(dbConfig);
+        }
+
+        public ProductsOrdersStorage CreateProductsOrdersStorage()
+        {
+            return new ProductsOrdersStorage(dbConfig);
         }
     }
 }

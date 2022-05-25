@@ -9,8 +9,8 @@ namespace BusinessLayer.Services
 {
     public class CoinRequestService
     {
-        private readonly IStorageActions storage;
-        public CoinRequestService(IStorageActions storage)
+        private readonly IStorageFactory storage;
+        public CoinRequestService(IStorageFactory storage)
         {
             this.storage = storage;
         }
@@ -24,7 +24,7 @@ namespace BusinessLayer.Services
             return true;
         }
 
-        public async Task<bool> AcceptRequest(long id, decimal coins)
+        public async Task<decimal> AcceptRequest(long id, decimal coins)
         {
             var openRequestsStorage = storage.CreateOpenEmployeesRequestsStorage();
             var openRequest = await openRequestsStorage.SearchByIdAsync(id);
