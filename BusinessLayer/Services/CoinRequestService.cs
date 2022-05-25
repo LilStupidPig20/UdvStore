@@ -78,11 +78,21 @@ namespace BusinessLayer.Services
             return result;
         }
 
-        public async Task<ClosedEmployeesRequest> GetClosedRequestInfo(long id)
+        public async Task<GetFullClosedRequestResponse> GetClosedRequestInfo(long id)
         {
             var closedRequestsStorage = storage.CreateClosedEmployeesRequestsStorage();
             var request = await closedRequestsStorage.SearchByIdAsync(id);
-            return request;
+            
+            var employeeStorage = storage.CreateEmployeeStorage();
+            var fio = await employeeStorage.GetFioById(request.EmployeeId);
+
+            var result = new GetFullClosedRequestResponse
+            {
+                closedEmployeeRequest = request,
+                Fio = fio
+            };
+            
+            return result;
         }
 
         public async Task<bool> RejectRequest(long id, string comment)
