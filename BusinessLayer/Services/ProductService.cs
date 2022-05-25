@@ -7,9 +7,9 @@ namespace BusinessLayer.Services
 {
     public class ProductService
     {
-        private readonly IStorageActions storage;
+        private readonly IStorageFactory storage;
 
-        public ProductService(IStorageActions storage)
+        public ProductService(IStorageFactory storage)
         {
             this.storage = storage;
         }

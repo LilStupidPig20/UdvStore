@@ -24,14 +24,14 @@ namespace DataBaseStorage.DbStorage
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<bool> AddCoins(long id, decimal coinsNumber)
+        public async Task<decimal> AddCoins(long id, decimal coinsNumber)
         {
             try
             {
                 var employeeCoinsEntity = await DbTable.FirstOrDefaultAsync(x => x.EmployeeId.Equals(id));
                 employeeCoinsEntity.CurrentBalance += coinsNumber;
                 await UpdateAsync(employeeCoinsEntity);
-                return true;
+                return employeeCoinsEntity.CurrentBalance;
             }
             catch (Exception e)
             {
@@ -39,7 +39,7 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public async Task<bool> ReduceCoins(long id, decimal coinsNumber)
+        public async Task<decimal> ReduceCoins(long id, decimal coinsNumber)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace DataBaseStorage.DbStorage
                 if (employeeCoinsEntity.CurrentBalance < 0)
                     throw new ArgumentException("Недостаточно коинов на счету");
                 await UpdateAsync(employeeCoinsEntity);
-                return true;
+                return employeeCoinsEntity.CurrentBalance;
             }
             catch (ArgumentException e)
             {
