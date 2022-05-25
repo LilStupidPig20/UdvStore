@@ -4,6 +4,7 @@ import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
 
 export default function StorePage({ products = [] }) {
+    console.log(products);
 
     return (
         <div>
@@ -17,13 +18,9 @@ export default function StorePage({ products = [] }) {
                             title={product.name}
                             price={product.price}
                             imgSrc={product.image}
-                            id={product.id} />
+                            id={product.id}
+                            quantity={product.currentQuantity} />
                     })}
-                    {/* <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem />
-                    <ProductItem /> */}
                 </div>
             </div>
         </div>

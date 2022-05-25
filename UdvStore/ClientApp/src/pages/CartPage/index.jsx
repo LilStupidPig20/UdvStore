@@ -55,7 +55,6 @@ export default function CartPage() {
                 cart.set(product.id, product.count)
             }))
 
-            console.log("aboba")
             const options = {
                 method: 'POST',
                 headers: {
@@ -70,10 +69,12 @@ export default function CartPage() {
                         SetOrdered(true);
                         localStorage.clear();
                     } else {
-                        console.log(response.status)
+                        console.log("Статус запроса " + response.status)
                     }
                 })
                 .catch(e => console.log(e))
+        } else {
+            alert("Недостаточно средств");
         }
     };
 
@@ -86,6 +87,7 @@ export default function CartPage() {
                     title: product.title,
                     price: product.price,
                     id: product.id,
+                    quantity: product.quantity,
                     count: product.count
                 }])
 
@@ -125,6 +127,7 @@ export default function CartPage() {
                                         price={product.price}
                                         id={product.id}
                                         count={product.count}
+                                        quantity ={product.quantity}
                                         onMinus={decrementCount}
                                         onPlus={incrementCount}
                                         onGarbage={deleteProductFromCart} />

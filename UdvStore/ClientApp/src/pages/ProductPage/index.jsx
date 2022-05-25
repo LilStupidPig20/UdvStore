@@ -4,6 +4,7 @@ import styles from './card.module.css';
 import StoreNavBar from "../../components/StoreNavBar";
 
 export default function ProductPage({ products }) {
+    console.log(products);
     const { productId } = useParams();
     const product = products.find(prod => prod.id === Number(productId));
 
@@ -15,6 +16,7 @@ export default function ProductPage({ products }) {
                 title: product.name,
                 price: product.price,
                 id: product.id,
+                quantity: product.currentQuantity,
                 count: 1
             })
 
@@ -28,6 +30,7 @@ export default function ProductPage({ products }) {
                     title: product.name,
                     price: product.price,
                     id: product.id,
+                    quantity: product.currentQuantity,
                     count: 1
                 })
             } else {
@@ -37,6 +40,7 @@ export default function ProductPage({ products }) {
                     title: product.name,
                     price: product.price,
                     id: product.id,
+                    quantity: product.currentQuantity,
                     count: tmp + 1
                 })
             }

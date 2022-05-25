@@ -8,6 +8,7 @@ export default function CartItem({
     price,
     count,
     id,
+    quantity,
     onMinus, onPlus, onGarbage
 }) {
     let [countIn, setCountIn] = useState(0);
@@ -33,8 +34,10 @@ export default function CartItem({
                         </div>
                         <p>{countIn}</p>
                         <div className={styles.countButton} onClick={() => {
-                            setCountIn(countIn + 1)
-                            onPlus(id, price)
+                            if (countIn < quantity) {
+                                setCountIn(countIn + 1)
+                                onPlus(id, price)
+                            }
                         }}>
                             <img src="/imgs/plus-button.svg" alt="Plus" />
                         </div>

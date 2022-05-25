@@ -3,20 +3,36 @@ import styles from "./product.module.css";
 import { Link } from "react-router-dom";
 
 export default function ProductItem({
-    imgSrc = "/imgs/ProductImages/Кружка.JPG",
-    title = "Кружка UDV с надписью “Удиви мир”",
-    price = 15,
-    id = 1
+    imgSrc,
+    title,
+    price,
+    id,
+    quantity
 }) {
 
     return (
-        <Link to={`/store/${id}`} style={{ textDecoration: 'none' }}>
-            <div className={styles.product}>
-                <img src={imgSrc} alt="" className={styles.productImg} />
-                <div className={styles.title}>{title}</div>
-                <div className={styles.price}>Цена: {price} UC</div>
-                {/* <button className={styles.addButton} onClick={addToCart}>В корзину</button> */}
-            </div>
-        </Link>
+        <>
+            {
+                quantity > 0
+                    ?
+                    <Link to={`/store/${id}`} style={{ textDecoration: 'none' }}>
+                        <div className={styles.product}>
+                            <img src={imgSrc} alt="" className={styles.productImg} />
+                            <div className={styles.title}>{title}</div>
+                            <div className={styles.price}>Цена: {price} UC</div>
+                            {/* <button className={styles.addButton} onClick={addToCart}>В корзину</button> */}
+                        </div>
+                    </Link>
+                    :
+                    <Link to={`/store`} style={{ textDecoration: 'none' }}>
+                        <div className={`${styles.deactivated} ${styles.product}`}>
+                            <img src={imgSrc} alt="" className={styles.productImg} />
+                            <div className={styles.title}>{title}</div>
+                            <div className={styles.price}>Нет в наличии</div>
+                            {/* <button className={styles.addButton} onClick={addToCart}>В корзину</button> */}
+                        </div>
+                    </Link>
+            }
+        </>
     );
 }
