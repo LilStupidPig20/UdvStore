@@ -9,6 +9,7 @@ export default function CartItem({
     count,
     id,
     quantity,
+    size,
     onMinus, onPlus, onGarbage
 }) {
     let [countIn, setCountIn] = useState(0);
@@ -22,7 +23,7 @@ export default function CartItem({
             <div className={styles.container}>
                 <img src={img} alt="Product" width={137} height={187} />
                 <div className={styles.subBlock}>
-                    <span className={styles.title}>{title}</span>
+                    <span className={styles.title}>{title}{size ? ` - ${size} размер` : null}</span>
                     <div className={styles.countBlock}>
                         <div className={styles.countButton} onClick={() => {
                             if (countIn > 1) {

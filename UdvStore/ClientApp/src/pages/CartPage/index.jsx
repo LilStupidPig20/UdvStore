@@ -28,6 +28,7 @@ export default function CartPage() {
                     price: product.price,
                     id: product.id,
                     quantity: product.quantity,
+                    size: product.size,
                     count: product.count
                 }])
 
@@ -70,11 +71,16 @@ export default function CartPage() {
 
     const createOrder = () => {
         if (userCoins >= sumPrice) {
-            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-            let cart = new Map();
-            products.forEach((product => {
-                cart.set(product.id, product.count)
-            }))
+            const body = {
+                EmployeeId: auth.userId,
+                products : cart.map((product) => {
+                    return {
+                        Id: product.id,
+                        Count: product.count,
+                        Size: product.size
+                    }
+                })
+            }
 
             const options = {
                 method: 'POST',
@@ -82,15 +88,15 @@ export default function CartPage() {
                     "Content-Type": 'application/json',
                     "Authorization": `Bearer ${auth.token}`
                 },
-                body: JSON.stringify(Object.fromEntries(cart))
+                body: JSON.stringify(body)
             };
             fetch(`https://localhost:5001/order/createNewOrder`, options)
                 .then(response => {
                     if (response.ok) {
                         SetOrdered(true);
-                        localStorage.clear();
+                        localStorage.removeItem('cart');
                     } else {
-                        console.log("Статус запроса " + response.status)
+                        console.log("Статус запроса " + response.status);
                     }
                 })
                 .catch(e => console.log(e))
@@ -130,6 +136,7 @@ export default function CartPage() {
                                         id={product.id}
                                         count={product.count}
                                         quantity={product.quantity}
+                                        size={product.size}
                                         onMinus={decrementCount}
                                         onPlus={incrementCount}
                                         onGarbage={deleteProductFromCart} />
