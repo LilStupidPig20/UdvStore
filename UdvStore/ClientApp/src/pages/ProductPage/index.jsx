@@ -28,8 +28,6 @@ export default function ProductPage() {
         } else {
             cart = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
 
-            cart.findIndex((el, index) => el.id === product.commonInfo.id && el.size === buttonFlag)
-
             if (cart.get(String(product.commonInfo.id)) === undefined) {
                 addProductToCart(product, cart);
             } else {
@@ -39,6 +37,7 @@ export default function ProductPage() {
 
         }
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)));
+
         SetInCart(true);
     }
 
@@ -64,6 +63,7 @@ export default function ProductPage() {
             prod.style.backgroundColor = "white";
             prod.style.fontWeight = "400";
         })
+        
         e.style.color = "white";
         e.style.backgroundColor = "black";
         e.style.fontWeight = "700";
