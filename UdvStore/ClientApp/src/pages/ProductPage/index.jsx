@@ -63,6 +63,7 @@ export default function ProductPage() {
             price: product.commonInfo.price,
             id: product.commonInfo.id,
             quantity: product.commonInfo.currentQuantity,
+            size: null,
             count: count + 1
         });
     };
@@ -139,7 +140,7 @@ export default function ProductPage() {
                                     null
                             }
                             <button className={styles.addButton} onClick={() => {
-                                if (buttonFlag !== "") {
+                                if (!product.commonInfo.isClothes || buttonFlag !== "") {
                                     addToCart();
                                 } else {
                                     SetAlert(true);
