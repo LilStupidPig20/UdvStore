@@ -22,64 +22,38 @@ export default function ProductPage() {
     }, []);
 
     const addToCart = () => {
+        let cart = new Map();
         if (localStorage.getItem('cart') === null) {
-            let cart = new Map();
-
-            if (!product.commonInfo.isClothes) {
-                productNotClothes(product, cart);
-            } else {
-                productIsClothes(product, cart);
-            }
-
-            localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)));
+            addProductToCart(product, cart);
         } else {
-            let cart = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+            cart = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+
+            cart.findIndex((el, index) => el.id === product.commonInfo.id && el.size === buttonFlag)
 
             if (cart.get(String(product.commonInfo.id)) === undefined) {
-                if (!product.commonInfo.isClothes) {
-                    productNotClothes(product, cart);
-                } else {
-                    productIsClothes(product, cart);
-                }
+                addProductToCart(product, cart);
             } else {
                 let tmp = cart.get(String(product.commonInfo.id)).count;
-                if (!product.commonInfo.isClothes) {
-                    productNotClothes(product, cart, tmp);
-                } else {
-                    productIsClothes(product, cart, tmp);
-                }
+                addProductToCart(product, cart, tmp);
             }
 
-            localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)));
         }
-
+        localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)));
         SetInCart(true);
     }
 
-    const productNotClothes = (product, cart, count = 0) => {
+    const addProductToCart = (product, cart, count = 0) => {
+        let currentSize = product.sizes.find((size) => size.size === buttonFlag);
         cart.set(String(product.commonInfo.id), {
             img: product.commonInfo.image,
             title: product.commonInfo.name,
             price: product.commonInfo.price,
             id: product.commonInfo.id,
-            quantity: product.commonInfo.currentQuantity,
-            size: null,
+            quantity: product.commonInfo.isClothes ? currentSize.quantity : product.commonInfo.currentQuantity,
+            size: product.commonInfo.isClothes ? currentSize.size : null,
             count: count + 1
         });
-    };
-
-    const productIsClothes = (product, cart, count = 0) => {
-        let size = product.sizes.find((size) => size.size === buttonFlag);
-        cart.set(String(product.commonInfo.id), {
-            img: product.commonInfo.image,
-            title: product.commonInfo.name,
-            price: product.commonInfo.price,
-            id: product.commonInfo.id,
-            quantity: size.quantity,
-            size: size.size,
-            count: count + 1
-        });
-    };
+    }
 
     const changeSize = (size, e) => {
         setButtonFlag(size);
