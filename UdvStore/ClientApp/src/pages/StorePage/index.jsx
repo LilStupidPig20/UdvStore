@@ -4,7 +4,6 @@ import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
 
 export default function StorePage({ products = [] }) {
-    console.log(products);
 
     return (
         <div>

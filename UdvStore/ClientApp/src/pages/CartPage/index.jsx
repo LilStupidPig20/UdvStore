@@ -16,6 +16,27 @@ export default function CartPage() {
     let [sumPrice, setSumPrice] = useState(0);
     let [ordered, SetOrdered] = useState(false);
 
+    console.log(cart);
+
+    useEffect(() => {
+        if (localStorage.getItem('cart') !== null) {
+            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+            products.forEach((product) => {
+                setCart(prev => [...prev, {
+                    img: product.img,
+                    title: product.title,
+                    price: product.price,
+                    id: product.id,
+                    quantity: product.quantity,
+                    count: product.count
+                }])
+
+                setProdCount(prev => prev + product.count);
+                setSumPrice(prev => prev + product.price * product.count);
+            })
+        }
+    }, [])
+
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
         products.get(String(id)).count--;
@@ -78,25 +99,6 @@ export default function CartPage() {
         }
     };
 
-    useEffect(() => {
-        if (localStorage.getItem('cart') !== null) {
-            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-            products.forEach((product) => {
-                setCart(prev => [...prev, {
-                    img: product.img,
-                    title: product.title,
-                    price: product.price,
-                    id: product.id,
-                    quantity: product.quantity,
-                    count: product.count
-                }])
-
-                setProdCount(prev => prev + product.count);
-                setSumPrice(prev => prev + product.price * product.count);
-            })
-        }
-    }, [])
-
     return (
         <div>
             <StoreNavBar />
@@ -127,7 +129,7 @@ export default function CartPage() {
                                         price={product.price}
                                         id={product.id}
                                         count={product.count}
-                                        quantity ={product.quantity}
+                                        quantity={product.quantity}
                                         onMinus={decrementCount}
                                         onPlus={incrementCount}
                                         onGarbage={deleteProductFromCart} />
@@ -153,7 +155,7 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer active={ordered} setActive={SetOrdered} orderItem={cart}/>
+                    <OrderAnswer active={ordered} setActive={SetOrdered} orderItem={cart} />
                     :
                     null
             }
