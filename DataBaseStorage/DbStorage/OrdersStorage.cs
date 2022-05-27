@@ -68,5 +68,19 @@ namespace DataBaseStorage.DbStorage
                 throw new Exception($"{e}, Не удалось получить заказы в работе");
             }
         }
+        
+        public async Task<List<Order>> GetEmployeeOrders(long idEmployee)
+        {
+            try
+            {
+                return await DbTable
+                    .Where(x => x.EmployeeId.Equals(idEmployee))
+                    .ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"{e}, Не удалось получить заказы сотрудника");
+            }
+        }
     }
 }

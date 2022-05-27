@@ -15,18 +15,18 @@ namespace DataBaseStorage.Context
         where TEntity : class, IDbModel
     {
         protected DbSet<TEntity> DbTable { get; set; }
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public BaseStorage(DBConfig dbConfig)
         {
-            connectionString = dbConfig.ConnectionString;
+            _connectionString = dbConfig.ConnectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(connectionString);
+                optionsBuilder.UseNpgsql(_connectionString);
             }
         }
 
@@ -61,6 +61,13 @@ namespace DataBaseStorage.Context
             if (!await DbTable.AnyAsync())
                 throw new Exception($"Таблица{typeof(TEntity)} пуста, или не существует");
             return DbTable.Select(x => x).ToList();
+        }
+
+        public virtual async Task<List<TEntity>> GetSeveralByIdsAsync(List<long> ids)
+        {
+            if (!await DbTable.AnyAsync())
+                throw new Exception($"Таблица{typeof(TEntity)} пуста, или не существует");
+            return await DbTable.Where(x => ids.Contains(x.Id)).ToListAsync();
         }
 
         public virtual async Task<long> GetLastIdAsync()

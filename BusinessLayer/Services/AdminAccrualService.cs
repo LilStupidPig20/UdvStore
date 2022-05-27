@@ -10,29 +10,29 @@ namespace BusinessLayer.Services
 {
     public class AdminAccrualService
     {
-        private readonly IStorageFactory storage;
+        private readonly IStorageFactory _storageFactory;
         
-        public AdminAccrualService(IStorageFactory storage)
+        public AdminAccrualService(IStorageFactory storageFactory)
         {
-            this.storage = storage;
+            _storageFactory = storageFactory;
         }
         
         public async Task<List<Employee>> GetAllEmployees()
         {
-            var employeesStorage = storage.CreateEmployeeStorage();
+            var employeesStorage = _storageFactory.CreateEmployeeStorage();
             return await employeesStorage.GetAllAsync();
         }
         
         public async Task<bool> AccrualCoinsToEmployees(string nameOfEvent, string description, decimal coins,
             DateTime dateOfEvent, List<long> employeesIds)
         {
-            var adminAccrualStorage = storage.CreateAdminAccrualStorage();
+            var adminAccrualStorage = _storageFactory.CreateAdminAccrualStorage();
             var accrualId = await adminAccrualStorage.AddNewAccrual(nameOfEvent, description, coins, dateOfEvent);
 
-            var adminAccrualEmployeeStorage = storage.CreateAdminAccrualEmployeeStorage();
+            var adminAccrualEmployeeStorage = _storageFactory.CreateAdminAccrualEmployeeStorage();
             await adminAccrualEmployeeStorage.AddWithSeveralEmployees(accrualId, employeesIds);
 
-            var employeeCoinsStorage = storage.CreateEmployeeCoinsStorage();
+            var employeeCoinsStorage = _storageFactory.CreateEmployeeCoinsStorage();
             foreach (var e in employeesIds)
             {
                 await employeeCoinsStorage.AddCoins(e, coins);
@@ -43,13 +43,13 @@ namespace BusinessLayer.Services
 
         public async Task<List<GetAccrualWithFioResponse>> GetAllAccrualsWithFio()
         {
-            var adminAccrualStorage = storage.CreateAdminAccrualStorage();
+            var adminAccrualStorage = _storageFactory.CreateAdminAccrualStorage();
             var allAccruals = await adminAccrualStorage.GetAllAsync();
             
-            var adminAccrualEmployeeStorage = storage.CreateAdminAccrualEmployeeStorage();
+            var adminAccrualEmployeeStorage = _storageFactory.CreateAdminAccrualEmployeeStorage();
             var accrualEmployees = await adminAccrualEmployeeStorage.GetAllAsync();
 
-            var employeeCoinsStorage = storage.CreateEmployeeStorage();
+            var employeeCoinsStorage = _storageFactory.CreateEmployeeStorage();
             var output = new List<GetAccrualWithFioResponse>();
             foreach (var e in allAccruals)
             {

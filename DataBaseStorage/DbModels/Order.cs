@@ -23,5 +23,8 @@ namespace DataBaseStorage.DbModels
         
         [Column("status")]
         public OrderStatus Status { get; set; }
+        
+        [Column("cancellationСomment")]
+        public string CancellationComment { get; set; }
     }
 }

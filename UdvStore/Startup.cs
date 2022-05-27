@@ -69,6 +69,7 @@ namespace UdvStore
             services.AddScoped<ClothesProductStorage>();
             services.AddScoped<OrdersStorage>();
             services.AddScoped<ProductsOrdersStorage>();
+            services.AddScoped<TransferCoinsHistoryStorage>();
             //BuildFactory
             services.AddScoped<IStorageFactory, StorageFactory>();
             //BuildHelpers
@@ -80,6 +81,7 @@ namespace UdvStore
             services.AddScoped<AdminAccrualService>();
             services.AddScoped<ProductService>();
             services.AddScoped<OrderService>();
+            services.AddScoped<UserCoinsService>();
             
             services.AddControllers().AddJsonOptions(x =>
             {

@@ -6,11 +6,12 @@ using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.Enums;
+using DataBaseStorage.StoragesInterfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class OpenEmployeesRequestsStorage : BaseStorage<OpenEmployeesRequest>
+    public class OpenEmployeesRequestsStorage : BaseStorage<OpenEmployeesRequest>, IForUserHistory<OpenEmployeesRequest>
     {
         public OpenEmployeesRequestsStorage(DBConfig dbConfig) : base(dbConfig)
         {
@@ -50,6 +51,11 @@ namespace DataBaseStorage.DbStorage
         public async Task<List<OpenEmployeesRequest>> GetAll()
         {
             return await DbTable.ToListAsync();
+        }
+        
+        public async Task<List<OpenEmployeesRequest>> GetEmployeeHistory(long employeeId)
+        {
+            return await DbTable.Where(x => x.EmployeeId.Equals(employeeId)).ToListAsync();
         }
     }
 }
