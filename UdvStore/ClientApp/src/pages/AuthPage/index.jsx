@@ -4,6 +4,7 @@ import styles from './auth.module.css';
 import octopus from './octopus.png';
 import { AuthContext } from '../../context/AuthContext';
 import { Navbar } from '../../components/Navbar';
+import logo from '../../components/Logo/udv_logo.svg'
 
 
 export const AuthPage = () => {
@@ -36,9 +37,12 @@ export const AuthPage = () => {
     return (
         <div className={styles.mainBlock}>
             <Navbar />
-            <p className={styles.textBlock}>Добро пожаловать 
-            в UDV-store!</p>
+            
             <div className={styles.authBlock}>
+                <div className={styles.textBlock}>
+                    <img src={logo} className={styles.logo} width="258px" height="100px"/>
+                    <div className={styles.titleText}>-store</div>
+                </div> 
                 <h2 className={styles.authTitle}>Вход</h2>
                 <div className={styles.authBox}>
                     <input
@@ -46,7 +50,6 @@ export const AuthPage = () => {
                         placeholder='Почта'
                         name='login'
                         type='email'
-                        autoComplete='on'
                         autoFocus
                         onChange={changeHandler}
                         onKeyUp={pressEnter}
@@ -71,6 +74,7 @@ export const AuthPage = () => {
                 >
                     Войти
                 </button>
+                
             </div>
             <div className={styles.octopusBlock}>
                 <img src={octopus} alt='' width='363px' height='363px' />

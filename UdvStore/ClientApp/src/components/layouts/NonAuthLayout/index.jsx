@@ -14,7 +14,7 @@ export default function NonAuthLayout ({ children }) {
                     <div className={styles.overlay}>
                         <div className={styles.drawer}>
                             <div className={styles.logo_container}>
-                                <Logo />
+                                <Link to='/login'><Logo /></Link>
                             </div>
                             <ul className={styles.navMenu}>
                                 <li>

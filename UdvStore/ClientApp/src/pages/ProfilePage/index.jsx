@@ -12,7 +12,6 @@ import get_coins from './logo_get_coins.svg';
 export default function ProfilePage() {
     const auth = useContext(AuthContext);
     let coinsAmount = useContext(CoinsContext).coinsAmount;
-    console.log(auth);
     const fio = String(auth.fullName).split(' ');
 
     return (
