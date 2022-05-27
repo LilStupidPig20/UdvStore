@@ -21,7 +21,7 @@ export default function MainLayout({ children }) {
                 <div className={styles.overlay} onClick={() => context.toggleActive(false)}>
                     <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
                         <div className={styles.logo_container}>
-                            <Logo />
+                            <Link to='/profile'><Logo /></Link>
                         </div>
                         <div className={styles.userInfo}>
                             <img src="/imgs/profileImg-example.jpg" alt="" className={styles.userImg} />

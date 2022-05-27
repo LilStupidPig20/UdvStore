@@ -16,20 +16,36 @@ export default function AdminLayout ({ children }) {
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
                         <div className={styles.logo_container}>
-                            <Logo />
+                            <Link to='/requests'><Logo /></Link>
                         </div>
                         <ul className={styles.navMenu}>
-                            <li>
-                                <Link to="/requests" className={styles.link}>Заявки</Link>
-                            </li>
-                            <li>
-                                <Link to="/history" className={styles.link}>История заявок</Link>
-                            </li>
-                            <li>
-                                <Link to="/orders" className={styles.link}>Заказы сотрудников</Link>
-                            </li>
+                            <div className={styles.dropdown}>
+                                <div className={styles.dropbtn}>Заявки</div>
+                                <div className={styles.dropdownContent}>
+                                    <Link to="/requests" className={styles.link}>
+                                        <div className={styles.dropCont}>Новые</div>
+                                    </Link>
+                                    <Link to="/requests/history" className={styles.link}>
+                                        <div className={styles.dropCont}>История</div>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className={styles.dropdown}>
+                                <div className={styles.dropbtn}>Заказы</div>
+                                <div className={styles.dropdownContent}>
+                                    <Link to="/orders" className={styles.link}>
+                                        <div className={styles.dropCont}>Новые</div>
+                                    </Link>
+                                    <Link to="/orders/history" className={styles.link}>
+                                        <div className={styles.dropCont}>История</div>
+                                    </Link>
+                                </div>
+                            </div>
                             <li>
                                 <Link to="/charge" className={styles.link}>Начислить баллы</Link>
+                            </li>
+                            <li>
+                                <Link to="/store" className={styles.link}>Склад UDV-store</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

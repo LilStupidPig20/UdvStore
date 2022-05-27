@@ -18,7 +18,6 @@ export const HistoryPage = () => {
             })
                 .then(res => res.json())
                 .then(items => setClosedReqs(items))
-                .catch(error => auth.logout())
         }
     }, []);
 

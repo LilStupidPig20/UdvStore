@@ -1,10 +1,9 @@
-import React from "react";
-import styles from "./store.module.css"
-import ProductItem from "../../components/ProductItem";
-import StoreNavBar from "../../components/StoreNavBar";
+import React from 'react';
+import ProductItem from '../../components/ProductItem';
+import StoreNavBar from '../../components/StoreNavBar';
+import styles from './storeAdmin.module.css';
 
-export default function StorePage({ products = [] }) {
-
+export default function StoreAdminPage({ products = [] }) {
     return (
         <div>
             <StoreNavBar />

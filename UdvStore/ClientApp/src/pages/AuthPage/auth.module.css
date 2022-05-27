@@ -5,16 +5,28 @@
     width: 100%;
 }
 
+.logo {
+    margin-left: -75px;
+}
+
 .textBlock {
+    display: flex;
+    position: relative;
     font-family: 'Hero';
     font-style: normal;
-    font-weight: 700;
-    font-size: 64px;
-    line-height: 77px;
-    width: 628px;
-    height: 150px;
-    margin: 0 0 0 200px;
+    font-weight: 400;
+    font-size: 78px;
+    line-height: 115px;
     color: #00D29D;
+    width: 400px;
+    height: 150px;
+    margin: 50px 0 30px 40px;
+}
+
+.titleText {
+    position: absolute;
+    right: 0;
+    top: -14px;
 }
 
 .authBlock {
@@ -34,6 +46,7 @@
     font-weight: 400;
     font-size: 40px;
     color: #fff;
+    margin-top: 0;
     margin-bottom: 43px;
 }
 
@@ -128,6 +141,7 @@
     color: #000000;
     padding: 8px 100px;
     cursor: pointer;
+    z-index: 1;
 }
 
 .loginButton:hover {
@@ -140,10 +154,14 @@
     border-radius: 9px;
 }
 
+.authBox {
+    z-index: 1;
+}
+
 .octopusBlock {
     width: 363px;
     height: 363px;
-    margin-top: -130px;
     margin-right: 150px;
     margin-left: auto;
+    z-index: 0;
 }
