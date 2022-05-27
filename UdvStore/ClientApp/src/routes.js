@@ -15,6 +15,8 @@ import { OrdersPage } from './pages/OrdersPage';
 import { ChargePage } from './pages/ChargePage';
 import { HistoryPage } from './pages/HistoryPage';
 import FullRequestPage from './pages/FullRequestPage';
+import { OrdersHistoryPage } from './pages/OrdersHistoryPage';
+import StoreAdminPage from './pages/StoreAdminPage';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -39,17 +41,23 @@ export const useRoutes = (isAuthenticated, role) => {
                         <Route path="/requests" exact>
                             <RequestsPage />
                         </Route>
-                        <Route path="/history" exact>
+                        <Route path="/requests/history" exact>
                             <HistoryPage />
                         </Route>
-                        <Route path="/history/:requestId" >
+                        <Route path="/requests/history/:requestId" >
                             <FullRequestPage />
                         </Route>
                         <Route path="/orders" exact>
                             <OrdersPage />
                         </Route>
+                        <Route path='/orders/history' exact>
+                            <OrdersHistoryPage />
+                        </Route>
                         <Route path="/charge" exact>
                             <ChargePage />
+                        </Route>
+                        <Route path="/store" exact>
+                            <StoreAdminPage products={products} />
                         </Route>
                         <Route path="/rules" exact>
                             <RulesPage />

@@ -25,7 +25,8 @@ export const SendFormPage = () => {
             };
             fetch(`/coinRequest/sendToAdmin?eventEntered=${form.eventEntered}&description=${form.description}&employeeId=${auth.userId}&time=${form.time}`, options)
             .then(response => {
-                if(response.ok) toggleSent(true);
+                if(response.status === 200) toggleSent(true)
+                else toggleSent(false);
             })
             .catch(error => {
                 console.log(error);

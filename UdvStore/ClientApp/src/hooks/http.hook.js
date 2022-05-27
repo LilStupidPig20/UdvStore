@@ -12,7 +12,7 @@ export const useHttp = () => {
             };
             const response = await fetch(url, { method, body, headers });
             const data = await response.json();
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error(data.message || 'Что то пошло не так http');
             }
             setLoading(false);

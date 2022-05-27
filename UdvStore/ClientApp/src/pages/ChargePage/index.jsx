@@ -38,24 +38,17 @@ export const ChargePage = () => {
     const addToArray = (event) => {
         let inp = document.getElementById(event.target.id);
         let opts = document.getElementById('users').childNodes;
-        console.log(inp)
-        console.log(opts);
-        console.log(event.target);
         for (var i = 0; i < opts.length; i++) {
             if (opts[i].value === inp.value) {
-              alert(opts[i].value);
-              setIds(prev => ([...prev, opts[i].id]));
-              console.log(ids);
-              
-              ;
-              break;
+                setIds(prev => ([...prev, opts[i].id]));
+                console.log(ids);
+                break;
             }
         }
-        
     }
 
     useEffect(()=> {
-        form.employeesIds = ids
+        form.employeesIds = ids;
     }, [ids])
 
     useEffect(() => {
@@ -67,7 +60,6 @@ export const ChargePage = () => {
             })
             .then(res => res.json())
             .then(items => setFios(items))
-            .catch(error => auth.logout())
         }
     }, []);
     let list = document.getElementById('users');
@@ -96,7 +88,6 @@ export const ChargePage = () => {
             .then(response => {
                 if(response.ok) ;
             })
-            .catch(error => auth.logout())
         }
     }
 

@@ -28,7 +28,7 @@ export default function RequestLayout ({ children, requestId, event, description
             if(comment !== '') {
                 fetch(`https://localhost:5001/coinRequest/rejectRequest?idRequest=${requestId}&comment=${comment}`, options)
                     .then(response => {
-                        if(response.ok) setError(false);
+                        if(response.status === 200) setError(false);
                     })
                     .catch(error => {
                         console.log(error);
@@ -51,7 +51,7 @@ export default function RequestLayout ({ children, requestId, event, description
             if (num !== 0) {
                 fetch(`https://localhost:5001/coinRequest/acceptRequest?idRequest=${requestId}&coinsNumber=${num}`, options)
                     .then(response => {
-                        if(response.ok) setError(false);
+                        if(response.status === 200) setError(false);
                     })
                     .catch(error => {
                         console.log(error);

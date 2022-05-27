@@ -21,7 +21,7 @@ export default function MainLayout({ children }) {
                 <div className={styles.overlay}>
                     <div className={styles.drawer}>
                         <div className={styles.logo_container}>
-                            <Logo />
+                            <Link to='/profile'><Logo /></Link>
                         </div>
                         <div className={styles.userInfo}>
                             <img src="/imgs/profileImg-example.jpg" alt="" className={styles.userImg} />
