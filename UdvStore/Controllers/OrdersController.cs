@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Services;
+using DataBaseStorage.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UdvStore.RequestModels;
 
 namespace UdvStore.Controllers
 {
@@ -20,9 +24,11 @@ namespace UdvStore.Controllers
         [HttpPost]
         [Route("createNewOrder")]
         [Authorize(Roles = "User")]
-        public async Task<IActionResult> CreateNewOrder()
+        public async Task<IActionResult> CreateNewOrder(CreateOrderRequest order)
         {
-            throw new NotImplementedException();
+            var orderTuple = order.Products.Select(e => (e.Id, e.Count, e.Size)).ToList();
+            await orderService.CreateOrder(order.EmployeeId, orderTuple);
+            return new OkResult();
         }
         
         [HttpGet]
@@ -30,7 +36,8 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetClosedOrders()
         {
-            throw new NotImplementedException();
+            var res = await orderService.GetClosedOrders();
+            return Json(res);
         }
         
         [HttpGet]
@@ -38,7 +45,8 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetOrdersInWork()
         {
-            throw new NotImplementedException();
+            var res = await orderService.GetOpenOrders();
+            return Json(res);
         }
         
         [HttpPost]

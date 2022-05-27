@@ -11,7 +11,7 @@ using Npgsql;
 
 namespace DataBaseStorage.Context
 {
-    public class BaseStorage<TEntity> : DbContext
+    public class BaseStorage<TEntity> : DbContext, IBaseStorage<TEntity>
         where TEntity : class, IDbModel
     {
         protected DbSet<TEntity> DbTable { get; set; }

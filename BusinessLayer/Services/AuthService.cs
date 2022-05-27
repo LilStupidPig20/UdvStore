@@ -7,9 +7,9 @@ namespace BusinessLayer.Services
 {
     public class AuthService
     {
-        private readonly IStorageActions storage;
+        private readonly IStorageFactory storage;
 
-        public AuthService(IStorageActions storage)
+        public AuthService(IStorageFactory storage)
         {
             this.storage = storage;
         }
