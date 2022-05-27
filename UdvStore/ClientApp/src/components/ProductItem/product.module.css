@@ -13,6 +13,10 @@
     border-radius: 30px;
 }
 
+.deactivated{
+    opacity: 0.7;
+}
+
 .product:hover .addButton {
     display: inline-block;
 }

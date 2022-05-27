@@ -12,9 +12,30 @@ export default function CartPage() {
     const auth = useContext(AuthContext);
 
     let [prodCount, setProdCount] = useState(0);
-    let [cart, setCart] = useState([]);
     let [sumPrice, setSumPrice] = useState(0);
-    let [ordered, SetOrdered] = useState(false);
+    let [cart, setCart] = useState([]);
+    let [ordered, setOrdered] = useState(false);
+    let [alert, setAlert] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('cart') !== null) {
+            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
+            products.forEach((product) => {
+                setCart(prev => [...prev, {
+                    img: product.img,
+                    title: product.title,
+                    price: product.price,
+                    id: product.id,
+                    quantity: product.quantity,
+                    size: product.size,
+                    count: product.count
+                }])
+
+                setProdCount(prev => prev + product.count);
+                setSumPrice(prev => prev + product.price * product.count);
+            })
+        }
+    }, [])
 
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
@@ -49,51 +70,39 @@ export default function CartPage() {
 
     const createOrder = () => {
         if (userCoins >= sumPrice) {
-            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-            let cart = new Map();
-            products.forEach((product => {
-                cart.set(product.id, product.count)
-            }))
+            const body = {
+                EmployeeId: auth.userId,
+                products: cart.map((product) => {
+                    return {
+                        Id: product.id,
+                        Count: product.count,
+                        Size: product.size
+                    }
+                })
+            }
 
-            console.log("aboba")
             const options = {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json',
                     "Authorization": `Bearer ${auth.token}`
                 },
-                body: JSON.stringify(Object.fromEntries(cart))
+                body: JSON.stringify(body)
             };
             fetch(`https://localhost:5001/order/createNewOrder`, options)
                 .then(response => {
                     if (response.ok) {
-                        SetOrdered(true);
-                        localStorage.clear();
+                        setOrdered(true);
+                        localStorage.removeItem('cart');
                     } else {
-                        console.log(response.status)
+                        console.log("Статус запроса " + response.status);
                     }
                 })
                 .catch(e => console.log(e))
+        } else {
+            setAlert(true);
         }
     };
-
-    useEffect(() => {
-        if (localStorage.getItem('cart') !== null) {
-            const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-            products.forEach((product) => {
-                setCart(prev => [...prev, {
-                    img: product.img,
-                    title: product.title,
-                    price: product.price,
-                    id: product.id,
-                    count: product.count
-                }])
-
-                setProdCount(prev => prev + product.count);
-                setSumPrice(prev => prev + product.price * product.count);
-            })
-        }
-    }, [])
 
     return (
         <div>
@@ -125,6 +134,8 @@ export default function CartPage() {
                                         price={product.price}
                                         id={product.id}
                                         count={product.count}
+                                        quantity={product.quantity}
+                                        size={product.size}
                                         onMinus={decrementCount}
                                         onPlus={incrementCount}
                                         onGarbage={deleteProductFromCart} />
@@ -150,7 +161,22 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer active={ordered} setActive={SetOrdered} orderItem={cart}/>
+                    <OrderAnswer setActive={setOrdered} />
+                    :
+                    null
+            }
+            {
+                alert
+                    ?
+                    <div className={styles.popup} onClick={() => setAlert(false)}>
+                        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+                            <h1 className={styles.popupTitle}>У тебя не хватает UC :{'('}</h1>
+
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.popupButton} onClick={() => setAlert(false)}>Готово</button>
+                            </div>
+                        </div>
+                    </div>
                     :
                     null
             }

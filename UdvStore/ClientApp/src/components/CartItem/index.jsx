@@ -8,6 +8,8 @@ export default function CartItem({
     price,
     count,
     id,
+    quantity,
+    size,
     onMinus, onPlus, onGarbage
 }) {
     let [countIn, setCountIn] = useState(0);
@@ -21,7 +23,7 @@ export default function CartItem({
             <div className={styles.container}>
                 <img src={img} alt="Product" width={137} height={187} />
                 <div className={styles.subBlock}>
-                    <span className={styles.title}>{title}</span>
+                    <span className={styles.title}>{title}{size ? ` - ${size} размер` : null}</span>
                     <div className={styles.countBlock}>
                         <div className={styles.countButton} onClick={() => {
                             if (countIn > 1) {
@@ -33,8 +35,10 @@ export default function CartItem({
                         </div>
                         <p>{countIn}</p>
                         <div className={styles.countButton} onClick={() => {
-                            setCountIn(countIn + 1)
-                            onPlus(id, price)
+                            if (countIn < quantity) {
+                                setCountIn(countIn + 1)
+                                onPlus(id, price)
+                            }
                         }}>
                             <img src="/imgs/plus-button.svg" alt="Plus" />
                         </div>
