@@ -12,11 +12,10 @@ export default function CartPage() {
     const auth = useContext(AuthContext);
 
     let [prodCount, setProdCount] = useState(0);
-    let [cart, setCart] = useState([]);
     let [sumPrice, setSumPrice] = useState(0);
-    let [ordered, SetOrdered] = useState(false);
-
-    console.log(cart);
+    let [cart, setCart] = useState([]);
+    let [ordered, setOrdered] = useState(false);
+    let [alert, setAlert] = useState(false);
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
@@ -73,7 +72,7 @@ export default function CartPage() {
         if (userCoins >= sumPrice) {
             const body = {
                 EmployeeId: auth.userId,
-                products : cart.map((product) => {
+                products: cart.map((product) => {
                     return {
                         Id: product.id,
                         Count: product.count,
@@ -93,7 +92,7 @@ export default function CartPage() {
             fetch(`https://localhost:5001/order/createNewOrder`, options)
                 .then(response => {
                     if (response.ok) {
-                        SetOrdered(true);
+                        setOrdered(true);
                         localStorage.removeItem('cart');
                     } else {
                         console.log("Статус запроса " + response.status);
@@ -101,7 +100,7 @@ export default function CartPage() {
                 })
                 .catch(e => console.log(e))
         } else {
-            alert("Недостаточно средств");
+            setAlert(true);
         }
     };
 
@@ -162,7 +161,22 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer active={ordered} setActive={SetOrdered} orderItem={cart} />
+                    <OrderAnswer setActive={setOrdered} />
+                    :
+                    null
+            }
+            {
+                alert
+                    ?
+                    <div className={styles.popup} onClick={() => setAlert(false)}>
+                        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+                            <h1 className={styles.popupTitle}>У тебя не хватает UC :{'('}</h1>
+
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.popupButton} onClick={() => setAlert(false)}>Готово</button>
+                            </div>
+                        </div>
+                    </div>
                     :
                     null
             }
