@@ -42,7 +42,7 @@ namespace DataBaseStorage.DbStorage
             }
         }
 
-        public async Task<List<ProductsOrder>> GetProductsOnOrderByOrderId(long orderId)
+        public async Task<List<ProductsOrder>> GetProductsInOrderByOrderId(long orderId)
         {
             try
             {

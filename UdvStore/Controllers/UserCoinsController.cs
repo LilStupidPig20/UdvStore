@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DataBaseStorage.DbStorage;
+using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +9,10 @@ namespace UdvStore.Controllers
     [Route("coins")]
     public class UserCoinsController : Controller
     {
-        private readonly EmployeeCoinsStorage context;
-
-        public UserCoinsController(EmployeeCoinsStorage context)
+        private readonly UserCoinsService _userCoinsService;
+        public UserCoinsController(UserCoinsService userCoinsService)
         {
-            this.context = context;
+            _userCoinsService = userCoinsService;
         }
 
         [HttpGet]
@@ -21,8 +20,36 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> GetUserCoins(long employeeId)
         {
-            var quantity = await context.GetCurrentCoinsOfUser(employeeId);
-            return Json(quantity);
+            var balance = await _userCoinsService.GetCurrentUserCoins(employeeId);
+            return Json(balance);
+        }
+        
+        [HttpPost]
+        [Route("transferToAnotherUser")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> TransferCoins(long currentEmployeeId, long receiver, decimal coinsCount,
+            string comment)
+        {
+            await _userCoinsService.TransferCoins(currentEmployeeId, receiver, coinsCount, comment);
+            return new OkResult();
+        }
+        
+        [HttpGet]
+        [Route("getEmployeesToTransfer")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetEmployeesToTransfer(long currentEmployeeId)
+        {
+            var res = await _userCoinsService.GetAllEmployees(currentEmployeeId);
+            return Json(res);
+        }
+        
+        [HttpGet]
+        [Route("getHistoryOfEmployee")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetHistoryForEmployee(long employeeId)
+        {
+            var res = await _userCoinsService.GetHistory(employeeId);
+            return Json(res);
         }
     }
 }
