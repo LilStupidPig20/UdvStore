@@ -15,7 +15,7 @@ export default function ProductItem({
                 <img src={imgSrc} alt="" className={styles.productImg} />
                 <div className={styles.title}>{title}</div>
                 <div className={styles.price}>Цена: {price} UC</div>
-                <button className={styles.addButton}>В корзину</button>
+                {/* <button className={styles.addButton} onClick={addToCart}>В корзину</button> */}
             </div>
         </Link>
     );

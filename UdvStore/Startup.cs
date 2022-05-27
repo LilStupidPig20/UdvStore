@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Json.Serialization;
+using BusinessLayer.Helpers;
 using BusinessLayer.Services;
 using BusinessLayer.StorageActions;
 using DataBaseStorage;
@@ -55,6 +57,7 @@ namespace UdvStore
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     };
                 });
+            //BuildStorages
             services.AddScoped<EmployeesStorage>();
             services.AddScoped<EmployeeCoinsStorage>();
             services.AddScoped<ProductsStorage>();
@@ -63,16 +66,25 @@ namespace UdvStore
             services.AddScoped<ClosedEmployeesRequestsStorage>();
             services.AddScoped<AdminAccrualStorage>();
             services.AddScoped<AdminAccrualEmployeeStorage>();
-            services.AddScoped<ClosedOrdersStorage>();
             services.AddScoped<ClothesProductStorage>();
-            services.AddScoped<OrdersInWorkStorage>();
-            
-            services.AddScoped<IStorageActions, StorageActions>();
+            services.AddScoped<OrdersStorage>();
+            services.AddScoped<ProductsOrdersStorage>();
+            //BuildFactory
+            services.AddScoped<IStorageFactory, StorageFactory>();
+            //BuildHelpers
+            services.AddScoped<CoinsHelper>();
+            services.AddScoped<ProductQuantityHelper>();
+            //BuildServices
             services.AddScoped<AuthService>();
             services.AddScoped<CoinRequestService>();
             services.AddScoped<AdminAccrualService>();
+            services.AddScoped<ProductService>();
+            services.AddScoped<OrderService>();
             
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -120,8 +132,8 @@ namespace UdvStore
         public static void RegisterTypes()
         {
             NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
-            NpgsqlConnection.GlobalTypeMapper.MapEnum<ClosedOrderStatus>("ClosedOrderStatus");
-            NpgsqlConnection.GlobalTypeMapper.MapEnum<InWorkOrderStatus>("InWorkOrderStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>("OrderStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<Sizes>("Sizes");
         }
     }
 }
