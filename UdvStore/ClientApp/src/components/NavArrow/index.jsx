@@ -8,7 +8,7 @@ export default function NavArrow({
     return (
         <Link to={`/${to}`}>
             <div className={styles.arrow}>
-                <div></div>
+                <img src="/imgs/NavArrow.svg" alt="NavArrow" />
             </div>
         </Link>
     );
