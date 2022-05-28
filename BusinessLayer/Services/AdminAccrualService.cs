@@ -65,6 +65,7 @@ namespace BusinessLayer.Services
                 
                 output.Add(new GetAccrualWithFioResponse
                 {
+                    NameOfEvent = e.NameOfEvent,
                     Description = e.Description,
                     Coins = e.Coins,
                     DateOfEvent = e.DateOfEvent,
