@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbModels;
+using DataBaseStorage.StoragesInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataBaseStorage.DbStorage
 {
-    public class AdminAccrualEmployeeStorage : BaseStorage<AdminAccrualEmployee>
+    public class AdminAccrualEmployeeStorage : BaseStorage<AdminAccrualEmployee>, IForUserHistory<AdminAccrualEmployee>
     {
         public AdminAccrualEmployeeStorage(DBConfig dbConfig) : base(dbConfig)
         {
@@ -35,6 +38,13 @@ namespace DataBaseStorage.DbStorage
             {
                 throw new Exception($"Не получилось добавить запись в таблицу {e}");
             }
+        }
+        
+        public async Task<List<AdminAccrualEmployee>> GetEmployeeHistory(long employeeId)
+        {
+            return await DbTable
+                .Where(x => x.Employee.Equals(employeeId))
+                .ToListAsync();
         }
     }
 }

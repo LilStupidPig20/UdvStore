@@ -19,5 +19,6 @@ namespace BusinessLayer.StorageActions
         public ClothesProductStorage CreateClothesProductStorage();
         public OrdersStorage CreateOrdersStorage();
         public ProductsOrdersStorage CreateProductsOrdersStorage();
+        public TransferCoinsHistoryStorage CreateTransferCoinsHistoryStorage();
     }
 }
