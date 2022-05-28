@@ -89,7 +89,7 @@ export default function ProductPage() {
                     </div>
                     <div className={styles.productInfo}>
                         <div className={styles.mainBlock}>
-                            <h2>{product.commonInfo.name}</h2>
+                            <h2>{product.commonInfo.description}</h2>
                             <p className={styles.price}>{product.commonInfo.price} UC</p>
                             {
                                 product.commonInfo.isClothes
