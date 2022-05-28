@@ -22,15 +22,11 @@ export default function UserOrdersPage() {
             })
             .then(res => res.json())
             .then(orders => {
-                setOrders(orders);
+                setOrders(orders.reverse());
                 setTimeout(() => { setFlag(true) }, 200);
             })
             .catch(error => console.log(error))
     }, []);
-
-    const cancelOrder = (id) => {
-        console.log(`Этот мудак хочет отменить заказ ${id}!!!`)
-    };
 
     return (
         <div>
@@ -50,10 +46,10 @@ export default function UserOrdersPage() {
                                 {
                                     orders.map((order) => {
                                         return <OrderItem
+                                            key={order.id}
                                             id={order.id}
                                             products={order.productsInOrders}
                                             status={order.status}
-                                            CancelOrder={cancelOrder}
                                             totalPrice={order.totalPrice}
                                         />
                                     })
