@@ -8,66 +8,71 @@ namespace BusinessLayer.StorageActions
 {
     public class StorageFactory : IStorageFactory
     {
-        private readonly DBConfig dbConfig;
+        private readonly DBConfig _dbConfig;
 
         public StorageFactory(DBConfig dbConfig)
         {
-            this.dbConfig = dbConfig;
+            _dbConfig = dbConfig;
         }
         
         public EmployeesStorage CreateEmployeeStorage()
         {
-            return new EmployeesStorage(dbConfig);
+            return new EmployeesStorage(_dbConfig);
         }
 
         public EmployeeCoinsStorage CreateEmployeeCoinsStorage()
         {
-            return new EmployeeCoinsStorage(dbConfig);
+            return new EmployeeCoinsStorage(_dbConfig);
         }
 
         public ProductsStorage CreateProductsStorage()
         {
-            return new ProductsStorage(dbConfig);
+            return new ProductsStorage(_dbConfig);
         }
 
         public AdminStorage CreateAdminStorage()
         {
-            return new AdminStorage(dbConfig);
+            return new AdminStorage(_dbConfig);
         }
 
         public OpenEmployeesRequestsStorage CreateOpenEmployeesRequestsStorage()
         {
-            return new OpenEmployeesRequestsStorage(dbConfig);
+            return new OpenEmployeesRequestsStorage(_dbConfig);
         }
         
         public ClosedEmployeesRequestsStorage CreateClosedEmployeesRequestsStorage()
         {
-            return new ClosedEmployeesRequestsStorage(dbConfig);
+            return new ClosedEmployeesRequestsStorage(_dbConfig);
         }
 
         public AdminAccrualStorage CreateAdminAccrualStorage()
         {
-            return new AdminAccrualStorage(dbConfig);
+            return new AdminAccrualStorage(_dbConfig);
         }
 
         public AdminAccrualEmployeeStorage CreateAdminAccrualEmployeeStorage()
         {
-            return new AdminAccrualEmployeeStorage(dbConfig);
+            return new AdminAccrualEmployeeStorage(_dbConfig);
         }
 
         public ClothesProductStorage CreateClothesProductStorage()
         {
-            return new ClothesProductStorage(dbConfig);
+            return new ClothesProductStorage(_dbConfig);
         }
 
         public OrdersStorage CreateOrdersStorage()
         {
-            return new OrdersStorage(dbConfig);
+            return new OrdersStorage(_dbConfig);
         }
 
         public ProductsOrdersStorage CreateProductsOrdersStorage()
         {
-            return new ProductsOrdersStorage(dbConfig);
+            return new ProductsOrdersStorage(_dbConfig);
+        }
+
+        public TransferCoinsHistoryStorage CreateTransferCoinsHistoryStorage()
+        {
+            return new TransferCoinsHistoryStorage(_dbConfig);
         }
     }
 }
