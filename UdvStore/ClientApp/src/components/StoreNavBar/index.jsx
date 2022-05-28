@@ -5,10 +5,10 @@ import styles from './storeNavBar.module.css';
 import { Link } from 'react-router-dom';
 
 export default function StoreNavBar() {
-    const context = useContext(ButtonStatesContext);
-    const isAuthenticated = useContext(AuthContext).isAuthenticated;
-    const isActive = context.isActive;
-    const toggle = context.toggleActive;
+    const buttonContext = useContext(ButtonStatesContext);
+    const auth = useContext(AuthContext);
+    const isActive = buttonContext.isActive;
+    const toggle = buttonContext.toggleActive;
 
     return (
         <div className={styles.navbar}>
@@ -19,7 +19,7 @@ export default function StoreNavBar() {
             </div>
 
 
-            {isAuthenticated && <div className={styles.navContainer}>
+            {auth.isAuthenticated && auth.role !== 0 && <div className={styles.navContainer}>
                 <Link to="/cart" style={{ textDecoration: 'none' }}>
                     <div className={styles.navItem}>
                         <img src="/imgs/cart.svg" alt="" className={styles.navImg} />

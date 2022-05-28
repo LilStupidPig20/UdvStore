@@ -13,8 +13,8 @@ export default function AdminLayout ({ children }) {
     return (
         <div className={styles.layout}>
                 {isActive &&
-                <div className={styles.overlay}>
-                    <div className={styles.drawer}>
+                <div className={styles.overlay} onClick={() => context.toggleActive(false)}>
+                    <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
                         <div className={styles.logo_container}>
                             <Link to='/requests'><Logo /></Link>
                         </div>

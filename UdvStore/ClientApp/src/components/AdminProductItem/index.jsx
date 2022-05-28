@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./product.module.css";
 import { Link } from "react-router-dom";
 
-export default function ProductItem({
+export default function AdminProductItem({
     imgSrc,
     title,
     price,
@@ -15,11 +15,12 @@ export default function ProductItem({
             {
                 quantity > 0
                     ?
-                    <Link to={`/store/${id}`} style={{ textDecoration: 'none' }}>
+                    <Link to={`/store`} style={{ textDecoration: 'none' }}>
                         <div className={styles.product}>
                             <img src={imgSrc} alt="" className={styles.productImg} />
                             <div className={styles.title}>{title}</div>
                             <div className={styles.price}>Цена: {price} UC</div>
+                            <div className={styles.price}>На складе: {quantity} шт.</div>
                         </div>
                     </Link>
                     :
@@ -27,6 +28,7 @@ export default function ProductItem({
                         <div className={`${styles.deactivated} ${styles.product}`}>
                             <img src={imgSrc} alt="" className={styles.productImg} />
                             <div className={styles.title}>{title}</div>
+                            <div className={styles.price}>Цена: {price} UC</div>
                             <div className={styles.price}>Нет в наличии</div>
                         </div>
                     </Link>
