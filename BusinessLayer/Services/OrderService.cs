@@ -162,6 +162,7 @@ namespace BusinessLayer.Services
                     productOrderPart.CountOrdered = productOrder.ProductCount;
                     productOrderPart.ProductName = e.Products.Find(x => x.Id.Equals(productOrder.Product))?.Name;
                     productOrderPart.ProductPrice = e.Products.Find(x => x.Id.Equals(productOrder.Product))!.Price;
+                    productOrderPart.ImageLink = e.Products.Find(x => x.Id.Equals(productOrder.Product))?.Image;
                     resultElement.ProductsInOrders.Add(productOrderPart);
                 }
                 

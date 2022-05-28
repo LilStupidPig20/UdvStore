@@ -21,6 +21,7 @@ namespace DataBaseStorage.ResponseModels
             public decimal ProductPrice { get; set; }
             public long CountOrdered { get; set; }
             public Sizes? Size { get; set; }
+            public string ImageLink { get; set; }
         }
     }
 }
