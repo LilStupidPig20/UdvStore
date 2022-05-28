@@ -1,48 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./orders.module.css";
 import StoreNavBar from './../../components/StoreNavBar/index';
 import OrderItem from "../../components/OrderItem";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function UserOrdersPage() {
+    const context = useContext(AuthContext);
 
-    const [orders, setOrders] = useState([
-        {
-            id: 321,
-            products: [{
-                id: 1,
-                name: "Кружка",
-                price: 15,
-                count: 1,
-                img: "/imgs/ProductImages/Кружка.JPG"
-            },
+    const [flag, setFlag] = useState(false);
+
+    const [orders, setOrders] = useState([]);
+    console.log(orders);
+
+    useEffect(() => {
+        fetch(`https://localhost:5001/order/getEmployeeHistory?idEmployee=${context.userId}`,
             {
-                id: 2,
-                name: "Шапка",
-                price: 18,
-                count: 4,
-                img: "/imgs/ProductImages/Шапка.JPG"
-            }],
-            status: 'В обработке'
-        },
-        {
-            id: 123,
-            products: [{
-                id: 1,
-                name: "Кружка",
-                price: 15,
-                count: 2,
-                img: "/imgs/ProductImages/Кружка.JPG"
-            },
-            {
-                id: 2,
-                name: "Ежедневник",
-                price: 15,
-                count: 2,
-                img: "/imgs/ProductImages/Ежедневник.JPG"
-            }],
-            status: 'Готов к получению'
-        }
-    ]);
+                headers: {
+                    "Authorization": `Bearer ${context.token}`
+                }
+            })
+            .then(res => res.json())
+            .then(orders => {
+                setOrders(orders);
+            })
+            .catch(error => console.log(error))
+    }, []);
 
     const cancelOrder = (id) => {
         console.log(`Этот мудак хочет отменить заказ ${id}!!!`)
@@ -50,22 +32,31 @@ export default function UserOrdersPage() {
 
     return (
         <>
-            <StoreNavBar />
-            <div className={styles.wrapper}>
-                <h1>Мои заказы</h1>
-                <div className={styles.container}>
-                    {
-                        orders.map((order) => {
-                            return <OrderItem
-                                id={order.id}
-                                products={order.products}
-                                status={order.status}
-                                CancelOrder={cancelOrder}
-                            />
-                        })
-                    }
-                </div>
-            </div>
+            {
+                orders.length !== 0
+                    ?
+                    <>
+                        <StoreNavBar />
+                        <div className={styles.wrapper}>
+                            <h1>Мои заказы</h1>
+                            <div className={styles.container}>
+                                {
+                                    orders.map((order) => {
+                                        return <OrderItem
+                                            id={order.id}
+                                            products={order.productsInOrders}
+                                            status={order.status}
+                                            CancelOrder={cancelOrder}
+                                            totalPrice={order.totalPrice}
+                                        />
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </>
+                    :
+                    <p>Загружаем заказы...</p>
+            }
         </>
     );
 }
