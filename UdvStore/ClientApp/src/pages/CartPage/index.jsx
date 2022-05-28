@@ -94,7 +94,8 @@ export default function CartPage() {
                 .then(response => {
                     if (response.ok) {
                         setOrdered(true);
-                        console.log(response.json().then(res => setOrderID(res)));
+                        response.json()
+                            .then(res => setOrderID(res));
                         localStorage.removeItem('cart');
                     } else {
                         console.log("Статус запроса " + response.status);
@@ -163,25 +164,19 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer setActive={setOrdered} orderID={orderID} products={cart}/>
+                    <OrderAnswer setActive={setOrdered} setCart={setCart} orderID={orderID} products={cart} />
                     :
                     null
             }
             {
                 alert
                     ?
-                    <div className={styles.popup} onClick={() => {
-                        setCart([]);
-                        setAlert(false);
-                    }}>
+                    <div className={styles.popup} onClick={() => { setAlert(false); }}>
                         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                             <h1 className={styles.popupTitle}>У тебя не хватает UC :{'('}</h1>
 
                             <div className={styles.buttonContainer}>
-                                <button className={styles.popupButton} onClick={() => {
-                                    setCart([]);
-                                    setAlert(false);
-                                }}>Готово</button>
+                                <button className={styles.popupButton} onClick={() => { setAlert(false); }}>Готово</button>
                             </div>
                         </div>
                     </div>

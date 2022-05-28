@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import styles from './order.module.css'
 
 export default function OrderAnswer({
-    setActive,
+    setActive, setCart,
     orderID,
     products
 }) {
     let counter = 0;
 
     return (
-        <div className={styles.popup} onClick={() => setActive(false)}>
+        <div className={styles.popup} onClick={() => {
+            setCart([]);
+            setActive(false)
+        }}>
             <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                 <h1 className={styles.title}>Оплата прошла успешно!</h1>
                 <p className={styles.subTitle}>Вы можете найти и отслеживать статус вашего заказа <br />
@@ -35,7 +38,10 @@ export default function OrderAnswer({
                 </div>
 
                 <div className={styles.ButtonContainer}>
-                    <button className={styles.Button} onClick={() => setActive(false)}>Готово</button>
+                    <button className={styles.Button} onClick={() => {
+                        setCart([]);
+                        setActive(false)
+                    }}>Готово</button>
                 </div>
             </div>
         </div>
