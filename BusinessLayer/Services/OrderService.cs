@@ -137,7 +137,7 @@ namespace BusinessLayer.Services
                 
                 foreach (var product in commonModel.ProductsOrder)
                 {
-                    commonModel.Products.Add(await productsStorage.SearchByIdAsync(product.Id));
+                    commonModel.Products.Add(await productsStorage.SearchByIdAsync(product.Product));
                 }
                 
                 commonOrderInfoList.Add(commonModel);
@@ -157,11 +157,11 @@ namespace BusinessLayer.Services
                 foreach (var productOrder in e.ProductsOrder)
                 {
                     var productOrderPart = new GetFullOrderResponse.ProductsInOrder();
-                    productOrderPart.ProductId = productOrder.Id;
+                    productOrderPart.ProductId = productOrder.Product;
                     productOrderPart.Size = productOrder.Size;
                     productOrderPart.CountOrdered = productOrder.ProductCount;
-                    productOrderPart.ProductName = e.Products.Find(x => x.Id.Equals(productOrder.Id))?.Name;
-                    productOrderPart.ProductPrice = e.Products.Find(x => x.Id.Equals(productOrder.Id))!.Price;
+                    productOrderPart.ProductName = e.Products.Find(x => x.Id.Equals(productOrder.Product))?.Name;
+                    productOrderPart.ProductPrice = e.Products.Find(x => x.Id.Equals(productOrder.Product))!.Price;
                     resultElement.ProductsInOrders.Add(productOrderPart);
                 }
                 
