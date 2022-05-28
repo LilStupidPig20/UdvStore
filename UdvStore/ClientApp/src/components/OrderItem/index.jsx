@@ -5,6 +5,7 @@ export default function OrderItem({
     id,
     products,
     status,
+    totalPrice,
     CancelOrder
 }) {
     const [isCancelable, setIsCancelable] = useState(() => {
@@ -19,15 +20,16 @@ export default function OrderItem({
     let counter = 0;
 
     useEffect(() => {
-        products.map((product) => {
-            setSummary(prev => prev + product.price * product.count)
-        });
+        setSummary(totalPrice);
     }, []);
 
     return (
         <>
             <div className={styles.topLine}></div>
-            <h2>Нормер заказа {id}</h2>
+            <div className={styles.headerBlock}>
+                <h2>Нормер заказа {id}</h2>
+                <h2>Сумма заказа: {summary} UC</h2>
+            </div>
             <div className={styles.wrapper}>
                 {
                     products.map((product) => {
@@ -35,9 +37,9 @@ export default function OrderItem({
                             counter += 1;
                             return (
                                 <div className={styles.productItem}>
-                                    <img src={product.img} width={137} height={187} alt="" />
-                                    <p className={styles.title}>{product.name}</p>
-                                    <p className={styles.price}>Цена: {product.price} UC</p>
+                                    <img src={product.imageLink} width={137} height={187} alt="" />
+                                    <p className={styles.title}>{product.productName}</p>
+                                    <p className={styles.price}>Цена: {product.productPrice * product.countOrdered} UC</p>
                                 </div>
                             )
                         }

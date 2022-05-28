@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./orders.module.css";
 import StoreNavBar from './../../components/StoreNavBar/index';
 import OrderItem from "../../components/OrderItem";
-import { AuthContext } from "../../context/AuthContext";
+import NavArrow from "../../components/NavArrow";
 
 export default function UserOrdersPage() {
-    const context = useContext(AuthContext);
+
 
     const [flag, setFlag] = useState(false);
 
@@ -13,15 +13,17 @@ export default function UserOrdersPage() {
     console.log(orders);
 
     useEffect(() => {
-        fetch(`https://localhost:5001/order/getEmployeeHistory?idEmployee=${context.userId}`,
+        let auth = JSON.parse(localStorage.getItem('userData'));
+        fetch(`https://localhost:5001/order/getEmployeeHistory?idEmployee=${auth.userId}`,
             {
                 headers: {
-                    "Authorization": `Bearer ${context.token}`
+                    "Authorization": `Bearer ${auth.token}`
                 }
             })
             .then(res => res.json())
             .then(orders => {
                 setOrders(orders);
+                setTimeout(() => { setFlag(true) }, 200);
             })
             .catch(error => console.log(error))
     }, []);
@@ -31,12 +33,17 @@ export default function UserOrdersPage() {
     };
 
     return (
-        <>
+        <div>
+            <StoreNavBar />
+            <NavArrow to='store' />
             {
-                orders.length !== 0
+                !flag
                     ?
+                    <div className={styles.loading}>
+                        Подождите загружаем товар ...
+                    </div>
+                    :
                     <>
-                        <StoreNavBar />
                         <div className={styles.wrapper}>
                             <h1>Мои заказы</h1>
                             <div className={styles.container}>
@@ -54,9 +61,7 @@ export default function UserOrdersPage() {
                             </div>
                         </div>
                     </>
-                    :
-                    <p>Загружаем заказы...</p>
             }
-        </>
+        </div>
     );
 }

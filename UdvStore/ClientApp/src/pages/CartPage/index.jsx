@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import StoreNavBar from '../../components/StoreNavBar';
 import CartItem from '../../components/CartItem';
 import OrderAnswer from '../../components/OrderAnswer';
+import NavArrow from './../../components/NavArrow/index';
 
 export default function CartPage() {
     let userCoins = useContext(CoinsContext).coinsAmount;
@@ -110,11 +111,7 @@ export default function CartPage() {
     return (
         <div>
             <StoreNavBar />
-            <Link to="/store">
-                <div className={styles.arrow}>
-                    <div></div>
-                </div>
-            </Link>
+            <NavArrow to='store'/>
             {
                 cart.length === 0
                     ?
