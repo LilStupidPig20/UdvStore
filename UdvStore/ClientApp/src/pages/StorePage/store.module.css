@@ -22,3 +22,14 @@
     gap: 20px;
     justify-items: center;
 }
+
+.logo{
+    font-family: 'Hero';
+    position: absolute;
+    top: 15px;
+    left: 280px;
+    margin: 18px 20px 20px;
+    font-size: 40px;
+    font-weight: 700;
+    color: #00D29D;
+}

@@ -20,6 +20,9 @@ import StoreAdminPage from './pages/StoreAdminPage';
 import CartPage from './pages/CartPage/index';
 import UserOrdersPage from './pages/UserOrdersPage/index';
 import ChargeHistory from './pages/ChargeHistoryPage';
+import UserActivityPage from './pages/UserActivityPage';
+import TransferPage from './pages/TransferPage/index';
+import TransferResultPage from './pages/TransferResultPage/index';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -99,6 +102,15 @@ export const useRoutes = (isAuthenticated, role) => {
                     </Route>
                     <Route path='/myOrders'>
                         <UserOrdersPage />
+                    </Route>
+                    <Route path='/myActivity'>
+                        <UserActivityPage />
+                    </Route>
+                    <Route path='/transfer'>
+                        <TransferPage />
+                    </Route>
+                    <Route path='/transferResult'>
+                        <TransferResultPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>

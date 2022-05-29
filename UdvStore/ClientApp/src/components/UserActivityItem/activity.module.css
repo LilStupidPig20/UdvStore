@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 90px;
+    padding-right: 90px;
+    margin-bottom: 10px;
+
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #302E2E;
+}
+
+.titleItem{
+    width: 45%;
+    text-align: start;
+}
+
+.dateItem{
+    width: 33%;
+    text-align: center;
+}
+
+.coinsItem{
+    width: 33%;
+    text-align: end;
+}
+
+.green{
+    color: #6DD6BB;
+}
+
+.red{
+    color: #FF6969;   
+}
+
+.topLine{
+    margin: auto;
+    width: 85%;
+    height: 1px;
+    background-color: #302E2E;
+}
