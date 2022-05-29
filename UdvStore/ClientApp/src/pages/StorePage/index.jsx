@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./store.module.css"
 import ProductItem from "../../components/ProductItem";
 import StoreNavBar from "../../components/StoreNavBar";
@@ -10,6 +10,7 @@ export default function StorePage({ products = [] }) {
     return (
         <div>
             <StoreNavBar />
+            <div className={styles.logo}>UDV-store</div>
             <div className={styles.wrapper}>
                 <SearchBlock
                     searchValue={searchValue}
@@ -17,16 +18,16 @@ export default function StorePage({ products = [] }) {
                 />
                 <div className={styles.products}>
                     {products
-                    .filter(item => new RegExp(searchValue, 'i').test(item.name))
-                    .map((product) => {
-                        return <ProductItem
-                            key={product.id}
-                            title={product.name}
-                            price={product.price}
-                            imgSrc={product.image}
-                            id={product.id}
-                            quantity={product.currentQuantity} />
-                    })}
+                        .filter(item => new RegExp(searchValue, 'i').test(item.name))
+                        .map((product) => {
+                            return <ProductItem
+                                key={product.id}
+                                title={product.name}
+                                price={product.price}
+                                imgSrc={product.image}
+                                id={product.id}
+                                quantity={product.currentQuantity} />
+                        })}
                 </div>
             </div>
         </div>
