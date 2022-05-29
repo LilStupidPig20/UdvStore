@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import styles from './card.module.css';
 import StoreNavBar from "../../components/StoreNavBar";
+import NavArrow from './../../components/NavArrow/index';
 
 export default function ProductPage() {
     const [flag, setFlag] = useState(false);
@@ -72,11 +73,7 @@ export default function ProductPage() {
     return (
         <div>
             <StoreNavBar />
-            <Link to="/store">
-                <div className={styles.arrow}>
-                    <div></div>
-                </div>
-            </Link>
+            <NavArrow to='store' />
 
             {!flag ?
                 <div className={styles.loading}>
@@ -89,7 +86,7 @@ export default function ProductPage() {
                     </div>
                     <div className={styles.productInfo}>
                         <div className={styles.mainBlock}>
-                            <h2>{product.commonInfo.name}</h2>
+                            <h2>{product.commonInfo.description}</h2>
                             <p className={styles.price}>{product.commonInfo.price} UC</p>
                             {
                                 product.commonInfo.isClothes

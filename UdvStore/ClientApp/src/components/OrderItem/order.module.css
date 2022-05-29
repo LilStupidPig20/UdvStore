@@ -13,8 +13,14 @@
     font-family: 'Hero';
 }
 
+.headerBlock{
+    display: flex;
+    justify-content: space-between;
+}
+
 .productItem{
     margin-right: 50px;
+    width: 140px;
 }
 
 .title{

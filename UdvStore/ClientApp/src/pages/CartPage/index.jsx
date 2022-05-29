@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import StoreNavBar from '../../components/StoreNavBar';
 import CartItem from '../../components/CartItem';
 import OrderAnswer from '../../components/OrderAnswer';
+import NavArrow from './../../components/NavArrow/index';
 
 export default function CartPage() {
     let userCoins = useContext(CoinsContext).coinsAmount;
@@ -16,6 +17,7 @@ export default function CartPage() {
     let [cart, setCart] = useState([]);
     let [ordered, setOrdered] = useState(false);
     let [alert, setAlert] = useState(false);
+    let [orderID, setOrderID] = useState(-1);
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
@@ -93,6 +95,8 @@ export default function CartPage() {
                 .then(response => {
                     if (response.ok) {
                         setOrdered(true);
+                        response.json()
+                            .then(res => setOrderID(res));
                         localStorage.removeItem('cart');
                     } else {
                         console.log("Статус запроса " + response.status);
@@ -107,11 +111,7 @@ export default function CartPage() {
     return (
         <div>
             <StoreNavBar />
-            <Link to="/store">
-                <div className={styles.arrow}>
-                    <div></div>
-                </div>
-            </Link>
+            <NavArrow to='store'/>
             {
                 cart.length === 0
                     ?
@@ -161,19 +161,19 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer setActive={setOrdered} />
+                    <OrderAnswer setActive={setOrdered} setCart={setCart} orderID={orderID} products={cart} />
                     :
                     null
             }
             {
                 alert
                     ?
-                    <div className={styles.popup} onClick={() => setAlert(false)}>
+                    <div className={styles.popup} onClick={() => { setAlert(false); }}>
                         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                             <h1 className={styles.popupTitle}>У тебя не хватает UC :{'('}</h1>
 
                             <div className={styles.buttonContainer}>
-                                <button className={styles.popupButton} onClick={() => setAlert(false)}>Готово</button>
+                                <button className={styles.popupButton} onClick={() => { setAlert(false); }}>Готово</button>
                             </div>
                         </div>
                     </div>
