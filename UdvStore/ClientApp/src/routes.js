@@ -19,7 +19,6 @@ import { OrdersHistoryPage } from './pages/OrdersHistoryPage';
 import StoreAdminPage from './pages/StoreAdminPage';
 import CartPage from './pages/CartPage/index';
 import UserOrdersPage from './pages/UserOrdersPage/index';
-import AdminHistory from './pages/AdminHistory';
 import ChargeHistory from './pages/ChargeHistoryPage';
 
 
