@@ -45,12 +45,11 @@ export default function TransferPage() {
             headers: {
                 "Content-Type": 'application/json',
                 "Authorization": `Bearer ${data.token}`
-            },
-            body: JSON.stringify(form)
+            }
         };
         console.log(options);
-        fetch(`https://localhost:5001/coins/transferToAnotherUser`, options)
-            // ?currentEmployeeId=${form.currentEmployeeId}?receiver=${form.receiver}?coinsCount=${form.coinsCount}?currentEmployeeId=${form.comment}
+        fetch(`https://localhost:5001/coins/transferToAnotherUser?currentEmployeeId=${form.currentEmployeeId}&receiver=${form.receiver}&coinsCount=${form.coinsCount}&comment=${form.comment}`, options)
+            // ?currentEmployeeId=${form.currentEmployeeId}?receiver=${form.receiver}?coinsCount=${form.coinsCount}?comment=${form.comment}
             .then(response => {
                 if (response.status === 200) {
                     toggleSent(true)
