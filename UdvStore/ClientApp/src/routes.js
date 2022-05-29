@@ -21,6 +21,7 @@ import CartPage from './pages/CartPage/index';
 import UserOrdersPage from './pages/UserOrdersPage/index';
 import AdminHistory from './pages/AdminHistory';
 import ChargeHistory from './pages/ChargeHistoryPage';
+import UserActivityPage from './pages/UserActivityPage';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -100,6 +101,9 @@ export const useRoutes = (isAuthenticated, role) => {
                     </Route>
                     <Route path='/myOrders'>
                         <UserOrdersPage />
+                    </Route>
+                    <Route path='/myActivity'>
+                        <UserActivityPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>

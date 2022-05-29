@@ -34,7 +34,7 @@ export default function ProfilePage() {
                     <div className={styles.greenBack}><img className={styles.image} src={store}/></div>
                     <span className={styles.imageText}>UDV-store</span>
                 </Link>
-                <Link to='/' className={styles.link}>
+                <Link to='/myActivity' className={styles.link}>
                     <div className={styles.greenBack}><img className={styles.image} src={activity} /></div>
                     <span className={styles.imageText}>Моя активность</span>
                 </Link>

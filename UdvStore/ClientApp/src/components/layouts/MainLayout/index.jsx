@@ -39,7 +39,7 @@ export default function MainLayout({ children }) {
                                 <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>Моя активность</Link>
+                                <Link to="/myActivity" className={styles.link}>Моя активность</Link>
                             </li>
                             <li>
                                 <Link to="/myOrders" className={styles.link}>Мои заказы</Link>
