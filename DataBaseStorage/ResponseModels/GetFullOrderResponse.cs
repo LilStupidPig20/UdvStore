@@ -13,6 +13,7 @@ namespace DataBaseStorage.ResponseModels
         public decimal TotalPrice { get; set; }
         public DateTime TimeOfPurchase { get; set; }
         public OrderStatus Status { get; set; }
+        public string CancellationComment { get; set; }
         
         public class ProductsInOrder
         {
