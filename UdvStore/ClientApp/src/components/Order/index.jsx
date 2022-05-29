@@ -10,10 +10,12 @@ export default function Order({
     status,
     time,
     selId,
-    isHistory
+    isHistory,
+    cancellationComment
 }) {
     const [isClicked, setClicked] = useState(false);
     const [isRejected, setRejected] = useState(false);
+    const [isRetry, setRetry] = useState(false);
     const [isError, setError] = useState(false);
     const [comment, setComment] = useState('');
     const auth = useContext(AuthContext);
@@ -39,6 +41,8 @@ export default function Order({
         case 'Cancelled':
             statusRus = 'Отменен';
             break;
+        default:
+            break;
     }
 
     const setStatus = () => {
@@ -58,15 +62,13 @@ export default function Order({
                     })             
                     break;     
                 case 'Готов к получению':
-                    /*
                     fetch(`https://localhost:5001/order/changeToReady?idOrder=${id}`,
                     {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${auth.token}`
                         }
-                    })*/
-                    console.log(opts.childElementCount);                  
+                    })                 
                     break;
                 case 'Получен':
                     fetch(`https://localhost:5001/order/changeToReceived?idOrder=${id}`,
@@ -80,9 +82,10 @@ export default function Order({
                 case 'Отменен':
                     setRejected(true);              
                     break;
+                default:
+                    break;
             }
         }
-        
     }
 
     let productsName = '';
@@ -90,57 +93,110 @@ export default function Order({
         if(index + 1 !== products.length){
             productsName += `${prod.productName}, `;
         } else productsName += prod.productName;
+        return '';
     })
+
 
     return (
         <>
-            {isRejected && isError &&
-            <div className={styles.modalLayout} onClick={()=>setRejected(false)}>
-            <div className={styles.modalActive}>
-                <h1 className={styles.errorModalTitle}>Ошибка заполнения!</h1>
-                <h2 className={styles.errorModalSubTitle}>Попробуйте заполнить анкету снова.</h2>
-                <button 
-                    type='button'
-                    onClick={()=>{setRejected(false); setError(false);}}
-                    className={styles.modalButton}
-                >Повторить</button>
+            {isError &&
+                <div className={styles.modalLayout} onClick={() => setError(false)}>
+                    <div className={styles.modalActive}>
+                        <h1 className={styles.errorModalTitle}>Ошибка заполнения!</h1>
+                        <h2 className={styles.errorModalSubTitle}>Заполните комментарий снова.</h2>
+                        <button 
+                            type='button'
+                            onClick={()=>{
+                                setRetry(true);
+                                setError(false);
+                            }}
+                            className={styles.modalButton}
+                        >Повторить</button>
+                    </div>
                 </div>
-            </div>
-        }
-            {isRejected &&
-                <div className={styles.modalLayout}>
-                <div className={styles.denyActive}>
-                    <h1 className={styles.denyTitle}>Заказ отклонен по причине:</h1>
-                    <textarea 
-                        placeholder='Текст...' 
-                        className={styles.infoArea}
-                        required
-                        onChange={(event) => setComment(event.target.value)}/>
-                    <button 
-                        type='button'
-                        onClick={() => {
-                            fetch(`https://localhost:5001/order/cancelOrderByAdmin?idOrder=${id}&cancellationComment=${comment}`,
-                            {
-                                method: 'POST',
-                                headers: {
-                                    'Authorization': `Bearer ${auth.token}`
+            }
+            {isRetry &&
+                <div className={styles.modalLayout} onClick={() => setRetry(false)}>
+                    <div className={styles.denyActive}>
+                        <h1 className={styles.denyTitle}>Заказ отклонен по причине:</h1>
+                        <textarea 
+                            placeholder='Текст...' 
+                            className={styles.infoArea}
+                            required
+                            onChange={(event) => setComment(event.target.value)}/>
+                        <button 
+                            type='button'
+                            onClick={() => {
+                                if(cancellationComment !== '') {
+                                    fetch(`https://localhost:5001/order/cancelOrderByAdmin?idOrder=${id}&cancellationComment=${comment}`,
+                                    {
+                                        method: 'POST',
+                                        headers: {
+                                            'Authorization': `Bearer ${auth.token}`
+                                        }
+                                    })
+                                    .then(response => {
+                                        if(response.status === 200) {
+                                            setError(false);
+                                        } else {
+                                            setError(true);
+                                            setRetry(false);
+                                            setRejected(false);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                        setError(true);
+                                        setRejected(false);
+                                    })
                                 }
-                            })
-                            .then(response => {
-                                if(response.status === 200) {
-                                    setError(false); 
-                                    setRejected(false);
-                                }
-                            })
-                            .catch(error => {
-                                console.log(error);
                                 setError(true);
-                            })
-                        }}
-                        className={styles.modalButton}
-                    >Отправить</button>
+                            }}
+                            className={styles.modalButton}
+                        >Отправить</button>
+                    </div>
                 </div>
-            </div>
+            }
+            {isRejected &&
+                <div className={styles.modalLayout} onClick={()=>{setRejected(false)}}>
+                    <div className={styles.denyActive}>
+                        <h1 className={styles.denyTitle}>Заказ отклонен по причине:</h1>
+                        <textarea 
+                            placeholder='Текст...' 
+                            className={styles.infoArea}
+                            required
+                            onChange={(event) => setComment(event.target.value)}/>
+                        <button 
+                            type='button'
+                            onClick={() => {
+                                if(cancellationComment !== '') {
+                                    fetch(`https://localhost:5001/order/cancelOrderByAdmin?idOrder=${id}&cancellationComment=${comment}`,
+                                    {
+                                        method: 'POST',
+                                        headers: {
+                                            'Authorization': `Bearer ${auth.token}`
+                                        }
+                                    })
+                                    .then(response => {
+                                        if(response.status === 200) {
+                                            setError(false);
+                                        } else {
+                                            setError(true);
+                                            setRejected(false);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.log(error);
+                                        setError(true);
+                                        setRejected(false);
+                                    })
+                                }
+                                setError(true);
+                            }}
+                            className={styles.modalButton}
+                        >Отправить</button>
+                    </div>
+                </div>
             }
             {isHistory ? 
                 <>
@@ -175,9 +231,6 @@ export default function Order({
                                                 {prod.size !== null &&
                                                     <div className={styles.prodSize}>Размер: {prod.size}</div>
                                                 }
-                                                {prod.size !== null &&
-                                                    <div className={styles.prodSize}>Размер: {prod.size}</div>
-                                                }
                                                 <div className={styles.prodPrice}>Цена: {prod.productPrice} UC</div>
                                             </div>
                                         </div>
@@ -192,6 +245,12 @@ export default function Order({
                                 <div className={styles.orderTitle}>Дата заказа:</div>
                                 <div className={styles.orderInfo}>{time}</div>
                             </div>
+                            {cancellationComment &&
+                                <>
+                                    <div className={styles.orderTitle}>Причина отказа:</div>
+                                    <div className={styles.orderInfo}>{cancellationComment}</div>
+                                </>
+                            }
                         </div>
                     </div>
                     <div className={styles.order} onClick={() => {setClicked(true)}}>
@@ -200,7 +259,8 @@ export default function Order({
                         <div name='name'>{productsName}</div>
                         <div>{statusRus}</div>
                     </div>
-                    </>:
+                    </>
+                    :
                         <div className={styles.order} onClick={() => {setClicked(true)}}>
                             <div style={{width:'104px'}}>{time}</div>
                             <div style={{width:'300px'}}>{fio}</div>
@@ -279,55 +339,66 @@ export default function Order({
                                         if (st !== statusRus) {
                                             switch (st) {
                                                 case 'В обработке':
-                                                    
-                                                    let select1 = document.getElementById(selId);
-                                                        if (select1 !== null) {
+                                                    setTimeout(() => { 
+                                                        let select1 = document.getElementById(selId);
+                                                        if (select1 !== null && select1.childElementCount !== allStatuses.length) {
                                                             let opt = document.createElement('option');
                                                             opt.id = st;
                                                             opt.textContent = st;
                                                             select1.append(opt);
                                                         }
+                                                    }, 2000)
                                                     break;
                                                 case 'Принят':
-                                                    let select2 = document.getElementById(selId);
-                                                        if (select2 !== null) {
+                                                    setTimeout(() => {
+                                                        let select2 = document.getElementById(selId);
+                                                        if (select2 !== null && select2.childElementCount !== allStatuses.length) {
                                                             let opt = document.createElement('option');
                                                             opt.id = st;
                                                             opt.textContent = st;
                                                             select2.append(opt);
                                                         }
+                                                    }, 2000)
                                                     break;
                                                 case 'Готов к получению':
-                                                    let select3 = document.getElementById(selId);
-                                                        if (select3 !== null) {
+                                                    setTimeout(() => {
+                                                        let select3 = document.getElementById(selId);
+                                                        if (select3 !== null && select3.childElementCount !== allStatuses.length) {
                                                             let opt = document.createElement('option');
                                                             opt.id = st;
                                                             opt.textContent = st;
                                                             select3.append(opt);
                                                         }
+                                                    }, 2000)
                                                     break;
                                                 case 'Получен':
-                                                    let select4 = document.getElementById(selId);
-                                                        if (select4 !== null) {
+                                                    setTimeout(() => {
+                                                        let select4 = document.getElementById(selId);
+                                                        if (select4 !== null && select4.childElementCount !== allStatuses.length) {
                                                             let opt = document.createElement('option');
                                                             opt.id = st;
                                                             opt.textContent = st;
                                                             select4.append(opt);
                                                         }
+                                                    }, 2000)
                                                     break;
                                                 case 'Отменен':
-                                                    let select5 = document.getElementById(selId);
-                                                        if (select5 !== null) {
+                                                    setTimeout(() => {
+                                                        let select5 = document.getElementById(selId);
+                                                        if (select5 !== null && select5.childElementCount !== allStatuses.length) {
                                                             let opt = document.createElement('option');
                                                             opt.id = st;
                                                             opt.textContent = st;
                                                             select5.append(opt);
                                                         }
+                                                    }, 2000)
+                                                    break;
+                                                default:
                                                     break;
                                             }
                                         }
-                                    })
-                                    }
+                                    return '';
+                                })}
                             </select>
                         </div>
                     </>

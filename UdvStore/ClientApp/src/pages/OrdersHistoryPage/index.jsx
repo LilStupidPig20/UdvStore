@@ -47,6 +47,7 @@ export const OrdersHistoryPage = () => {
                                 status={ord.status}
                                 time={`${dd}.${mm}.${yyyy}`}
                                 isHistory={true}
+                                comment={ord.cancellationComment}
                             />
                         })}
                     </div>

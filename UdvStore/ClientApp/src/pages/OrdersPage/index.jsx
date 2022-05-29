@@ -22,7 +22,6 @@ export const OrdersPage = () => {
                 .then(items => setOrders(items))
         }
     }, []);
-    console.log(orders);
 
     return (
         <div className={styles.wrapper}>
