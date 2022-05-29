@@ -20,7 +20,6 @@ export const ChargePage = () => {
         setForm({ ...form, [event.target.name]: event.target.value });
     };
 
-    console.log(form);
     const addFioInput = () => {
         let cont = document.getElementById('fioCont');
         let inp = document.createElement('input');
@@ -41,7 +40,6 @@ export const ChargePage = () => {
         for (var i = 0; i < opts.length; i++) {
             if (opts[i].value === inp.value) {
                 setIds(prev => ([...prev, opts[i].id]));
-                console.log(ids);
                 break;
             }
         }
@@ -66,10 +64,10 @@ export const ChargePage = () => {
     
     if(fios.length !== 0 && list.childElementCount === 0) {
         for(let elem of fios) {
-            let opt = document.createElement('option')
+            let opt = document.createElement('option');
             opt.value = elem.fio;
             opt.id = elem.id;
-            opt.addEventListener('click', addToArray)
+            opt.addEventListener('click', addToArray);
             list.append(opt);
         }
     }

@@ -14,6 +14,8 @@
     padding-left: 5px;
     padding-right: 5px;
     cursor: pointer;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #000;
 }
 
 .scoreCont {
@@ -56,7 +58,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .buttonAccept {
-    width: 180px;
+    width: 155px;
     height: 36px;
     background: #00D29D;
     cursor: pointer;
@@ -84,7 +86,7 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .buttonDeny {
-    width: 180px;
+    width: 155px;
     height: 36px;
     border: 1px solid #000000;
     box-sizing: border-box;

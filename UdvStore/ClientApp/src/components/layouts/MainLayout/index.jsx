@@ -24,7 +24,6 @@ export default function MainLayout({ children }) {
                             <Link to='/profile'><Logo /></Link>
                         </div>
                         <div className={styles.userInfo}>
-                            <img src="/imgs/profileImg-example.jpg" alt="" className={styles.userImg} />
                             <h3 className={styles.userNameP}>{fullName}</h3>
                             <div className={styles.wallet}>
                                 <div>Баланс</div>
@@ -40,7 +39,10 @@ export default function MainLayout({ children }) {
                                 <Link to="/store" className={styles.link}>UDV-store</Link>
                             </li>
                             <li>
-                                <Link to="/profile" className={styles.link}>История моей активности</Link>
+                                <Link to="/profile" className={styles.link}>Моя активность</Link>
+                            </li>
+                            <li>
+                                <Link to="/myOrders" className={styles.link}>Мои заказы</Link>
                             </li>
                             <li>
                                 <Link to="/rules" className={styles.link}>Правила получения баллов</Link>

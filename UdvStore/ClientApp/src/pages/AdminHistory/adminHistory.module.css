@@ -1,0 +1,73 @@
+.history {
+    width: 830px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    color: #302E2E;
+    margin-left: 85px;
+    margin-right: 85px;
+    padding: 16px 5px;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+}
+
+.close {
+    width: 23px;
+    height: 23px;
+    margin-bottom: -40px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.historyPopup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.historyContainer {
+    max-width: 800px;
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 36px;
+    font-family: 'Hero';
+    position: relative;;
+}
+
+.flexCont {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.historyTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    color: #302E2E;
+    padding-right: 8px;
+}
+
+.historyInfo {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 24px;
+    color: #302E2E;
+}
