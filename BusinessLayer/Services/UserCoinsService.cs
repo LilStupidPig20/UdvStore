@@ -29,7 +29,7 @@ namespace BusinessLayer.Services
         public async Task TransferCoins(long sender, long receiver, decimal coinsCount, string comment)
         {
             var employeeCoinsStorage = _storageFactory.CreateEmployeeCoinsStorage();
-            var senderEmployee = await employeeCoinsStorage.SearchByIdAsync(sender);
+            var senderEmployee = await employeeCoinsStorage.GetByEmployeeId(sender);
             if (senderEmployee.CurrentBalance < coinsCount)
                 throw new Exception("Недостаточно коинов на балансе");
             
