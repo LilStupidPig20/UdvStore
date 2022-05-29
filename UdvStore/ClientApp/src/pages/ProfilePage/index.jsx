@@ -42,7 +42,7 @@ export default function ProfilePage() {
                     <div className={styles.greenBack}><img className={styles.image} src={get_coins} /></div>
                     <span className={styles.imageText}>Получить UDV-coins</span>
                 </Link>
-                <Link to='/' className={styles.link}>
+                <Link to='/transfer' className={styles.link}>
                     <div className={styles.greenBack}><img className={styles.image} src={send_coins} /></div>
                     <span className={styles.imageText}>Отправить UDV-coins</span>
                 </Link>

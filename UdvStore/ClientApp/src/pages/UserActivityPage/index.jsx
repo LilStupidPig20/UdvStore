@@ -7,7 +7,6 @@ import UserActivityItem from '../../components/UserActivityItem';
 export default function UserActivityPage() {
     const [history, setHistory] = useState([]);
     const data = JSON.parse(localStorage.getItem('userData'));
-    console.log(history)
 
     useEffect(() => {
         fetch(`https://localhost:5001/coins/getHistoryOfEmployee?employeeId=${data.userId}`,
