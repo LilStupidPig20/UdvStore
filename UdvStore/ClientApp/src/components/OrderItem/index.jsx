@@ -47,28 +47,30 @@ export default function OrderItem({
     }, []);
 
     const cancelOrder = (orderId, cancellationComment) => {
+        if (cancellationComment !== '') {
+            const auth = JSON.parse(localStorage.getItem('userData'));
+            const body = {
+                cancellationComment: cancellationComment
+            };
+            fetch(`https://localhost:5001/order/cancelOrderByEmployee?idOrder=${orderId}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": `Bearer ${auth.token}`
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(res => {
+                    console.log(res.status)
+                    setCancelFlag(false);
+                    setAlertFlag(true);
+                    setCancellationComment('');
+                    setStatusText('Отменен');
+                    setIsCancelable(false);
+                })
+                .catch(error => console.log(error))
 
-        const auth = JSON.parse(localStorage.getItem('userData'));
-        const body = {
-            cancellationComment: cancellationComment
-        };
-        fetch(`https://localhost:5001/order/cancelOrderByEmployee?idOrder=${orderId}`,
-            {
-                method: 'POST',
-                headers: {
-                    "Authorization": `Bearer ${auth.token}`
-                },
-                body: JSON.stringify(body)
-            })
-            .then(res => {
-                console.log(res.status)
-                setCancelFlag(false);
-                setAlertFlag(true);
-                setCancellationComment('');
-                setStatusText('Отменён');
-                setIsCancelable(false);
-            })
-            .catch(error => console.log(error))
+        }
     };
 
     const onChangeMessageInput = (e) => {
