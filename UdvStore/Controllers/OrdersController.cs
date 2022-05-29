@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -52,6 +53,8 @@ namespace UdvStore.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AdminCancelOrder(long idOrder, string cancellationComment)
         {
+            if (cancellationComment == null || cancellationComment.Equals(""))
+                throw new ArgumentNullException("Требуется комментарий отмены");
             await _orderService.CancelOrder(idOrder, cancellationComment);
             return new OkResult();
         }
