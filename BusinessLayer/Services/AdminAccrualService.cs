@@ -17,10 +17,10 @@ namespace BusinessLayer.Services
             _storageFactory = storageFactory;
         }
         
-        public async Task<List<Employee>> GetAllEmployees()
+        public async Task<List<GetAllEmployeesResponse>> GetAllEmployees()
         {
             var employeesStorage = _storageFactory.CreateEmployeeStorage();
-            return await employeesStorage.GetAllAsync();
+            return await employeesStorage.GetAllEmployees();
         }
         
         public async Task<bool> AccrualCoinsToEmployees(string nameOfEvent, string description, decimal coins,

@@ -17,6 +17,6 @@ namespace DataBaseStorage.DbModels
         public decimal CurrentBalance { get; set; }
         
         [Column("history")]
-        public string Password { get; set; }
+        public string History { get; set; }
     }
 }
