@@ -12,10 +12,10 @@ export default function StoreNavBar() {
     const [cartAmount, SetCartAmount] = useState(-1);
 
     useEffect(() => {
-        let amount = new Map(Object.entries(JSON.parse(localStorage.getItem('cart')))).size;
+        let amount = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))?? 0)).size ?? 0;
 
         SetCartAmount(amount);
-    }, [new Map(Object.entries(JSON.parse(localStorage.getItem('cart')))).size])
+    }, [new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))?? 0)).size])
 
     return (
         <div className={styles.navbar}>
