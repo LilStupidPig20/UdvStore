@@ -153,6 +153,7 @@ namespace BusinessLayer.Services
                 resultElement.EmployeeId = e.Order.EmployeeId;
                 resultElement.TotalPrice = e.Order.TotalPrice;
                 resultElement.TimeOfPurchase = e.Order.TimeOfPurchase;
+                resultElement.CancellationComment = e.Order.CancellationComment;
                 resultElement.ProductsInOrders = new List<GetFullOrderResponse.ProductsInOrder>();
                 foreach (var productOrder in e.ProductsOrder)
                 {

@@ -1,0 +1,241 @@
+.order {
+    width: 830px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 29px;
+    color: #302E2E;
+    margin-left: 85px;
+    margin-right: 85px;
+    padding: 16px 5px;
+    border-bottom: 1px solid #000;
+    cursor: pointer;
+}
+
+.close {
+    width: 23px;
+    height: 23px;
+    margin-bottom: -40px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.orderPopup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.orderContainer {
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 36px;
+    font-family: 'Hero';
+    position: relative;;
+}
+
+.flexCont {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.prodCont {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.orderProducts {
+    display: flex;
+}
+
+.orderTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    color: #302E2E;
+    padding-right: 8px;
+}
+
+.orderInfo {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 24px;
+    color: #302E2E;
+}
+
+.orderSelect {
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 229px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    color: #302E2E;
+    line-height: inherit;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.orderSelect option {
+    background: #DFDFDF;
+}
+
+.prodImg {
+    padding-right: 8px;
+    padding-left: 16px;
+}
+
+.prodName {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #302E2E;
+    margin-bottom: 16px;
+}
+
+.prodPrice {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    color: #302E2E;
+}
+
+.prodSize {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #302E2E;
+}
+
+.modalLayout {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.denyTitle {
+    text-align: left;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 41px;
+    color: #302E2E;
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-bottom: 8px;
+}
+
+.denyActive {
+    width: 680px;
+    height: 380px;
+    border-radius: 60px;
+    background: #ffffff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.modalButton {
+    width: 180px;
+    height: 43px;
+    background: #00D29D;
+    border-radius: 9px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    border: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.modalButton:hover {
+    background: #00d29eee;
+}
+
+.modalButton:active {
+    background: #00d29ec3;
+    box-shadow: inset 0px 7px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 9px;
+}
+
+.infoArea {
+    border: 2px solid #A6A6A6;
+    box-sizing: border-box;
+    border-radius: 9px;
+    width: 562px;
+    height: 200px;
+    resize: none;
+    margin-top: 8px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.07em;
+    color: #1E1E1E;
+    margin-left: 50px;
+    margin-bottom: 16px;
+    padding-left: 8px;
+    padding-top: 8px;
+}
+
+.errorModalTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #302E2E;
+    margin-top: 55px;
+    margin-bottom: 0;
+    margin-left: 100px;
+}
+
+.errorModalSubTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 0;
+    margin-left: 100px;
+    margin-bottom: 30px;
+}

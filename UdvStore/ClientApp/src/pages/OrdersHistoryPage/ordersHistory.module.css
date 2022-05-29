@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.requestsWindow {
+.ordersWindow {
     width: 1000px;
     height: 600px;
     background: #ffffff;
@@ -29,8 +29,11 @@
     color: #302E2E;
 }
 
-.requestsTitle {
-    display: flex;
+.ordersTitle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: center;
     justify-content: space-between;
     padding-left: 90px;
     padding-right: 90px;

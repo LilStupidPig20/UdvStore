@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
-import { AuthContext } from '../../context/AuthContext';
 import styles from './fullRequest.module.css'
 
 export default function FullRequestPage() {
@@ -27,7 +26,7 @@ export default function FullRequestPage() {
     
     if (isEmpty) {
         open = true;
-        if(request.closedEmployeeRequest.status === 2) status = 'Отклонено' 
+        if(request.closedEmployeeRequest.status === 'Rejected') status = 'Отклонено' 
         else status = 'Принято';
 
         var yyyyEvent = String(request.closedEmployeeRequest.eventDate).slice(0,4);
@@ -48,11 +47,10 @@ export default function FullRequestPage() {
                         {open &&
                             <div className={styles.requestCont}>
                                 <Link to='/requests/history' className={styles.change}>
-                                <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-
+                                    <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
                                 </Link>
                                 <div className={styles.title}>Заявка на зачисление UDV-coins</div>
                                 
@@ -75,16 +73,16 @@ export default function FullRequestPage() {
                                         <div className={styles.text}>Статус заявки:</div>
                                         <div className={styles.requestInfo}>{ status }</div>
                                 
-                                {request.closedEmployeeRequest.status === 2 && 
-                                    <div className={styles.text} style={{marginBottom:'70px'}}>Причина отклонения:</div>
+                                {request.closedEmployeeRequest.status === 'Rejected' && 
+                                    <div className={styles.text}>Причина отклонения:</div>
                                 }
-                                {request.closedEmployeeRequest.status === 2 &&
+                                {request.closedEmployeeRequest.status === 'Rejected' &&
                                     <div className={styles.requestInfo}>{ request.closedEmployeeRequest.rejectComment }</div>
                                 }
-                                {request.closedEmployeeRequest.status !== 2 &&
+                                {request.closedEmployeeRequest.status !== 'Rejected' &&
                                         <div className={styles.text}>Баллы: </div>
                                 }
-                                {request.closedEmployeeRequest.status !== 2 &&
+                                {request.closedEmployeeRequest.status !== 'Rejected' &&
                                         <div className={styles.requestInfo}>{ request.closedEmployeeRequest.coinsAccrued } UC</div>
                                 }
                                 </div>

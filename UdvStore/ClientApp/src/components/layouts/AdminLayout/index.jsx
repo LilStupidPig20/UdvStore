@@ -45,6 +45,9 @@ export default function AdminLayout ({ children }) {
                                 <Link to="/charge" className={styles.link}>Начислить баллы</Link>
                             </li>
                             <li>
+                                <Link to="/charge/history" className={styles.link}>История начислений</Link>
+                            </li>
+                            <li>
                                 <Link to="/store" className={styles.link}>Склад UDV-store</Link>
                             </li>
                             <li>

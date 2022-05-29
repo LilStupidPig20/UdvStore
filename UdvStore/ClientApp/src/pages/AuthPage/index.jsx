@@ -37,10 +37,9 @@ export const AuthPage = () => {
     return (
         <div className={styles.mainBlock}>
             <Navbar />
-            
             <div className={styles.authBlock}>
                 <div className={styles.textBlock}>
-                    <img src={logo} className={styles.logo} width="258px" height="100px"/>
+                    <img src={logo} className={styles.logo} width="258px" height="100px" alt='Осьминог'/>
                     <div className={styles.titleText}>-store</div>
                 </div> 
                 <h2 className={styles.authTitle}>Вход</h2>
