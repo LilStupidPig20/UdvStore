@@ -40,7 +40,6 @@ export const ChargePage = () => {
         for (var i = 0; i < opts.length; i++) {
             if (opts[i].value === inp.value) {
                 setIds(prev => ([...prev, opts[i].id]));
-                console.log(ids);
                 break;
             }
         }
