@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.ordersWindow {
+.historiesWindow {
     width: 1000px;
     height: 600px;
     background: #ffffff;
@@ -29,9 +29,9 @@
     color: #302E2E;
 }
 
-.ordersTitle {
+.historiesTitle {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     align-items: center;
     justify-content: space-between;
@@ -45,8 +45,7 @@
     color: #302E2E;
 }
 
-.orders {
-    overflow: auto;
+.histories {
+    overflow: overlay;
     height: 450px;
 }
-

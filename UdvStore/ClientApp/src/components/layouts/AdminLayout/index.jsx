@@ -13,8 +13,8 @@ export default function AdminLayout ({ children }) {
     return (
         <div className={styles.layout}>
                 {isActive &&
-                <div className={styles.overlay}>
-                    <div className={styles.drawer}>
+                <div className={styles.overlay} onClick={() => context.toggleActive(false)}>
+                    <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
                         <div className={styles.logo_container}>
                             <Link to='/requests'><Logo /></Link>
                         </div>
@@ -43,6 +43,9 @@ export default function AdminLayout ({ children }) {
                             </div>
                             <li>
                                 <Link to="/charge" className={styles.link}>Начислить баллы</Link>
+                            </li>
+                            <li>
+                                <Link to="/charge/history" className={styles.link}>История начислений</Link>
                             </li>
                             <li>
                                 <Link to="/store" className={styles.link}>Склад UDV-store</Link>

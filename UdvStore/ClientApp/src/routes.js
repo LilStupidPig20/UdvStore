@@ -19,6 +19,8 @@ import { OrdersHistoryPage } from './pages/OrdersHistoryPage';
 import StoreAdminPage from './pages/StoreAdminPage';
 import CartPage from './pages/CartPage/index';
 import UserOrdersPage from './pages/UserOrdersPage/index';
+import AdminHistory from './pages/AdminHistory';
+import ChargeHistory from './pages/ChargeHistoryPage';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -57,6 +59,9 @@ export const useRoutes = (isAuthenticated, role) => {
                         </Route>
                         <Route path="/charge" exact>
                             <ChargePage />
+                        </Route>
+                        <Route path="/charge/history" exact>
+                            <ChargeHistory />
                         </Route>
                         <Route path="/store" exact>
                             <StoreAdminPage products={products} />
