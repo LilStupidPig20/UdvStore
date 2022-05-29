@@ -43,12 +43,14 @@ export default function TransferPage() {
         const options = {
             method: 'POST',
             headers: {
+                "Content-Type": 'application/json',
                 "Authorization": `Bearer ${data.token}`
             },
             body: JSON.stringify(form)
         };
         console.log(options);
         fetch(`https://localhost:5001/coins/transferToAnotherUser`, options)
+            // ?currentEmployeeId=${form.currentEmployeeId}?receiver=${form.receiver}?coinsCount=${form.coinsCount}?currentEmployeeId=${form.comment}
             .then(response => {
                 if (response.status === 200) {
                     toggleSent(true)
