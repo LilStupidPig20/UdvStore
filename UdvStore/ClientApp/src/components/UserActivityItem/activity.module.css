@@ -15,33 +15,52 @@
     align-items: center;
 }
 
-.titleItem{
+.columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleItem {
     width: 45%;
     text-align: start;
 }
 
-.dateItem{
+.dateItem {
     width: 33%;
     text-align: center;
 }
 
-.coinsItem{
+.coinsItem {
     width: 33%;
     text-align: end;
     font-weight: 700;
 }
 
-.green{
+.green {
     color: #6DD6BB;
 }
 
-.red{
-    color: #FF6969;   
+.red {
+    color: #FF6969;
 }
 
-.topLine{
+.grey {
+    color: #A6A6A6;
+}
+
+.comment {
+    margin: 5px 0;
+    font-size: 20px;
+    line-height: 1.5rem;
+}
+
+.topLine {
     margin: auto;
     width: 85%;
     height: 1px;
-    background-color: #302E2E;
+    background-color: #000;
+}
+
+.pointer{
+    cursor: pointer;
 }

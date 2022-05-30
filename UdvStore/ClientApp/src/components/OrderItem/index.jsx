@@ -93,6 +93,7 @@ export default function OrderItem({
                                 <div className={styles.productItem} key={product.productId}>
                                     <img src={product.imageLink} width={137} height={187} alt="" />
                                     <p className={styles.title}>{product.productName}</p>
+                                    <p className={styles.count}>Кол-во {product.countOrdered} шт.</p>
                                     <p className={styles.price}>Цена: {product.productPrice * product.countOrdered} UC</p>
                                 </div>
                             )
@@ -130,6 +131,7 @@ export default function OrderItem({
                                             <div className={styles.productItem} key={product.productId}>
                                                 <img src={product.imageLink} width={137} height={187} alt="" />
                                                 <p className={styles.title}>{product.productName}</p>
+                                                <p className={styles.count}>Кол-во {product.countOrdered} шт.</p>
                                                 <p className={styles.price}>Цена: {product.productPrice * product.countOrdered} UC</p>
                                             </div>
                                         )
@@ -162,9 +164,7 @@ export default function OrderItem({
                     }}>
                         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                             <h1>Заказ отменен</h1>
-                            <h3>Информация отправлена администратору. <br />
-                                UCoins будут начислены обратно на ваш счет <br />
-                                в течкении нескольких дней.</h3>
+                            <h3>Будем ждать новых заказов!</h3>
                             <div className={styles.buttonContainer}>
                                 <button className={styles.popupButton} onClick={() => setAlertFlag(false)}>Готово</button>
                             </div>
