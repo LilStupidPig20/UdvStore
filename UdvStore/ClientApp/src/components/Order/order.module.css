@@ -216,6 +216,17 @@
     padding-top: 8px;
 }
 
+.modalTitle {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #302E2E;
+    margin-top: 55px;
+    text-align: center;
+}
+
 .errorModalTitle {
     font-family: 'Hero';
     font-style: normal;
