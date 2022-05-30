@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams } from 'react-router-dom';
 import styles from './card.module.css';
+import { CoinsContext } from "../../context/CoinsContext";
+import { AuthContext } from './../../context/AuthContext';
 import StoreNavBar from "../../components/StoreNavBar";
 import NavArrow from './../../components/NavArrow/index';
+import OrderAnswer from './../../components/OrderAnswer/index';
 
 export default function ProductPage() {
-    const [flag, setFlag] = useState(false);
     const [buttonFlag, setButtonFlag] = useState("");
-    const [inCart, SetInCart] = useState(false);
-    const [alert, SetAlert] = useState(false);
+    const [flag, setFlag] = useState(false);
+    const [inCart, setInCart] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [bought, setBought] = useState(false);
+    const [noneCoins, setNoneCoins] = useState(false);
+    const [orderId, setOrderId] = useState(-1);
+
+    const userCoins = useContext(CoinsContext).coinsAmount;
+    const auth = useContext(AuthContext);
 
     const { productId } = useParams();
     const [product, setProduct] = useState();
+
+    console.log(product);
 
     useEffect(() => {
         fetch(`https://localhost:5001/store/getFullInfo?idProduct=${productId}`)
@@ -39,7 +50,7 @@ export default function ProductPage() {
         }
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(cart)));
 
-        SetInCart(true);
+        setInCart(true);
     }
 
     const addProductToCart = (product, cart, count = 0) => {
@@ -64,10 +75,41 @@ export default function ProductPage() {
             prod.style.backgroundColor = "white";
             prod.style.fontWeight = "400";
         })
-        
+
         e.style.color = "white";
         e.style.backgroundColor = "black";
         e.style.fontWeight = "700";
+    }
+
+    const buyNow = () => {
+        const body = {
+            EmployeeId: auth.userId,
+            products: [{
+                Id: product.commonInfo.id,
+                Count: 1,
+                Size: buttonFlag
+            }] 
+        }
+        const options = {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json',
+                "Authorization": `Bearer ${auth.token}`
+            },
+            body: JSON.stringify(body)
+        };
+        fetch(`https://localhost:5001/order/createNewOrder`, options)
+            .then(response => {
+                if (response.ok) {
+                    setBought(true);
+                    response.json()
+                        .then(res => setOrderId(res));
+                } else {
+                    console.log("Статус запроса " + response.status);
+                }
+            })
+            .catch(e => console.log(e))
+
     }
 
     return (
@@ -95,14 +137,20 @@ export default function ProductPage() {
                                         <h3>Размер</h3>
                                         <div className={styles.buttonsBlock}>
                                             {
-                                                product.sizes.map((el) => {
-                                                    if (el.quantity > 0) {
-                                                        return (<button name="sizeButton" className={styles.sizeButton} onClick={(e) => changeSize(el.size, e.target)}>{el.size}</button>);
-                                                    }
-                                                    else {
-                                                        return (<button className={styles.disButton} disabled>{el.size}</button>);
-                                                    }
-                                                })
+                                                product.sizes
+                                                    .sort((a, b) => {
+                                                        if (a.id > b.id) return 1;
+                                                        if (a.id < b.id) return -1;
+                                                        return 0;
+                                                    })
+                                                    .map((el) => {
+                                                        if (el.quantity > 0) {
+                                                            return (<button key={el.id} name="sizeButton" className={styles.sizeButton} onClick={(e) => changeSize(el.size, e.target)}>{el.size}</button>);
+                                                        }
+                                                        else {
+                                                            return (<button key={el.id} className={styles.disButton} disabled>{el.size}</button>);
+                                                        }
+                                                    })
                                             }
                                         </div>
 
@@ -110,15 +158,29 @@ export default function ProductPage() {
                                     :
                                     null
                             }
-                            <button className={styles.addButton} onClick={() => {
-                                if (!product.commonInfo.isClothes || buttonFlag !== "") {
-                                    addToCart();
-                                } else {
-                                    SetAlert(true);
-                                }
-                            }}>
-                                В корзину
-                            </button>
+                            <div className={styles.actionButtons}>
+                                <button className={styles.addButton} onClick={() => {
+                                    if (!product.commonInfo.isClothes || buttonFlag !== "") {
+                                        addToCart();
+                                    } else {
+                                        setAlert(true);
+                                    }
+                                }}>
+                                    В корзину
+                                </button>
+
+                                <button className={styles.buyButton} onClick={() => {
+                                    if ((!product.commonInfo.isClothes || buttonFlag !== "") && userCoins >= product.commonInfo.price) {
+                                        buyNow();
+                                    } else if (buttonFlag === "") {
+                                        setAlert(true);
+                                    } else {
+                                        setNoneCoins(true);
+                                    }
+                                }}>
+                                    Купить сейчас
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -126,12 +188,12 @@ export default function ProductPage() {
             {
                 inCart
                     ?
-                    <div className={styles.popup} onClick={() => SetInCart(false)}>
+                    <div className={styles.popup} onClick={() => setInCart(false)}>
                         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                             <h1 className={styles.title}>Товар успешно добавлен в корзину!</h1>
 
                             <div className={styles.buttonContainer}>
-                                <button className={styles.popupButton} onClick={() => SetInCart(false)}>Готово</button>
+                                <button className={styles.popupButton} onClick={() => setInCart(false)}>Готово</button>
                             </div>
                         </div>
                     </div>
@@ -141,12 +203,45 @@ export default function ProductPage() {
             {
                 alert
                     ?
-                    <div className={styles.popup} onClick={() => SetAlert(false)}>
+                    <div className={styles.popup} onClick={() => setAlert(false)}>
                         <div className={styles.container} onClick={(e) => e.stopPropagation()}>
                             <h1 className={styles.title}>Пожалуйста, выберите размер!</h1>
 
                             <div className={styles.buttonContainer}>
-                                <button className={styles.popupButton} onClick={() => SetAlert(false)}>Готово</button>
+                                <button className={styles.popupButton} onClick={() => setAlert(false)}>Готово</button>
+                            </div>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
+            {
+                bought
+                    ?
+                    <OrderAnswer
+                        setActive={setBought}
+                        setCart={() => { return null }}
+                        products={[{
+                            img: product.commonInfo.image,
+                            title: product.commonInfo.name,
+                            count: 1,
+                            price: product.commonInfo.price
+                        }]}
+                        orderID={orderId}
+                        sumPrice={product.commonInfo.price}
+                    />
+                    :
+                    null
+            }
+            {
+                noneCoins
+                    ?
+                    <div className={styles.popup} onClick={() => setNoneCoins(false)}>
+                        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+                            <h1 className={styles.title}>У тебя не хватает UC :{'('}</h1>
+
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.popupButton} onClick={() => setNoneCoins(false)}>Готово</button>
                             </div>
                         </div>
                     </div>
@@ -156,3 +251,15 @@ export default function ProductPage() {
         </div>
     );
 }
+
+{/* <div className={styles.popup} onClick={() => setInCart(false)}>
+                        <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+                            <h1 className={styles.title}>Оплата прошла успешно!</h1>
+                            <p className={styles.subTitle}>Вы можете найти и отслеживать статус вашего заказа <br />
+                                в разделе <Link to="/myOrders" className={styles.link}>«Мои заказы»</Link></p>
+
+                            <div className={styles.buttonContainer}>
+                                <button className={styles.popupButton} onClick={() => setInCart(false)}>Готово</button>
+                            </div>
+                        </div>
+                    </div> */}

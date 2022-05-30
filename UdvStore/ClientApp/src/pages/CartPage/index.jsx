@@ -17,7 +17,7 @@ export default function CartPage() {
     let [cart, setCart] = useState([]);
     let [ordered, setOrdered] = useState(false);
     let [alert, setAlert] = useState(false);
-    let [orderID, setOrderID] = useState(-1);
+    let [orderID, setOrderId] = useState(-1);
 
     useEffect(() => {
         if (localStorage.getItem('cart') !== null) {
@@ -41,8 +41,9 @@ export default function CartPage() {
 
     const decrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-        products.get(String(id)).count--;
-
+        let tmp = products.get(String(id));
+        tmp.count -= 1;
+        products.set(String(id), tmp);
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(products)));
 
         setProdCount(prev => prev - 1);
@@ -51,8 +52,9 @@ export default function CartPage() {
 
     const incrementCount = (id, price) => {
         const products = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))));
-        products.get(String(id)).count++;
-
+        let tmp = products.get(String(id));
+        tmp.count += 1;
+        products.set(String(id), tmp);
         localStorage.setItem('cart', JSON.stringify(Object.fromEntries(products)));
 
         setProdCount(prev => prev + 1);
@@ -72,9 +74,15 @@ export default function CartPage() {
 
     const createOrder = () => {
         if (userCoins >= sumPrice) {
+            const products = Object.entries(JSON.parse(localStorage.getItem('cart'))).map((prod) => {
+                return prod[1];
+            });
+
+            setCart(products);
+
             const body = {
                 EmployeeId: auth.userId,
-                products: cart.map((product) => {
+                products: products.map((product) => {
                     return {
                         Id: product.id,
                         Count: product.count,
@@ -82,6 +90,8 @@ export default function CartPage() {
                     }
                 })
             }
+
+            console.log(body);
 
             const options = {
                 method: 'POST',
@@ -96,7 +106,7 @@ export default function CartPage() {
                     if (response.ok) {
                         setOrdered(true);
                         response.json()
-                            .then(res => setOrderID(res));
+                            .then(res => setOrderId(res));
                         localStorage.removeItem('cart');
                     } else {
                         console.log("Статус запроса " + response.status);
@@ -161,7 +171,7 @@ export default function CartPage() {
             {
                 ordered
                     ?
-                    <OrderAnswer setActive={setOrdered} setCart={setCart} orderID={orderID} products={cart} />
+                    <OrderAnswer setActive={setOrdered} setCart={setCart} orderID={orderID} products={cart} sumPrice={sumPrice} />
                     :
                     null
             }
