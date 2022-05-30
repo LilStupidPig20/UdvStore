@@ -133,7 +133,8 @@ namespace BusinessLayer.Services
                 });
             }
 
-            return resultHistory.OrderByDescending(x => x.DateTime).ToList();
+            resultHistory.Sort((x, y) => DateTime.Compare(y.DateTime, x.DateTime));
+            return resultHistory;
         }
 
         public class CommonHistoryResponse

@@ -42,11 +42,12 @@ namespace DataBaseStorage.DbStorage
         {
             try
             {
-                return await DbTable
+                var orders = await DbTable
                     .Where(x => x.Status.Equals(OrderStatus.Cancelled) 
                                 || x.Status.Equals(OrderStatus.Received))
-                    .OrderByDescending(x => x.TimeOfPurchase)
                     .ToListAsync();
+                orders.Sort((x, y) => DateTime.Compare(y.TimeOfPurchase, x.TimeOfPurchase));
+                return orders;
             }
             catch (Exception e)
             {
@@ -58,12 +59,13 @@ namespace DataBaseStorage.DbStorage
         {
             try
             {
-                return await DbTable
+                var orders =  await DbTable
                     .Where(x => x.Status.Equals(OrderStatus.Accepted) 
                                 || x.Status.Equals(OrderStatus.ReadyToReceive)
                                 || x.Status.Equals(OrderStatus.Open))
-                    .OrderByDescending(x => x.TimeOfPurchase)
                     .ToListAsync();
+                orders.Sort((x, y) => DateTime.Compare(y.TimeOfPurchase, x.TimeOfPurchase));
+                return orders;
             }
             catch (Exception e)
             {
@@ -75,9 +77,11 @@ namespace DataBaseStorage.DbStorage
         {
             try
             {
-                return await DbTable
+                var orders =  await DbTable
                     .Where(x => x.EmployeeId.Equals(idEmployee))
                     .ToListAsync();
+                orders.Sort((x, y) => DateTime.Compare(y.TimeOfPurchase, x.TimeOfPurchase));
+                return orders;
             }
             catch (Exception e)
             {

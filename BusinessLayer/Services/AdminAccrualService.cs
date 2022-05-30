@@ -73,7 +73,8 @@ namespace BusinessLayer.Services
                     TimeSent = e.TimeSent
                 });
             }
-
+            
+            output.Sort((x, y) => DateTime.Compare(y.TimeSent, x.TimeSent));
             return output;
         }
     }
