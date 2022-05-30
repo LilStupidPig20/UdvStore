@@ -25,7 +25,6 @@ export default function UserActivityItem({
                         <div className={`${styles.coinsItem} ${styles.red}`}>{coinsAsString}</div>
                 }
             </div>
-            <div className={styles.topLine}></div>
         </div>
     );
 }

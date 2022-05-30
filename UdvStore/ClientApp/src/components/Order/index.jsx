@@ -16,7 +16,7 @@ export default function Order({
     const [isClicked, setClicked] = useState(false);
     const [isRejected, setRejected] = useState(false);
     const [isRetry, setRetry] = useState(false);
-    const [isError, setError] = useState(false);
+    const [isError1, setError1] = useState(false);
     const [comment, setComment] = useState('');
     const auth = useContext(AuthContext);
     let allStatuses = ['В обработке', 'Принят', 'Готов к получению', 'Получен', 'Отменен'];
@@ -96,19 +96,18 @@ export default function Order({
         return '';
     })
 
-
     return (
         <>
-            {isError &&
-                <div className={styles.modalLayout} onClick={() => setError(false)}>
+            {isError1 &&
+                <div className={styles.modalLayout}>
                     <div className={styles.modalActive}>
                         <h1 className={styles.errorModalTitle}>Ошибка заполнения!</h1>
-                        <h2 className={styles.errorModalSubTitle}>Заполните комментарий снова.</h2>
+                        <h2 className={styles.errorModalSubTitle}>Заполните причину снова.</h2>
                         <button 
                             type='button'
                             onClick={()=>{
                                 setRetry(true);
-                                setError(false);
+                                setError1(false);
                             }}
                             className={styles.modalButton}
                         >Повторить</button>
@@ -116,8 +115,14 @@ export default function Order({
                 </div>
             }
             {isRetry &&
-                <div className={styles.modalLayout} onClick={() => setRetry(false)}>
+                <div className={styles.modalLayout}>
                     <div className={styles.denyActive}>
+                        <Link to='/orders' className={styles.close} onClick={() => setRetry(false)}>
+                            <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </Link>
                         <h1 className={styles.denyTitle}>Заказ отклонен по причине:</h1>
                         <textarea 
                             placeholder='Текст...' 
@@ -137,20 +142,20 @@ export default function Order({
                                     })
                                     .then(response => {
                                         if(response.status === 200) {
-                                            setError(false);
+                                            setError1(false);
                                         } else {
-                                            setError(true);
+                                            setError1(true);
                                             setRetry(false);
                                             setRejected(false);
                                         }
                                     })
                                     .catch(error => {
                                         console.log(error);
-                                        setError(true);
+                                        setError1(true);
                                         setRejected(false);
                                     })
                                 }
-                                setError(true);
+                                setError1(true);
                             }}
                             className={styles.modalButton}
                         >Отправить</button>
@@ -158,8 +163,14 @@ export default function Order({
                 </div>
             }
             {isRejected &&
-                <div className={styles.modalLayout} onClick={()=>{setRejected(false)}}>
+                <div className={styles.modalLayout}>
                     <div className={styles.denyActive}>
+                        <Link to='/orders' className={styles.close} onClick={() => setRejected(false)}>
+                            <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </Link>
                         <h1 className={styles.denyTitle}>Заказ отклонен по причине:</h1>
                         <textarea 
                             placeholder='Текст...' 
@@ -179,19 +190,19 @@ export default function Order({
                                     })
                                     .then(response => {
                                         if(response.status === 200) {
-                                            setError(false);
+                                            setError1(false);
                                         } else {
-                                            setError(true);
+                                            setError1(true);
                                             setRejected(false);
                                         }
                                     })
                                     .catch(error => {
                                         console.log(error);
-                                        setError(true);
+                                        setError1(true);
                                         setRejected(false);
                                     })
                                 }
-                                setError(true);
+                                setError1(true);
                             }}
                             className={styles.modalButton}
                         >Отправить</button>
@@ -231,6 +242,7 @@ export default function Order({
                                                 {prod.size !== null &&
                                                     <div className={styles.prodSize}>Размер: {prod.size}</div>
                                                 }
+                                                <div className={styles.prodSize}>Количество: {prod.countOrdered}</div>
                                                 <div className={styles.prodPrice}>Цена: {prod.productPrice} UC</div>
                                             </div>
                                         </div>
@@ -245,11 +257,11 @@ export default function Order({
                                 <div className={styles.orderTitle}>Дата заказа:</div>
                                 <div className={styles.orderInfo}>{time}</div>
                             </div>
-                            {cancellationComment &&
-                                <>
-                                    <div className={styles.orderTitle}>Причина отказа:</div>
-                                    <div className={styles.orderInfo}>{cancellationComment}</div>
-                                </>
+                            {cancellationComment !== null &&
+                                <div>
+                                    <div className={styles.orderTitle}>Причина отказа: <span className={styles.orderInfo}>{cancellationComment}</span></div>
+                                    
+                                </div>
                             }
                         </div>
                     </div>
@@ -302,6 +314,7 @@ export default function Order({
                                                 {prod.size !== null &&
                                                     <div className={styles.prodSize}>Размер: {prod.size}</div>
                                                 }
+                                                <div className={styles.prodSize}>Количество: {prod.countOrdered}</div>
                                                 <div className={styles.prodPrice}>Цена: {prod.productPrice} UC</div>
                                             </div>
                                         </div>
@@ -322,7 +335,7 @@ export default function Order({
                         <div onClick={() => {setClicked(true)}} style={{width:'104px'}}>{time}</div>
                         <div onClick={() => {setClicked(true)}} style={{width:'300px'}}>{fio}</div>
                         <div name='name' onClick={() => {setClicked(true)}}>{productsName}</div>
-                        <select name='statusess' id={selId} onChange={setStatus}>
+                        <select name='statusess' id={selId} onChange={setStatus} className={styles.orderSelect}>
                             <option id={statusRus}>{statusRus}</option>
                         </select>
                     </div>
@@ -347,7 +360,7 @@ export default function Order({
                                                             opt.textContent = st;
                                                             select1.append(opt);
                                                         }
-                                                    }, 2000)
+                                                    }, 1500)
                                                     break;
                                                 case 'Принят':
                                                     setTimeout(() => {
@@ -358,7 +371,7 @@ export default function Order({
                                                             opt.textContent = st;
                                                             select2.append(opt);
                                                         }
-                                                    }, 2000)
+                                                    }, 1500)
                                                     break;
                                                 case 'Готов к получению':
                                                     setTimeout(() => {
@@ -369,7 +382,7 @@ export default function Order({
                                                             opt.textContent = st;
                                                             select3.append(opt);
                                                         }
-                                                    }, 2000)
+                                                    }, 1500)
                                                     break;
                                                 case 'Получен':
                                                     setTimeout(() => {
@@ -380,7 +393,7 @@ export default function Order({
                                                             opt.textContent = st;
                                                             select4.append(opt);
                                                         }
-                                                    }, 2000)
+                                                    }, 1500)
                                                     break;
                                                 case 'Отменен':
                                                     setTimeout(() => {
@@ -391,7 +404,7 @@ export default function Order({
                                                             opt.textContent = st;
                                                             select5.append(opt);
                                                         }
-                                                    }, 2000)
+                                                    }, 1500)
                                                     break;
                                                 default:
                                                     break;

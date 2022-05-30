@@ -7,8 +7,6 @@ import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
 import { useClicked, useStatus } from './hooks/status.hook';
 import './custom.css';
-import { SendFormChecker } from './context/SendFormChecker';
-import { useForm } from './hooks/form.hook';
 import { RequestStateContext } from './context/RequestStateContext';
 
 export const App = () => {
@@ -18,7 +16,6 @@ export const App = () => {
   let { isActive, toggleActive } = useStatus();
   let { isClicked, toggleClicked } = useClicked();
   const [coinsAmount, setCoinsAmount] = useState('-1');
-  let { isSent, toggleSent } = useForm();
   useEffect(() => {
     if (isAuthenticated && role === 1) {
       fetch(`https://localhost:5001/coins/get?employeeId=${userId}`,
@@ -40,11 +37,9 @@ export const App = () => {
       <ButtonStatesContext.Provider value={{ isActive, toggleActive }}>
         <RequestStateContext.Provider value={{ isClicked, toggleClicked}}>
           <CoinsContext.Provider value={{ coinsAmount }}>
-            <SendFormChecker.Provider value={{ isSent, toggleSent }}>
-              <BrowserRouter>
-                { routes }
-              </BrowserRouter>
-            </SendFormChecker.Provider>
+            <BrowserRouter>
+              { routes }
+            </BrowserRouter>
           </CoinsContext.Provider>
         </RequestStateContext.Provider>
       </ButtonStatesContext.Provider>
