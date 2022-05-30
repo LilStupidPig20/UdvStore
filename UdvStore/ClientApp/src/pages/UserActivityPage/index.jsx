@@ -27,6 +27,12 @@ export default function UserActivityPage() {
             <Navbar />
             <div className={styles.align}>
                 <div className={styles.requestsWindow}>
+                    <Link to='/profile' className={styles.close}>
+                        <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </Link>
                     <h1 className={styles.title}>Моя активность</h1>
                     <Link to='profile'>
                         <div className={styles.backButton}>

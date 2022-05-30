@@ -3,16 +3,13 @@ import styles from './transfer.module.css';
 import { Link } from 'react-router-dom';
 import { Navbar } from './../../components/Navbar/index';
 import { AuthContext } from '../../context/AuthContext';
-import { SendFormChecker } from '../../context/SendFormChecker';
 
 export default function TransferPage() {
     const auth = useContext(AuthContext);
     const data = JSON.parse(localStorage.getItem('userData'));
-    const [form, setForm] = useState({ currentEmployeeId: data.userId, receiver: 0, coinsCount: 0, comment: '' });
-    // , currentEmployeeId: data.userId 
+    const [form, setForm] = useState({ currentEmployeeId: data.userId, receiver: '', coinsCount: '', comment: '' });
+    const [isSent, setSent] = useState();
     const [users, setUsers] = useState([]);
-    const toggleSent = useContext(SendFormChecker).toggleSent;
-    console.log(form);
 
     let list = document.getElementById('users');
 
@@ -38,31 +35,25 @@ export default function TransferPage() {
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });
     };
-
-    const sendRequest = () => {
-        const options = {
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json',
-                "Authorization": `Bearer ${data.token}`
-            }
-        };
-        console.log(options);
-        fetch(`https://localhost:5001/coins/transferToAnotherUser?currentEmployeeId=${form.currentEmployeeId}&receiver=${form.receiver}&coinsCount=${form.coinsCount}&comment=${form.comment}`, options)
-            // ?currentEmployeeId=${form.currentEmployeeId}?receiver=${form.receiver}?coinsCount=${form.coinsCount}?comment=${form.comment}
+    
+    const sendRequest = async () => {
+        if(auth.role === 1) {
+            const options = {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${data.token}`
+                }
+            };
+            await fetch(`https://localhost:5001/coins/transferToAnotherUser?currentEmployeeId=${form.currentEmployeeId}&receiver=${form.receiver}&coinsCount=${form.coinsCount}&comment=${form.comment}`, options)
             .then(response => {
-                if (response.status === 200) {
-                    toggleSent(true)
-                }
-                else {
-                    console.log(response.status)
-                    toggleSent(false);
-                }
+                if (response.status === 200) setSent(true)
+                else setSent(false);
             })
             .catch(error => {
                 console.log(error);
-                toggleSent(false);
+                setSent(false);
             })
+        }
     };
 
     const addReceiverId = (event) => {
@@ -77,13 +68,39 @@ export default function TransferPage() {
     }
 
 
-
     return (
         <div className={styles.wrapper}>
             <Navbar />
+            {isSent === true &&
+                <div className={styles.popup}>
+                    <div className={styles.align}>
+                        <div className={styles.content_true}>
+                            <h1 className={styles.title_true}>Баллы отправлены!</h1>
+                            <div className={styles.text_true}>Ваш коллега будет рад пополнению счета :)</div>
+                            <Link to='/profile' className={styles.link}><button className={styles.button}>Готово</button></Link>
+                        </div>
+                    </div>
+                </div>
+            }
+            {isSent === false &&
+                <div className={styles.popup}>
+                    <div className={styles.align}>
+                        <div className={styles.content_false}>
+                            <h1 className={styles.title_false}>Баллы не отправлены!</h1>
+                            <div className={styles.text_false}>Произошла ошибка :( <br></br>Попробуйте ввести данные еще раз.</div>
+                            <Link to='/transfer' className={styles.link}><button className={styles.button} onClick={() => setSent()}>Заполнить</button></Link>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className={styles.align}>
-
                 <div className={styles.container}>
+                    <Link to='/profile' className={styles.close}>
+                        <svg width="23" height="23" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.7781 5.30322L6.17147 15.9098" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M16.7781 15.9102L6.17148 5.30355" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </Link>
                     <h1 className={styles.title}>Форма</h1>
                     <h2 className={styles.subTitle}>для перевода UCoins другому сотруднику</h2>
                     <div className={styles.eventCont}>
@@ -129,14 +146,11 @@ export default function TransferPage() {
                         />
                     </div>
 
-                    <Link to="/transferResult" className={styles.link}>
-                        <button
-                            className={styles.sendButton}
-                            type='submit'
-                            onClick={() => { sendRequest() }}>
-                            Отправить
-                        </button>
-                    </Link>
+                    <button
+                        className={styles.sendButton}
+                        type='submit'
+                        onClick={() => { sendRequest() }}
+                    >Отправить</button>
                 </div>
             </div>
         </div>

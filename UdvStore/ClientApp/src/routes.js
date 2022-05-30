@@ -8,7 +8,6 @@ import MainLayout from './components/layouts/MainLayout';
 import NonAuthLayout from './components/layouts/NonAuthLayout';
 import { AuthPage } from './pages/AuthPage';
 import { SendFormPage } from './pages/SendFormPage';
-import { ResultSendFormPage } from './pages/ResultSendFormPage';
 import AdminLayout from './components/layouts/AdminLayout';
 import RequestsPage from './pages/RequestsPage';
 import { OrdersPage } from './pages/OrdersPage';
@@ -22,7 +21,6 @@ import UserOrdersPage from './pages/UserOrdersPage/index';
 import ChargeHistory from './pages/ChargeHistoryPage';
 import UserActivityPage from './pages/UserActivityPage';
 import TransferPage from './pages/TransferPage/index';
-import TransferResultPage from './pages/TransferResultPage/index';
 
 
 export const useRoutes = (isAuthenticated, role) => {
@@ -36,7 +34,6 @@ export const useRoutes = (isAuthenticated, role) => {
             .then(items => setProducts(items))
     }, []);
 
-    
     
     console.log(window.location.pathname);
     if (data === null ? isAuthenticated : !!data.token) {
@@ -97,9 +94,6 @@ export const useRoutes = (isAuthenticated, role) => {
                     <Route path="/sendForm">
                         <SendFormPage />
                     </Route>
-                    <Route path='/result'>
-                        <ResultSendFormPage />
-                    </Route>
                     <Route path='/myOrders'>
                         <UserOrdersPage />
                     </Route>
@@ -108,9 +102,6 @@ export const useRoutes = (isAuthenticated, role) => {
                     </Route>
                     <Route path='/transfer'>
                         <TransferPage />
-                    </Route>
-                    <Route path='/transferResult'>
-                        <TransferResultPage />
                     </Route>
                     <Redirect to="/profile" />
                 </Switch>

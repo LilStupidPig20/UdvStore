@@ -17,6 +17,16 @@
     height: 600px;
     background: #ffffff;
     border-radius: 36px;
+    position: relative;
+}
+
+.close {
+    width: 23px;
+    height: 23px;
+    margin-bottom: -40px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
 }
 
 .title {

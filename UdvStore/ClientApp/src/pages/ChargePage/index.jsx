@@ -10,6 +10,7 @@ export const ChargePage = () => {
     const [ids, setIds] = useState([]);
     const [form, setForm] = useState({nameOfEvent: '', description: '', coins: '', dateOfEvent: '', employeesIds: []});
     const [fios, setFios] = useState([]);
+    const [isSent, setSent] = useState();
     let count = 1;
 
     const auth = useContext(AuthContext);
@@ -60,6 +61,7 @@ export const ChargePage = () => {
             .then(items => setFios(items))
         }
     }, []);
+    
     let list = document.getElementById('users');
     
     if(fios.length !== 0 && list.childElementCount === 0) {
@@ -82,9 +84,14 @@ export const ChargePage = () => {
                 },
                 body: JSON.stringify(form)
             };
-            fetch('https://localhost:5001/adminAccrual/accrualCoinsToUsers', options)
+            await fetch('https://localhost:5001/adminAccrual/accrualCoinsToUsers', options)
             .then(response => {
-                if(response.ok) ;
+                if(response.status === 200) setSent(true)
+                else setSent(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setSent(false);
             })
         }
     }
@@ -92,6 +99,28 @@ export const ChargePage = () => {
     return (
         <div className={styles.wrapper}>
             <Navbar /> 
+            {isSent === true && 
+                <div className={styles.popup}>
+                    <div className={styles.align}>
+                        <div className={styles.content_true}>
+                            <h1 className={styles.title_true}>Заявка отправлена!</h1>
+                            <div className={styles.text_true}>Спасибо, что заполнили заявку. Администратор рассмотрит ее в течение 3 дней. А пока загляните в UDVтельный магазин :)</div>
+                            <Link to='/requests' className={styles.link}><button className={styles.button}>Готово</button></Link>
+                        </div>
+                    </div>
+                </div>
+            }
+            {isSent === false &&
+                <div className={styles.popup}>
+                    <div className={styles.align}>
+                        <div className={styles.content_false}>
+                            <h1 className={styles.title_false}>Сбой системы!</h1>
+                            <div className={styles.text_false}>Что-то пошло не так, попробуйте снова.</div>
+                            <Link to='/charge' className={styles.link}><button className={styles.button} onClick={() => setSent()}>Повторить</button></Link>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className={styles.align}>
                 <div className={styles.content}>
                     <h1 className={styles.title}>Форма</h1>
@@ -137,7 +166,7 @@ export const ChargePage = () => {
                         </div>
                         <div style={{marginTop:'-15px'}}>
                             <button 
-                                className={isActive? styles.plusButton_hide :styles.plusButton_act}
+                                className={isActive ? styles.plusButton_hide :styles.plusButton_act}
                                 id='plusButton'
                                 onClick={addFioInput}
                             >+</button>
@@ -153,7 +182,7 @@ export const ChargePage = () => {
                                     list='users'
                                     onInput={addToArray}
                                 />
-                                <datalist id='users' />
+                                <datalist id='users'></datalist>
                             </div>
                         </div>
                         <div className={styles.scoreCont}>
@@ -168,11 +197,11 @@ export const ChargePage = () => {
                             />
                             <div className={styles.score}>UC</div>
                         </div>
-                        <Link to="/result" className={styles.link}><button 
+                        <button 
                             className={styles.sendButton}
                             type='submit'
                             onClick={()=>{ sendRequest() }}
-                        >Начислить</button></Link>
+                        >Начислить</button>
                     </div>
                 </div>
             </div>
