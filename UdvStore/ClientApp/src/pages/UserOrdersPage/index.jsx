@@ -36,7 +36,7 @@ export default function UserOrdersPage() {
                 !flag
                     ?
                     <div className={styles.loading}>
-                        Подождите загружаем товар ...
+                        Подождите загружаем заказы ...
                     </div>
                     :
                     <>

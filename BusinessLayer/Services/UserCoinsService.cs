@@ -6,6 +6,7 @@ using BusinessLayer.Helpers;
 using BusinessLayer.StorageActions;
 using DataBaseStorage.DbModels;
 using DataBaseStorage.Enums;
+using DataBaseStorage.ResponseModels;
 
 namespace BusinessLayer.Services
 {
@@ -29,7 +30,7 @@ namespace BusinessLayer.Services
         public async Task TransferCoins(long sender, long receiver, decimal coinsCount, string comment)
         {
             var employeeCoinsStorage = _storageFactory.CreateEmployeeCoinsStorage();
-            var senderEmployee = await employeeCoinsStorage.SearchByIdAsync(sender);
+            var senderEmployee = await employeeCoinsStorage.GetByEmployeeId(sender);
             if (senderEmployee.CurrentBalance < coinsCount)
                 throw new Exception("Недостаточно коинов на балансе");
             
@@ -46,11 +47,11 @@ namespace BusinessLayer.Services
             await transferHistoryStorage.AddToHistory(sender, receiver, coinsCount, comment);
         }
         
-        public async Task<List<Employee>> GetAllEmployees(long currentEmployeeId)
+        public async Task<List<GetAllEmployeesResponse>> GetAllEmployees(long currentEmployeeId)
         {
             var employeesStorage = _storageFactory.CreateEmployeeStorage();
-            var res =  await employeesStorage.GetAllAsync();
-            return res.Where(x => !x.Id.Equals(currentEmployeeId)).ToList();
+            var allEmployees = await employeesStorage.GetAllEmployees();
+            return allEmployees.Where(x => !x.Id.Equals(currentEmployeeId)).ToList();
         }
 
         public async Task<List<CommonHistoryResponse>> GetHistory(long employeeId)
@@ -81,7 +82,8 @@ namespace BusinessLayer.Services
                     TypesOfCoinsActions = TypesOfCoinsActions.EmployeeRequestClosed,
                     Name = e.Event,
                     DateTime = e.TimeSent,
-                    CoinsAsString = e.Status == RequestStatus.Rejected ? "Отклонено" : $"+ {e.CoinsAccrued} UC"
+                    CoinsAsString = e.Status == RequestStatus.Rejected ? "Отклонено" : $"+ {e.CoinsAccrued} UC",
+                    Comment = e.RejectComment
                 });
             }
             
@@ -108,7 +110,8 @@ namespace BusinessLayer.Services
                     TypesOfCoinsActions = TypesOfCoinsActions.Transfer,
                     Name = e.Sender == employeeId ? $"Перевод для {otherEmployeeName}" : $"Перевод от {otherEmployeeName}",
                     DateTime = e.TimeOfTransfer,
-                    CoinsAsString = e.Sender == employeeId ? $"- {e.CoinsCount} UC" : $"+ {e.CoinsCount} UC"
+                    CoinsAsString = e.Sender == employeeId ? $"- {e.CoinsCount} UC" : $"+ {e.CoinsCount} UC",
+                    Comment = e.Comment
                 });
             }
             
@@ -125,7 +128,8 @@ namespace BusinessLayer.Services
                     TypesOfCoinsActions = TypesOfCoinsActions.AdminAccrual,
                     Name = e.NameOfEvent,
                     DateTime = e.TimeSent,
-                    CoinsAsString = $"+ {e.Coins} UC"
+                    CoinsAsString = $"+ {e.Coins} UC",
+                    Comment = e.Description
                 });
             }
 
@@ -139,6 +143,7 @@ namespace BusinessLayer.Services
             public string Name { get; set; }
             public DateTime DateTime { get; set; }
             public string CoinsAsString { get; set; }
+            public string Comment { get; set; }
         }
     }
 }

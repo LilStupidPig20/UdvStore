@@ -59,5 +59,23 @@ namespace DataBaseStorage.DbStorage
                 throw new Exception($"Не получилось снять коины {e}");
             }
         }
+
+        public async Task<EmployeeCoins> GetByEmployeeId(long idEmployee)
+        {
+            try
+            {
+                var employeeCoinsModel = await DbTable.FirstOrDefaultAsync(x => x.EmployeeId.Equals(idEmployee));
+                if (employeeCoinsModel == null)
+                {
+                    throw new ArgumentException("Данный пользователь не найден");
+                }
+
+                return employeeCoinsModel;
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"{e}");
+            }
+        }
     }
 }

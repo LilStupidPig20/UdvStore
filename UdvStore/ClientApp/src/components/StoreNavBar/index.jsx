@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { ButtonStatesContext } from '../../context/ButtonStatesContext';
 import { AuthContext } from '../../context/AuthContext'
 import styles from './storeNavBar.module.css';
@@ -9,6 +9,13 @@ export default function StoreNavBar() {
     const auth = useContext(AuthContext);
     const isActive = buttonContext.isActive;
     const toggle = buttonContext.toggleActive;
+    const [cartAmount, SetCartAmount] = useState(-1);
+
+    useEffect(() => {
+        let amount = new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))?? 0)).size ?? 0;
+
+        SetCartAmount(amount);
+    }, [new Map(Object.entries(JSON.parse(localStorage.getItem('cart'))?? 0)).size])
 
     return (
         <div className={styles.navbar}>
@@ -24,6 +31,13 @@ export default function StoreNavBar() {
                     <div className={styles.navItem}>
                         <img src="/imgs/cart.svg" alt="" className={styles.navImg} />
                         <span>Корзина</span>
+                        {
+                            cartAmount > 0
+                                ?
+                                <div className={styles.cartAmount}>{cartAmount}</div>
+                                :
+                                null
+                        }
                     </div>
                 </Link>
 

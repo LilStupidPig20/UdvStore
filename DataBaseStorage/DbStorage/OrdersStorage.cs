@@ -45,6 +45,7 @@ namespace DataBaseStorage.DbStorage
                 return await DbTable
                     .Where(x => x.Status.Equals(OrderStatus.Cancelled) 
                                 || x.Status.Equals(OrderStatus.Received))
+                    .OrderByDescending(x => x.TimeOfPurchase)
                     .ToListAsync();
             }
             catch (Exception e)
@@ -61,6 +62,7 @@ namespace DataBaseStorage.DbStorage
                     .Where(x => x.Status.Equals(OrderStatus.Accepted) 
                                 || x.Status.Equals(OrderStatus.ReadyToReceive)
                                 || x.Status.Equals(OrderStatus.Open))
+                    .OrderByDescending(x => x.TimeOfPurchase)
                     .ToListAsync();
             }
             catch (Exception e)
