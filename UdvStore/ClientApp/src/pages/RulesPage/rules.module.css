@@ -65,3 +65,36 @@ li {
     color: #00D29D;
     margin-top: 200px;
 }
+
+.rulesTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+
+}
+
+tr td:first-child{
+    width: 20%;
+    text-align: center;
+}
+
+thead {
+    text-align: center;
+}
+
+td{
+    border: 1px solid #fff;
+}
+
+.rightArrow{
+    position: absolute;
+    top: 400px;
+    right: 250px;
+}
+
+.leftArrow{
+    position: absolute;
+    top: 400px;
+    left: 250px;
+    transform: rotate(180deg);
+}
