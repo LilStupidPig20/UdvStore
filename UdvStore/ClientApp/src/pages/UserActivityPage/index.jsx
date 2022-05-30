@@ -34,12 +34,6 @@ export default function UserActivityPage() {
                         </svg>
                     </Link>
                     <h1 className={styles.title}>Моя активность</h1>
-                    <Link to='profile'>
-                        <div className={styles.backButton}>
-                            <div className={styles.bar1}></div>
-                            <div className={styles.bar2}></div>
-                        </div>
-                    </Link>
                     <div className={styles.requestsTitle}>
                         <div>Мероприятие</div>
                         <div>Дата</div>
