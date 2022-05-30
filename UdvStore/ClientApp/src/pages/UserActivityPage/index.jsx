@@ -3,10 +3,12 @@ import styles from './activity.module.css';
 import { Navbar } from '../../components/Navbar';
 import RequestHistory from '../../components/RequestHistory';
 import UserActivityItem from '../../components/UserActivityItem';
+import { Link } from 'react-router-dom';
 
 export default function UserActivityPage() {
     const [history, setHistory] = useState([]);
     const data = JSON.parse(localStorage.getItem('userData'));
+    console.log(history)
 
     useEffect(() => {
         fetch(`https://localhost:5001/coins/getHistoryOfEmployee?employeeId=${data.userId}`,
@@ -26,6 +28,12 @@ export default function UserActivityPage() {
             <div className={styles.align}>
                 <div className={styles.requestsWindow}>
                     <h1 className={styles.title}>Моя активность</h1>
+                    <Link to='profile'>
+                        <div className={styles.backButton}>
+                            <div className={styles.bar1}></div>
+                            <div className={styles.bar2}></div>
+                        </div>
+                    </Link>
                     <div className={styles.requestsTitle}>
                         <div>Мероприятие</div>
                         <div>Дата</div>
@@ -33,14 +41,15 @@ export default function UserActivityPage() {
                     </div>
                     <div className={styles.requests}>
                         {history.map((req) => {
-                            let yyyy = req.dateTime.slice(0,4);
-                            let mm = req.dateTime.slice(5,7);
-                            let dd = req.dateTime.slice(8,10);
+                            let yyyy = req.dateTime.slice(0, 4);
+                            let mm = req.dateTime.slice(5, 7);
+                            let dd = req.dateTime.slice(8, 10);
                             return <UserActivityItem
-                            title={req.name}
-                            date = {`${dd}.${mm}.${yyyy}`}
-                            coinsAsString = {req.coinsAsString}
-                             />;
+                                title={req.name}
+                                date={`${dd}.${mm}.${yyyy}`}
+                                coinsAsString={req.coinsAsString}
+                                comment={req.comment}
+                            />;
                         })}
                     </div>
                 </div>

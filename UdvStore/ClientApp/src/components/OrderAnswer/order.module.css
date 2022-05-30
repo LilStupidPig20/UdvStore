@@ -18,19 +18,19 @@
     font-family: 'Hero';
 }
 
-.title{
+.title {
     font-size: 48px;
 }
 
-.subTitle{
+.subTitle {
     font-size: 22px;
 }
 
-.link{
+.link {
     color: #00D29D;
 }
 
-.ButtonContainer{
+.ButtonContainer {
     display: flex;
     justify-content: center;
 }
@@ -49,21 +49,33 @@
     font-weight: 400;
 }
 
-.products{
+.products {
     display: flex;
 }
 
-.productItem{
+.productItem {
     margin-right: 30px;
 }
 
-.prodTitle{
+.prodTitle {
     font-size: 20px;
     margin: 0;
 }
 
-.price{
+.price {
     font-size: 18px;
     font-weight: 700;
     margin: 0;
+}
+
+.prodHeader {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.prodCount {
+    color: #A6A6A6;
+    margin: 5px 0;
 }

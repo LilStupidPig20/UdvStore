@@ -23,7 +23,7 @@ export default function CartItem({
             <div className={styles.container}>
                 <img src={img} alt="Product" width={137} height={187} />
                 <div className={styles.subBlock}>
-                    <span className={styles.title}>{title}{size ? ` - ${size} размер` : null}</span>
+                    <span className={styles.title}>{title}</span>
                     <div className={styles.countBlock}>
                         <div className={styles.countButton} onClick={() => {
                             if (countIn > 1) {
@@ -43,6 +43,13 @@ export default function CartItem({
                             <img src="/imgs/plus-button.svg" alt="Plus" />
                         </div>
                     </div>
+                    {
+                        size !== null
+                        ?
+                        <p className={styles.size}>Размер: {size}</p>
+                        :
+                        null
+                    }
                     <span className={styles.price}>{price * countIn} UC</span>
 
                 </div>

@@ -50,14 +50,35 @@
     font-weight: 700;
 }
 
+.actionButtons {
+    text-align: center;
+}
+
 .addButton {
+    width: 300px;
     align-self: center;
     position: static;
     background-color: #302E2E;
     color: #fff;
     cursor: pointer;
     border-radius: 10px;
-    padding: 10px 75px;
+    padding: 10px;
+    align-self: flex-start;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.buyButton {
+    width: 300px;
+    align-self: center;
+    position: static;
+    background-color: #fff;
+    color: #302E2E;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
     align-self: flex-start;
     font-family: inherit;
     font-size: 22px;
@@ -136,4 +157,12 @@
     font-family: inherit;
     font-size: 22px;
     font-weight: 400;
+}
+
+.subTitle {
+    font-size: 22px;
+}
+
+.link {
+    color: #00D29D;
 }
