@@ -87,7 +87,7 @@ export default function ProductPage() {
             products: [{
                 Id: product.commonInfo.id,
                 Count: 1,
-                Size: buttonFlag
+                Size: buttonFlag !== '' ? buttonFlag : null
             }] 
         }
         const options = {
