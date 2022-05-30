@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataBaseStorage.ConfigurationDb;
@@ -62,6 +63,12 @@ namespace DataBaseStorage.DbStorage
             {
                 throw new Exception($"Не удалось найти пользователя по идентификатору {e}");
             }
+        }
+
+        public async Task<List<GetAllEmployeesResponse>> GetAllEmployees()
+        {
+            return DbTable.Select(e => new GetAllEmployeesResponse {Id = e.Id, Fio = e.Fio})
+                .ToList();
         }
     }
 }
