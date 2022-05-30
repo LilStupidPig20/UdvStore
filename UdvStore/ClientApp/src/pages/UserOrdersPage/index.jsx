@@ -43,13 +43,21 @@ export default function UserOrdersPage() {
                             <h1>Мои заказы</h1>
                             <div className={styles.container}>
                                 {
-                                    orders.map((order) => {
+                                    orders.sort((a, b) => {
+                                        if (a.id > b.id) return -1;
+                                        if (a.id < b.id) return 1;
+                                        return 0;
+                                    }).map((order) => {
+                                        let yyyy = order.timeOfPurchase.slice(0, 4);
+                                        let mm = order.timeOfPurchase.slice(5, 7);
+                                        let dd = order.timeOfPurchase.slice(8, 10);
                                         return <OrderItem
                                             key={order.id}
                                             id={order.id}
                                             products={order.productsInOrders}
                                             status={order.status}
                                             totalPrice={order.totalPrice}
+                                            date={`${dd}.${mm}.${yyyy}`}
                                         />
                                     })
                                 }

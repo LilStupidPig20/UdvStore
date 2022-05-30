@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
     box-sizing: border-box;
     padding: 0 15px;
     display: flex;
@@ -7,38 +7,42 @@
     font-family: 'Hero';
 }
 
-.headerBlock{
+.date {
+    margin: -10px 0 10px 0;
+}
+
+.headerBlock {
     display: flex;
     justify-content: space-between;
 }
 
-.productItem{
+.productItem {
     margin-right: 50px;
     width: 140px;
 }
 
-.title{
+.title {
     font-size: 20px;
     margin: 0;
 }
 
-.price{
+.price {
     font-size: 18px;
     font-weight: 700;
     margin: 0;
 }
 
-.statusBlock{
+.statusBlock {
     flex: 1;
     text-align: right;
 }
 
-.status{
+.status {
     color: #00D29D;
     font-size: 24px;
 }
 
-.cancelButton{
+.cancelButton {
     color: #A6A6A6;
     text-decoration: underline;
     font-size: 24px;
@@ -65,12 +69,12 @@
     font-family: 'Hero';
 }
 
-.buttonContainer{
+.buttonContainer {
     display: flex;
     justify-content: center;
 }
 
-.popupButton{
+.popupButton {
     position: static;
     margin-top: 20px;
     background-color: #00D29D;
@@ -84,7 +88,7 @@
     font-weight: 400;
 }
 
-.cancelInput{
+.cancelInput {
     font-family: inherit;
     font-size: 16px;
     width: 600px;

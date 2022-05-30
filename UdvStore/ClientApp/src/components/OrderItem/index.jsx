@@ -6,11 +6,11 @@ export default function OrderItem({
     id,
     products,
     status,
-    totalPrice
+    totalPrice,
+    date
 }) {
-    console.log(products);
     const [isCancelable, setIsCancelable] = useState(() => {
-        if (status === 'Open' || status === 'Accepted') {
+        if (status === 'Open' || status === 'Accepted' || status === 'ReadyToReceive') {
             return true;
         } else {
             return false;
@@ -82,6 +82,7 @@ export default function OrderItem({
                 <h2>Номер заказа #{id}</h2>
                 <h2>Сумма заказа: {summary} UC</h2>
             </div>
+            <h2 className={styles.date}>Дата заказа: {date}</h2>
             <div className={styles.wrapper}>
                 {
                     products.map((product) => {
@@ -91,6 +92,13 @@ export default function OrderItem({
                                 <div className={styles.productItem} key={product.productId}>
                                     <img src={product.imageLink} width={137} height={187} alt="" />
                                     <p className={styles.title}>{product.productName}</p>
+                                    {
+                                        product.size !== null
+                                            ?
+                                            <p className={styles.count}>Размер: {product.size.toUpperCase()}</p>
+                                            :
+                                            null
+                                    }
                                     <p className={styles.count}>Кол-во {product.countOrdered} шт.</p>
                                     <p className={styles.price}>Цена: {product.productPrice * product.countOrdered} UC</p>
                                 </div>
@@ -135,6 +143,13 @@ export default function OrderItem({
                                             <div className={styles.productItem} key={product.productId}>
                                                 <img src={product.imageLink} width={137} height={187} alt="" />
                                                 <p className={styles.title}>{product.productName}</p>
+                                                {
+                                                    product.size !== null
+                                                        ?
+                                                        <p className={styles.count}>Размер: {product.size.toUpperCase()}</p>
+                                                        :
+                                                        null
+                                                }
                                                 <p className={styles.count}>Кол-во {product.countOrdered} шт.</p>
                                                 <p className={styles.price}>Цена: {product.productPrice * product.countOrdered} UC</p>
                                             </div>
