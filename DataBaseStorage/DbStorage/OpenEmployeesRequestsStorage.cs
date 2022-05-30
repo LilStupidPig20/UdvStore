@@ -50,7 +50,9 @@ namespace DataBaseStorage.DbStorage
         
         public async Task<List<OpenEmployeesRequest>> GetAll()
         {
-            return await DbTable.OrderByDescending(x => x.TimeSent).ToListAsync();
+            var requests = await DbTable.ToListAsync();
+            requests.Sort((x, y) => DateTime.Compare(y.TimeSent, x.TimeSent));
+            return requests;
         }
         
         public async Task<List<OpenEmployeesRequest>> GetEmployeeHistory(long employeeId)
