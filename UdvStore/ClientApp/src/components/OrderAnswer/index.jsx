@@ -34,7 +34,7 @@ export default function OrderAnswer({
                                     <div className={styles.productItem}>
                                         <img src={product.img} width={137} height={187} alt="" />
                                         <p className={styles.prodTitle}>{product.title}</p>
-                                        <p className={styles.prodCount}>КОл-во {product.count} шт.</p>
+                                        <p className={styles.prodCount}>Кол-во {product.count} шт.</p>
                                         <p className={styles.price}>Цена: {product.price} UC</p>
                                     </div>
                                 )

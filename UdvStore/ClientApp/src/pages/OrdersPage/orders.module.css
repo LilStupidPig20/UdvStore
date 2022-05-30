@@ -46,7 +46,7 @@
 }
 
 .orders {
-    overflow: auto;
+    overflow: overlay;
     height: 450px;
 }
 

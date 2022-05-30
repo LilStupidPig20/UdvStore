@@ -145,10 +145,10 @@ export default function ProductPage() {
                                                     })
                                                     .map((el) => {
                                                         if (el.quantity > 0) {
-                                                            return (<button key={el.id} name="sizeButton" className={styles.sizeButton} onClick={(e) => changeSize(el.size, e.target)}>{el.size}</button>);
+                                                            return (<button key={el.id} name="sizeButton" className={styles.sizeButton} onClick={(e) => changeSize(el.size, e.target)}>{el.size.toUpperCase()}</button>);
                                                         }
                                                         else {
-                                                            return (<button key={el.id} className={styles.disButton} disabled>{el.size}</button>);
+                                                            return (<button key={el.id} className={styles.disButton} disabled>{el.size.toUpperCase()}</button>);
                                                         }
                                                     })
                                             }

@@ -16,6 +16,7 @@ export default function Order({
     const [isClicked, setClicked] = useState(false);
     const [isRejected, setRejected] = useState(false);
     const [isRetry, setRetry] = useState(false);
+    const [isSent, setSent] = useState(false);
     const [isError1, setError1] = useState(false);
     const [comment, setComment] = useState('');
     const auth = useContext(AuthContext);
@@ -98,6 +99,18 @@ export default function Order({
 
     return (
         <>
+            {isSent === true &&
+                <div className={styles.modalLayout}>
+                    <div className={styles.modalActive}>
+                        <h1 className={styles.modalTitle}>Заказ отменен!</h1>
+                        <button 
+                            type='button'
+                            onClick={() => {setSent(false); window.location.reload()}}
+                            className={styles.modalButton}
+                        >Готово</button>
+                    </div>
+            </div>
+            }
             {isError1 &&
                 <div className={styles.modalLayout}>
                     <div className={styles.modalActive}>
@@ -143,6 +156,8 @@ export default function Order({
                                     .then(response => {
                                         if(response.status === 200) {
                                             setError1(false);
+                                            setSent(true);
+                                            setRetry(false);
                                         } else {
                                             setError1(true);
                                             setRetry(false);
@@ -191,6 +206,8 @@ export default function Order({
                                     .then(response => {
                                         if(response.status === 200) {
                                             setError1(false);
+                                            setSent(true);
+                                            setRejected(false);
                                         } else {
                                             setError1(true);
                                             setRejected(false);
@@ -240,7 +257,7 @@ export default function Order({
                                             <div>
                                                 <div className={styles.prodName}>{prod.productName}</div>
                                                 {prod.size !== null &&
-                                                    <div className={styles.prodSize}>Размер: {prod.size}</div>
+                                                    <div className={styles.prodSize}>Размер: {prod.size.toUpperCase()}</div>
                                                 }
                                                 <div className={styles.prodSize}>Количество: {prod.countOrdered}</div>
                                                 <div className={styles.prodPrice}>Цена: {prod.productPrice} UC</div>
@@ -312,7 +329,7 @@ export default function Order({
                                             <div>
                                                 <div className={styles.prodName}>{prod.productName}</div>
                                                 {prod.size !== null &&
-                                                    <div className={styles.prodSize}>Размер: {prod.size}</div>
+                                                    <div className={styles.prodSize}>Размер: {prod.size.toUpperCase()}</div>
                                                 }
                                                 <div className={styles.prodSize}>Количество: {prod.countOrdered}</div>
                                                 <div className={styles.prodPrice}>Цена: {prod.productPrice} UC</div>
