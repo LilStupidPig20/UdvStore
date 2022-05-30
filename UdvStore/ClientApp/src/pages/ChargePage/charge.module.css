@@ -14,18 +14,33 @@
     width: 700px;
     height: 700px;
     padding: 25px 50px 0;
-    margin: -70px auto 15px auto;
+    margin: -70px auto 0px auto;
     border-radius: 60px;
 }
 
+.popup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
 .scroll {
-    overflow: auto;
+    overflow: overlay;
     width: 700px;
     padding-left: 70px;
+    padding-right: 65px;
     margin-bottom: 55px;
     margin-top: -8px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .align {
@@ -62,7 +77,6 @@
     color: #fff;
     cursor: pointer;
     align-self: center;
-    margin-left: -70px;
 }
 
 .eventCont {
@@ -197,7 +211,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
     bottom: -67px;
     left: -40px;
     cursor: pointer;
-    z-index: -1;
+    z-index: 0;
 }
 
 .plusButton_act {
@@ -218,7 +232,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
     bottom: -67px;
     left: -40px;
     cursor: pointer;
-    z-index: 3;
+    z-index: 1;
 }
 
 .plusButton_act:hover {
@@ -257,6 +271,7 @@ input[type="date"]::-webkit-datetime-edit-day-field {
 }
 
 .scoreCont {
+    width: 565px;
     display: inline-flex;
     align-items: center;
     margin-bottom: 32px;
@@ -301,11 +316,14 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .sendButton {
-    display: block;
+    display: flex;
     width: 236px;
     height: 43px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background: #00D29D;
-    border-radius: 9px;font-family: 'Hero';
+    border-radius: 9px;
+    font-family: 'Hero';
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -313,6 +331,8 @@ input[type=number]::-webkit-inner-spin-button {
     color: #000000;
     border: none;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
 }
 
 .sendButton:hover {
@@ -320,6 +340,99 @@ input[type=number]::-webkit-inner-spin-button {
 }
 
 .sendButton:active {
+    background: #00d29ec3;
+    box-shadow: inset 0px 7px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 9px;
+}
+
+.title_true {
+    width: 420px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #000000;
+    margin: 0 auto 8px;
+}
+
+.title_false {
+    width: 470px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+    color: #000000;
+    margin: 0 auto 8px;
+}
+
+.text_false {
+    width: 470px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(255, 0, 0, 0.8);
+    margin: 0 auto 40px;
+}
+
+.text_true {
+    width: 420px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0 auto 40px;
+}
+
+.content_true {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    width: 580px;
+    padding: 50px 50px 25px;
+    margin: 0 auto ;
+    border-radius: 60px;
+    vertical-align: middle;
+}
+
+.content_false {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    width: 570px;
+    padding: 50px 50px 25px;
+    margin: 0 auto ;
+    border-radius: 60px;
+    vertical-align: middle;
+}
+
+.button {
+    width: 200px;
+    height: 43px;
+    background: #00D29D;
+    border-radius: 9px;
+    border: none;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: #00d29eee;
+}
+
+.button:active {
     background: #00d29ec3;
     box-shadow: inset 0px 7px 4px rgba(0, 0, 0, 0.4);
     border-radius: 9px;

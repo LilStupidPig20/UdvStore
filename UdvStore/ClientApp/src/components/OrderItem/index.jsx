@@ -7,6 +7,7 @@ export default function OrderItem({
     status,
     totalPrice
 }) {
+    console.log(products);
     const [isCancelable, setIsCancelable] = useState(() => {
         if (status === 'Open' || status === 'Accepted') {
             return true;
@@ -81,7 +82,7 @@ export default function OrderItem({
         <>
             <div className={styles.topLine}></div>
             <div className={styles.headerBlock}>
-                <h2>Нормер заказа #{id}</h2>
+                <h2>Номер заказа #{id}</h2>
                 <h2>Сумма заказа: {summary} UC</h2>
             </div>
             <div className={styles.wrapper}>

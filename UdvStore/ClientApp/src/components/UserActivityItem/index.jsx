@@ -42,7 +42,6 @@ export default function UserActivityItem({
                         null
                 }
             </div>
-            <div className={styles.topLine}></div>
         </div>
     );
 }

@@ -1,14 +1,16 @@
 .container {
-    padding-left: 90px;
-    padding-right: 90px;
-    margin: 10px 0;
-
+    margin-left: 90px;
+    margin-right: 90px;
     font-family: 'Hero';
     font-style: normal;
     font-weight: 500;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 29px;
     color: #302E2E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+    align-items: center;
 }
 
 .columns {
@@ -29,6 +31,7 @@
 .coinsItem {
     width: 33%;
     text-align: end;
+    font-weight: 700;
 }
 
 .green {

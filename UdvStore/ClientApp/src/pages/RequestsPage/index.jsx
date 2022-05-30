@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import RequestLayout from '../../components/layouts/RequestLayout';
 import { Navbar } from '../../components/Navbar';
-import { Request } from '../../components/Request';
+import Request from '../../components/Request';
 import { AuthContext } from '../../context/AuthContext';
 import styles from './requests.module.css';
 
@@ -37,26 +36,19 @@ export default function RequestsPage () {
                             let yyyy = req.request.timeSent.slice(0,4);
                             let mm = req.request.timeSent.slice(5,7);
                             let dd = req.request.timeSent.slice(8,10);
-
                             let yyyyEvent = req.request.eventDate.slice(0,4);
                             let mmEvent = req.request.eventDate.slice(5,7);
                             let ddEvent = req.request.eventDate.slice(8,10);
-
-
-                            return <RequestLayout
-                                    event={req.request.event}
-                                    requestId={req.request.id}
-                                    description={req.request.description}
-                                    employeeId={req.request.employeeId}
-                                    time={`${ddEvent}.${mmEvent}.${yyyyEvent}`}
-                                    key={req.request.id}
-                                >
-                                    <Request
-                                        
+                            return <Request
                                         fullName={req.fio}
                                         time={`${dd}.${mm}.${yyyy}`}
+                                        event={req.request.event}
+                                        requestId={req.request.id}
+                                        description={req.request.description}
+                                        employeeId={req.request.employeeId}
+                                        timeEvent={`${ddEvent}.${mmEvent}.${yyyyEvent}`}
+                                        key={req.request.id}
                                     />
-                            </RequestLayout>
                         })}
                     </div>
                 </div>
