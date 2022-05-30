@@ -5,16 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthContext } from "./context/AuthContext";
 import { ButtonStatesContext } from './context/ButtonStatesContext';
 import { CoinsContext } from './context/CoinsContext';
-import { useClicked, useStatus } from './hooks/status.hook';
+import { useStatus } from './hooks/status.hook';
 import './custom.css';
-import { RequestStateContext } from './context/RequestStateContext';
 
 export const App = () => {
   const { login, logout, token, userId, fullName, role, position } = useAuth();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated, role);
   let { isActive, toggleActive } = useStatus();
-  let { isClicked, toggleClicked } = useClicked();
   const [coinsAmount, setCoinsAmount] = useState('-1');
   useEffect(() => {
     if (isAuthenticated && role === 1) {
@@ -35,13 +33,11 @@ export const App = () => {
   return (
     <AuthContext.Provider value={{ login, logout, token, userId, role, fullName, isAuthenticated, position }}>
       <ButtonStatesContext.Provider value={{ isActive, toggleActive }}>
-        <RequestStateContext.Provider value={{ isClicked, toggleClicked}}>
-          <CoinsContext.Provider value={{ coinsAmount }}>
-            <BrowserRouter>
-              { routes }
-            </BrowserRouter>
-          </CoinsContext.Provider>
-        </RequestStateContext.Provider>
+        <CoinsContext.Provider value={{ coinsAmount }}>
+          <BrowserRouter>
+            { routes }
+          </BrowserRouter>
+        </CoinsContext.Provider>
       </ButtonStatesContext.Provider>
     </AuthContext.Provider>
   );

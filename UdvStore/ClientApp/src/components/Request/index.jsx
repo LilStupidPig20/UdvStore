@@ -93,7 +93,7 @@ export default function Request({
                         <h1 className={styles.modalTitle}>Заявка отклонена!</h1>
                         <button 
                             type='button'
-                            onClick={()=>{setModal(false);}}
+                            onClick={()=>{setModal(false); setClicked()}}
                             className={styles.modalButton}
                         >Готово</button>
                     </div>
@@ -157,6 +157,10 @@ export default function Request({
                         <div className={styles.flexCont}>
                             <div className={styles.requestTitle}>Дата проведения мероприятия:</div>
                             <div className={styles.requestInfo}>{timeEvent}</div>
+                        </div>
+                        <div className={styles.flexCont}>
+                            <div className={styles.requestTitle}>Дата заявки:</div>
+                            <div className={styles.requestInfo}>{time}</div>
                         </div>
                         <div className={styles.flexCont}>
                             <div className={styles.scoreCont}>
