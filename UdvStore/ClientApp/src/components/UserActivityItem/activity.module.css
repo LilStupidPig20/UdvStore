@@ -1,9 +1,7 @@
 .container {
-    display: flex;
-    justify-content: space-between;
     padding-left: 90px;
     padding-right: 90px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 
     font-family: 'Hero';
     font-style: normal;
@@ -13,32 +11,51 @@
     color: #302E2E;
 }
 
-.titleItem{
+.columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleItem {
     width: 45%;
     text-align: start;
 }
 
-.dateItem{
+.dateItem {
     width: 33%;
     text-align: center;
 }
 
-.coinsItem{
+.coinsItem {
     width: 33%;
     text-align: end;
 }
 
-.green{
+.green {
     color: #6DD6BB;
 }
 
-.red{
-    color: #FF6969;   
+.red {
+    color: #FF6969;
 }
 
-.topLine{
+.grey {
+    color: #A6A6A6;
+}
+
+.comment {
+    margin: 5px 0;
+    font-size: 20px;
+    line-height: 1.5rem;
+}
+
+.topLine {
     margin: auto;
     width: 85%;
     height: 1px;
-    background-color: #302E2E;
+    background-color: #000;
+}
+
+.pointer{
+    cursor: pointer;
 }
