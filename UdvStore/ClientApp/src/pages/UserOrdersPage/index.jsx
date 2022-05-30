@@ -10,7 +10,6 @@ export default function UserOrdersPage() {
     const [flag, setFlag] = useState(false);
 
     const [orders, setOrders] = useState([]);
-    console.log(orders);
 
     useEffect(() => {
         let auth = JSON.parse(localStorage.getItem('userData'));

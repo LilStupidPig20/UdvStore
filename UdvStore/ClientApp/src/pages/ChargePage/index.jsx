@@ -103,8 +103,8 @@ export const ChargePage = () => {
                 <div className={styles.popup}>
                     <div className={styles.align}>
                         <div className={styles.content_true}>
-                            <h1 className={styles.title_true}>Заявка отправлена!</h1>
-                            <div className={styles.text_true}>Спасибо, что заполнили заявку. Администратор рассмотрит ее в течение 3 дней. А пока загляните в UDVтельный магазин :)</div>
+                            <h1 className={styles.title_true}>Баллы начислены!</h1>
+                            <div className={styles.text_true}> Сотрудники будут очень рады :)</div>
                             <Link to='/requests' className={styles.link}><button className={styles.button}>Готово</button></Link>
                         </div>
                     </div>

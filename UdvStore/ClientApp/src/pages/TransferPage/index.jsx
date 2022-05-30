@@ -23,7 +23,7 @@ export default function TransferPage() {
     }
 
     useEffect(() => {
-        fetch('https://localhost:5001/coins/getEmployeesToTransfer', {
+        fetch(`https://localhost:5001/coins/getEmployeesToTransfer?currentEmployeeId=${data.userId}`, {
             headers: {
                 'Authorization': `Bearer ${data.token}`
             }
@@ -31,6 +31,8 @@ export default function TransferPage() {
             .then(res => res.json())
             .then(items => setUsers(items))
     }, []);
+
+    console.log(users)
 
     const changeHandler = (event) => {
         setForm({ ...form, [event.target.name]: event.target.value });

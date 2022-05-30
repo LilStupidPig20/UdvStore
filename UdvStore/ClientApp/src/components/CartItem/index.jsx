@@ -46,7 +46,7 @@ export default function CartItem({
                     {
                         size !== null
                         ?
-                        <p className={styles.size}>Размер: {size}</p>
+                        <p className={styles.size}>Размер: {size.toUpperCase()}</p>
                         :
                         null
                     }
