@@ -44,7 +44,11 @@ export default function UserOrdersPage() {
                             <h1>Мои заказы</h1>
                             <div className={styles.container}>
                                 {
-                                    orders.map((order) => {
+                                    orders.sort((a, b) => {
+                                        if (a.id > b.id) return -1;
+                                        if (a.id < b.id) return 1;
+                                        return 0;
+                                    }).map((order) => {
                                         return <OrderItem
                                             key={order.id}
                                             id={order.id}

@@ -7,9 +7,8 @@ export default function OrderItem({
     status,
     totalPrice
 }) {
-    console.log(products);
     const [isCancelable, setIsCancelable] = useState(() => {
-        if (status === 'Open' || status === 'Accepted') {
+        if (status === 'Open' || status === 'Accepted' || status === 'ReadyToReceive') {
             return true;
         } else {
             return false;
