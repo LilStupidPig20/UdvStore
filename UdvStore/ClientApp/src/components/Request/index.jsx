@@ -81,7 +81,7 @@ export default function Request({
                         <h1 className={styles.modalTitle}>Баллы начислены!</h1>
                         <button 
                             type='button'
-                            onClick={()=>{setModal(false);}}
+                            onClick={()=>{setModal(false); setClicked()}}
                             className={styles.modalButton}
                         >Готово</button>
                     </div>

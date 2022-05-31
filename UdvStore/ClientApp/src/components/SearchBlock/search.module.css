@@ -5,4 +5,11 @@
     padding: 10px;
     width: 50%;
     margin-bottom: 55px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 23px;
+    letter-spacing: 0.07em;
+    color: #302E2E;
 }

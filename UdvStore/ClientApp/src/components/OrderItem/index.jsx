@@ -163,7 +163,7 @@ export default function OrderItem({
                             <div>
                                 <textarea
                                     className={styles.cancelInput}
-                                    placeholder='Укажите причину отмены...'
+                                    placeholder='Укажите причину отмены... (необязательно)'
                                     value={cancellationComment}
                                     onChange={onChangeMessageInput} />
                             </div>

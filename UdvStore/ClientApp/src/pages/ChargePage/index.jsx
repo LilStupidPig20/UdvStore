@@ -27,7 +27,7 @@ export const ChargePage = () => {
         count += 1;
         inp.id = `input${count}`;
         inp.type = 'text';
-        inp.name = 'employeesIds'
+        //inp.name = 'employeesIds'
         inp.className = styles.inputText;
         inp.placeholder = 'Текст...';
         inp.addEventListener('input', addToArray);

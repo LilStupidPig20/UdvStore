@@ -23,7 +23,7 @@ export default function OrderAnswer({
 
                 <div className={styles.prodHeader}>
                     <p>Номер заказа #{orderID}</p>
-                    <p>Сумма заказа: {sumPrice}</p>
+                    <p>Сумма заказа: {sumPrice} UC</p>
                 </div>
                 <div className={styles.products}>
                     {
