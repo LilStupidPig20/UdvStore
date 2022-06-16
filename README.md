@@ -7,7 +7,7 @@
 
 **[Техническое задание](https://docs.google.com/document/d/1SrcDLMaVTt2D3LaWNtZbt4QVN5h1PyC0spefOCvQOps/edit)**
 
-**[Список тест-кейсы](https://docs.google.com/document/d/1V5i62kQ_drBupkwx25-KgQS6UsVCjDjl0-5DYoaFscw/edit)**
+**[Список тест-кейсов](https://docs.google.com/document/d/1V5i62kQ_drBupkwx25-KgQS6UsVCjDjl0-5DYoaFscw/edit)**
 
 **[Доска на Miro](https://miro.com/app/board/uXjVOHz2oq8=/)**
 
