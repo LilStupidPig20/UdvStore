@@ -1,0 +1,138 @@
+.wrapper {
+    box-sizing: border-box;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    font-family: 'Hero';
+}
+
+.emptyCart{
+    box-sizing: border-box;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: 'Hero';
+}
+
+.title{
+    margin-top: 20%;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.subTitle{
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.cartItems {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    border: #000 solid 1px;
+    padding: 15px 30px;
+}
+
+.summaryBlock{
+    width: 360px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: #000 solid 1px;
+    padding: 15px 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.headerTitle {
+    font-size: 30px;
+}
+
+.sumCoins{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.balance{
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.addButton {
+    align-self: center;
+    position: static;
+    background-color: #302E2E;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 75px;
+    align-self: flex-start;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+} 
+
+.counter {
+    font-size: 18px;
+    color: #737373;
+}
+
+.link{
+    text-decoration: underline;
+    color: #00D29D;
+}
+
+.popup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 36px;
+
+    font-family: 'Hero';
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.popupTitle{
+    font-size: 30px;
+}
+
+.popupButton {
+    position: static;
+    margin-top: 20px;
+    background-color: #00D29D;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 75px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+}

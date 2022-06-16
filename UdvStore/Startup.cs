@@ -1,20 +1,22 @@
 using System.Text;
+using System.Text.Json.Serialization;
+using BusinessLayer.Helpers;
 using BusinessLayer.Services;
 using BusinessLayer.StorageActions;
+using DataBaseStorage;
+using DataBaseStorage.ConfigurationDb;
 using DataBaseStorage.Context;
 using DataBaseStorage.DbStorage;
-using DataBaseStorage.StoragesInterfaces;
+using DataBaseStorage.Enums;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 using UdvStore.Services;
 
 namespace UdvStore
@@ -32,29 +34,10 @@ namespace UdvStore
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("PostgresConnection");
-            services.AddDbContextFactory<PostgresContext>(options => options.UseNpgsql(connection));
-            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //     .AddJwtBearer(options =>
-            //     {
-            //         options.RequireHttpsMetadata = false;
-            //         options.TokenValidationParameters = new TokenValidationParameters
-            //         {
-            //             ValidateIssuer = true,
-            //             ValidIssuer = AuthOptions.ISSUER,
-            //             ValidateAudience = true,
-            //             ValidAudience = AuthOptions.AUDIENCE,
-            //             ValidateLifetime = true,
-            //             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-            //             ValidateIssuerSigningKey = true,
-            //         };
-            //     });
-            //
-            // services.AddAuthorization(auth =>
-            // {
-            //     auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-            //         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-            //         .RequireAuthenticatedUser().Build());
-            // });
+            RegisterTypes();
+            services.AddScoped<DBConfig>();
+            services.AddTransient(typeof(IBaseStorage<>), typeof(BaseStorage<>));
+            //services.AddDbContextFactory<BaseStorage<>>(options => options.UseNpgsql(connection));
             services.AddAuthentication(auth =>
                 {
                     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,16 +53,40 @@ namespace UdvStore
                         ValidateAudience = true,
                         ValidAudience = AuthOptions.AUDIENCE,
                         ValidateIssuerSigningKey = true,
+                        RequireExpirationTime = true,
                         IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                     };
                 });
-            services.AddScoped<EmployeeActions>();
-            services.AddScoped<EmployeeCoinsActions>();
-            services.AddScoped<ProductsActions>();
-            services.AddScoped<AdminActions>();
-            services.AddScoped<IStorageActions, StorageActions>();
+            //BuildStorages
+            services.AddScoped<EmployeesStorage>();
+            services.AddScoped<EmployeeCoinsStorage>();
+            services.AddScoped<ProductsStorage>();
+            services.AddScoped<AdminStorage>();
+            services.AddScoped<OpenEmployeesRequestsStorage>();
+            services.AddScoped<ClosedEmployeesRequestsStorage>();
+            services.AddScoped<AdminAccrualStorage>();
+            services.AddScoped<AdminAccrualEmployeeStorage>();
+            services.AddScoped<ClothesProductStorage>();
+            services.AddScoped<OrdersStorage>();
+            services.AddScoped<ProductsOrdersStorage>();
+            services.AddScoped<TransferCoinsHistoryStorage>();
+            //BuildFactory
+            services.AddScoped<IStorageFactory, StorageFactory>();
+            //BuildHelpers
+            services.AddScoped<CoinsHelper>();
+            services.AddScoped<ProductQuantityHelper>();
+            //BuildServices
             services.AddScoped<AuthService>();
-            services.AddControllersWithViews();
+            services.AddScoped<CoinRequestService>();
+            services.AddScoped<AdminAccrualService>();
+            services.AddScoped<ProductService>();
+            services.AddScoped<OrderService>();
+            services.AddScoped<UserCoinsService>();
+            
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
@@ -122,6 +129,13 @@ namespace UdvStore
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+        }
+        
+        public static void RegisterTypes()
+        {
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<RequestStatus>("RequestStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<OrderStatus>("OrderStatus");
+            NpgsqlConnection.GlobalTypeMapper.MapEnum<Sizes>("Sizes");
         }
     }
 }

@@ -1,0 +1,85 @@
+.wrapper {
+    font-family: 'Hero';
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.align {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.requestsWindow {
+    width: 1000px;
+    height: 600px;
+    background: #ffffff;
+    border-radius: 36px;
+    position: relative;
+}
+
+.close {
+    width: 23px;
+    height: 23px;
+    margin-bottom: -40px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+.title {
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    color: #302E2E;
+}
+
+.requestsTitle {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 90px;
+    padding-right: 90px;
+    font-family: 'Hero';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #302E2E;
+}
+
+.requests {
+    overflow: auto;
+    height: 450px;
+}
+
+.backButton {
+    position: absolute;
+    top: 130px;
+    right: 120px;
+    margin: 0px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.bar1 {
+    margin: 0px;
+    width: 25px;
+    height: 2px;
+    transform: rotate(-45deg) translate(-8px, 8px);
+    background-color: #000;
+}
+
+.bar2 {
+    margin: 0px;
+    width: 25px;
+    height: 2px;
+    transform: rotate(45deg) translate(8px, 6px);
+    background-color: #000;
+}

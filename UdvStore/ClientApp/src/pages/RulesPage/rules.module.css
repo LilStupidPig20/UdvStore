@@ -1,9 +1,14 @@
 .wrapper{
-    font-family: 'Roboto Condensed';
+    font-family: 'Hero';
+    background: url('../../imgs/background_udv.jpg');
+    background-size: cover; 
+    height: 1150px; 
+    width: 100%;
 }
 
 .greenText{
     color: #00D29D;
+    text-decoration: none;
 }
 
 .bgImage{
@@ -18,7 +23,8 @@
 .content {
     width: 900px;
     padding: 50px;
-    margin: 15px auto;
+    margin: 45px auto;
+    margin-top: -40px;
     box-shadow: 0px -10px 50px rgba(255, 255, 255, 0.4);
     border-radius: 40px;
     background: rgba(30, 30, 30, 0.8);
@@ -36,7 +42,7 @@
     color: #00D29D;
 }
 
-.text{
+.text {
     flex: 1;
 }
 
@@ -47,15 +53,48 @@
 }
 
 li {
-    margin-bottom: 23px;
+    margin-bottom: 16px;
 }
 
 .contacts{
-    width: 300px;
+    width: 310px;
     margin: 0 auto;
 }
 
 .subText{
     color: #00D29D;
     margin-top: 200px;
+}
+
+.rulesTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+
+}
+
+tr td:first-child{
+    width: 20%;
+    text-align: center;
+}
+
+thead {
+    text-align: center;
+}
+
+td{
+    border: 1px solid #fff;
+}
+
+.rightArrow{
+    position: absolute;
+    top: 400px;
+    right: 250px;
+}
+
+.leftArrow{
+    position: absolute;
+    top: 400px;
+    left: 250px;
+    transform: rotate(180deg);
 }

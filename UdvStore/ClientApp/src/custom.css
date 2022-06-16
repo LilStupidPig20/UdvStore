@@ -1,14 +1,10 @@
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+::-webkit-scrollbar { 
+    width: 5px;
+    height: 4px;
+    background-color: #FFFFFF;
 }
 
-code {
-  color: #E01A76;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+::-webkit-scrollbar-thumb { 
+    border-radius: 10px;
+    background-color: #302E2E;
 }
