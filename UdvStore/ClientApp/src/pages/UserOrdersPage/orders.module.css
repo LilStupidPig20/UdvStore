@@ -1,0 +1,28 @@
+.wrapper {
+    box-sizing: border-box;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    font-family: 'Hero';
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.loading{
+    margin-top: 50px;
+    text-align: center;
+    font-family: 'Hero';
+    font-size: 30px;
+    font-weight: 700;
+}

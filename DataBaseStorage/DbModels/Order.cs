@@ -5,23 +5,26 @@ using DataBaseStorage.Enums;
 
 namespace DataBaseStorage.DbModels
 {
-    [Table("allOrders")]
+    [Table("orders")]
     public class Order : IDbModel
     {
-        [Key] 
-        [Column("id")] 
+        [Key]
+        [Column("id")]
         public long Id { get; set; }
         
-        [Column("userId")] 
+        [Column("employee")]
         public long EmployeeId { get; set; }
         
-        [Column("purchasedProduct")] 
-        public long PurchasedProduct { get; set; }
-        
-        [Column("timeOfPurchase")] 
+        [Column("totalPrice")]
+        public decimal TotalPrice { get; set; }
+
+        [Column("timeOfPurchase")]
         public DateTime TimeOfPurchase { get; set; }
         
-        [Column("orderStatus")]
-        public OrderStatus OrderStatus { get; set; }
+        [Column("status")]
+        public OrderStatus Status { get; set; }
+        
+        [Column("cancellationСomment")]
+        public string CancellationComment { get; set; }
     }
 }

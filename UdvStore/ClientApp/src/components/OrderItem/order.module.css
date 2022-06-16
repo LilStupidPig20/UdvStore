@@ -1,0 +1,112 @@
+.wrapper {
+    box-sizing: border-box;
+    padding: 0 15px;
+    display: flex;
+    padding-bottom: 2%;
+    border-bottom: 1px solid #302E2E;
+    font-family: 'Hero';
+}
+
+.date {
+    margin: -10px 0 10px 0;
+}
+
+.headerBlock {
+    display: flex;
+    justify-content: space-between;
+}
+
+.productItem {
+    margin-right: 50px;
+    width: 140px;
+}
+
+.title {
+    font-size: 20px;
+    margin: 0;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.statusBlock {
+    flex: 1;
+    text-align: right;
+}
+
+.status {
+    color: #00D29D;
+    font-size: 24px;
+}
+
+.cancelButton {
+    color: #A6A6A6;
+    text-decoration: underline;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popup {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 36px;
+    position: relative;
+    font-family: 'Hero';
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.popupButton {
+    position: static;
+    margin-top: 20px;
+    background-color: #00D29D;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 75px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.cancelInput {
+    font-family: inherit;
+    font-size: 16px;
+    width: 600px;
+    height: 80px;
+    resize: none;
+}
+
+.count {
+    margin: 5px 0;
+    color: #302E2E;
+    font-size: 16px;
+}
+
+.close {
+    width: 23px;
+    height: 23px;
+    margin-bottom: -40px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
