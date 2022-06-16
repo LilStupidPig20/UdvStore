@@ -18,8 +18,8 @@
   <li>Установить SQL версии не меньше 13;</li>
   <li>Запустить pgAdmin v4;</li>
   <li>Сделать пароль: postgres;</li>
-  <li>Создать базу данных с именем UdvStoreDb;</li>
-  <li>Сделать Restore с указанием пути до файла <b>BackupBd</b>;</li>
+  <li>Создать базу данных с именем <b>UdvStoreDb</b>;</li>
+  <li>Сделать Restore с указанием пути до файла <b>backupBd</b>;</li>
   <li>Все готово!</li>
 </ol>
 
