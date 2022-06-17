@@ -15,11 +15,10 @@
 
 # Как поставить базу данных?
 <ol>
-  <li>Установить SQL версии не меньше 13;</li>
-  <li>Запустить pgAdmin v4;</li>
-  <li>Сделать пароль: postgres;</li>
-  <li>Создать базу данных с именем <b>UdvStoreDb</b>;</li>
+  <li>Установить SQL версии не меньше 11;</li>
+  <li>Создать пустую базу данных с именем <b>UdvStoreDb</b>;</li>
   <li>Сделать Restore с указанием пути до файла <b>backupBd</b>;</li>
+  <li>При необходимости изменить строку подключения в UdvStore/appsettings.json;</li>
   <li>Все готово!</li>
 </ol>
 
@@ -27,8 +26,8 @@
 <ol>
   <li>Перейти в папку проекта;</li>
   <li>Установить npm с помощью команды <strong>npm install</strong>;</li>
-  <li>Открыть терминал, перейти в папку UdvStore/ClientApp и ввести команду <strong>npm start</strong>;</li>
-  <li>В отдельном терминале перейти в папку UdvStore и ввести <strong>dotnet run</strong>;</li>
+  <li>Запусить фронт из папки UdvStore/ClientApp командой <strong>npm start</strong>;</li>
+  <li>Запустить бэк;</li>
   <li>Открыть в браузере https://localhost:5001/;</li>
   <li>Все супер!</li>
 </ol>
